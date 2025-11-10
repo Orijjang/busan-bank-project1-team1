@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>외화 예금 상품 목록</title>
-  <link rel="stylesheet" href="/static/css/deposit.css">
+  <title>출석이벤트</title>
+  <link rel="stylesheet" href="/static/css/mypage.css">
   
 
     <link
@@ -164,144 +164,28 @@
 </header>
 
 
+  <!--  출석 이벤트 본문 -->
+  <main>
+    <div class="eventpage-container">
+    <!-- 상단 배너 -->
+    <img src="/static/images/event1.png" alt="FlowBank 출석이벤트 배너" class="eventpage-banner">
 
-<main class="list-container">
+    <!-- 이벤트 설명 -->
+    <p class="eventpage-desc">
+    2주 연속 출석 시 <strong>환전 수수료 우대쿠폰</strong> 지급 🎁<br>
+    매일 출석할 때마다 <span class="eventpage-highlight">10%~100% 랜덤 쿠폰</span>의 기회!<br>
+    꾸준히 참여하고 <strong>최대 100% 환전 수수료 우대 쿠폰</strong>을 받아보세요 🐬
+    </p>
 
-  <!-- 왼쪽 카테고리 -->
-  <aside class="list-sidebar">
-    <h3 class="list-title">외화예금</h3>
-    <ul class="list-category">
-      <li class="active">
-        <a href="#">외화예금상품</a>
-      </li>
-      <li>
-        <a href="#">외화예금안내</a>
-      </li>
-    </ul>
-  </aside>
-
-  <!-- 오른쪽 상품 목록 -->
-  <section class="list-content">
-    <div class="list-header">
-      <p>조회결과 <strong>[총 15건]</strong></p>
-      <div class="list-sort">
-        <button class="active">추천순</button>
-        <button>판매순</button>
-        <button>최신순</button>
-        <button>상품명순</button>
-      </div>
+    <!-- 출석칸 -->
+    <div class="eventpage-grid" id="attendanceGrid">
+        <!-- JS에서 자동으로 14칸 생성 -->
     </div>
 
-    <!-- 상품 아이템 -->
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">SOL트래블 외화예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
-        </div>
-      </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
+    <!-- 출석 버튼 -->
+    <button class="eventpage-btn" id="checkBtn">오늘 출석하기</button>
     </div>
-
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">SOL트래블 외화예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
-        </div>
-      </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
-    </div>
-
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">SOL트래블 외화예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
-        </div>
-      </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
-    </div>
-
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">외화 체인지업 예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
-        </div>
-      </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
-    </div>
-
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">외화 체인지업 예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
-        </div>
-      </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
-    </div>
-
-
-
-
-
-  </section>
-
-</main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  </main>
 
 
 
@@ -343,6 +227,7 @@
 </footer>
 
 <script src ="/static/js/index.js"></script>
+<script src ="/static/js/event.js"></script>
 
 </body>
 </html>

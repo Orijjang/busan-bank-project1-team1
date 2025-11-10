@@ -657,22 +657,7 @@ footer {
   color: var(--text-dark);
 }
 
-/* 반응형 */
-@media (max-width: 1024px) {
-  .mypage-container {
-    flex-direction: column;
-    align-items: center;
-  }
 
-  .profile-card {
-    width: 100%;
-    position: static;
-  }
-
-  .account-section {
-    width: 100%;
-  }
-}
 
 
 
@@ -884,35 +869,7 @@ body {
   box-shadow: 0 4px 10px rgba(79, 189, 186, 0.4);
 }
 
-/* ----------------------------
-   반응형 (태블릿/모바일)
----------------------------- */
-@media (max-width: 1024px) {
-  .terms-container {
-    width: 85%;
-    padding: 30px 25px;
-  }
-}
 
-@media (max-width: 600px) {
-  .terms-container {
-    width: 95%;
-    padding: 25px 20px;
-  }
-
-  .terms-title {
-    font-size: 14px;
-  }
-
-  .terms-content {
-    max-height: 160px;
-  }
-
-  .btn-next {
-    width: 100%;
-    font-size: 15px;
-  }
-}
 
 
 /* =========================================================
@@ -1110,34 +1067,8 @@ body {
   box-shadow: 0 4px 10px rgba(79, 189, 186, 0.4);
 }
 
-/* --------------------------------------------
-   반응형
--------------------------------------------- */
-@media (max-width: 1024px) {
-  .open2-account-container {
-    width: 85%;
-  }
-  .open2-account-box {
-    padding: 25px 30px;
-  }
-}
 
-@media (max-width: 600px) {
-  .open2-account-container {
-    width: 95%;
-    margin: 60px auto;
-  }
-  .open2-account-box {
-    padding: 20px;
-  }
-  .open2-limit-input {
-    font-size: 14px;
-  }
-  .open2-btn-next {
-    width: 100%;
-    font-size: 14px;
-  }
-}
+
 /* =========================================================
    입출금통장 개설 (open2-account) - 수정 완료 버전
    ========================================================= */
@@ -1360,38 +1291,25 @@ body {
   box-shadow: 0 4px 10px rgba(79, 189, 186, 0.4);
 }
 
-/* --------------------------------------------
-   반응형
--------------------------------------------- */
-@media (max-width: 1024px) {
-  .open2-account-container {
-    width: 85%;
-  }
-  .open2-account-box {
-    padding: 25px 30px;
-  }
-  .open2-form-group,
-  .open2-limit-section .open2-form-group,
-  .open2-info-box {
-    width: 90%;
-  }
+
+.open2-info-box {
+  margin-bottom: 30px; /* 아래쪽 여백 */
 }
 
-@media (max-width: 600px) {
-  .open2-account-container {
-    width: 95%;
-    margin: 60px auto;
-  }
-  .open2-account-box {
-    padding: 20px;
-  }
-  .open2-limit-input {
-    font-size: 14px;
-  }
-  .open2-btn-next {
-    width: 100%;
-    font-size: 14px;
-  }
+.open2-form-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: #fff;
+}
+
+
+.currency-label {
+  margin-left: 8px;
+  font-weight: 600;
+  color: #2C5DE5; /* 플로뱅크 대표색 (#2C5DE5) */
 }
 
 
@@ -1460,31 +1378,85 @@ body {
   box-shadow: 0 4px 10px rgba(79, 189, 186, 0.4);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+
+
+
+/* 입출금통장 개설 페이지 */
+
+/* =========================================================
+   입출금통장 개설 선택 (open-account-choice)
+   ========================================================= */
+
+
+/* =========================================================
+   입출금통장 개설 선택 (open-account-choice)
+   ========================================================= */
+
+.open-choice-container {
+  width: 70%;
+  margin: 80px auto;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
-@media (max-width: 768px) {
-  .open3-complete-box {
-    padding: 40px 30px;
-    width: 90%;
-  }
-
-  .open3-char-img img {
-    width: 120px;
-  }
-
-  .open3-complete-text h2 {
-    font-size: 20px;
-  }
-
-  .open3-complete-btn {
-    width: 100%;
-    font-size: 15px;
-  }
+.open-choice-box {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 60px 50px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
+/* 중앙 캐릭터 */
+.choice-main-img {
+  width: 200px;
+  margin-bottom: 25px;
+}
+
+.open-choice-box h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #22304E; /* 플로뱅크 메인 컬러 */
+  margin-bottom: 45px;
+}
+
+/* 버튼 컨테이너 */
+.choice-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* 버튼 */
+.choice-btn {
+  width: 220px;
+  height: 110px;
+  background: #fff;
+  border: 2px solid #22304E;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #22304E;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 17px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.choice-btn i {
+  font-size: 26px;
+}
+
+.choice-btn:hover {
+  background: #22304E;
+  color: #fff;
+  transform: translateY(-3px);
+}
 
 
 /* ============================================
@@ -1829,10 +1801,12 @@ body {
   font-size: 12px;
 }
 
-/* 버튼 */
 .transfer2-actions {
   text-align: center;
   margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 15px; 
 }
 
 .transfer2-btn-main {
@@ -2049,7 +2023,60 @@ body {
   background: #e6e6e6;
 }
 
+:root {
+  --main-color: #22304E;       /* 브랜드 메인 컬러 */
+  --highlight: #2C5DE5;        /* hover 시 강조 컬러 */
+  --text-dark: #222;           /* 본문 텍스트 */
+  --text-gray: #777;           /* 설명 텍스트 */
+  --border-light: #ddd;        /* 테두리 색상 */
+}
 
+.transfer1-btn-next {
+  text-decoration: none;  /* 밑줄 제거 */
+  display: inline-block;  /* 버튼처럼 block 성질 */
+  background: var(--main-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 34px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 3px 6px rgba(34,48,78,0.25);
+}
+
+.transfer1-btn-next:hover {
+  background: var(--highlight);
+  transform: translateY(-2px);
+  text-decoration: none; /* hover 시에도 밑줄 방지 */
+}
+
+.transfer2-btn-sub {
+  text-decoration: none;         /* 밑줄 제거 */
+  display: inline-block;         /* 버튼처럼 보이게 */
+  background: #f1f1f1;           /* 기존 배경색 유지 */
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 12px 28px;
+  margin-left: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;                   /* ✅ 글자색 검정으로 고정 */
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.transfer2-btn-sub:hover {
+  background: #e6e6e6;
+  color: #000;                   /* ✅ hover 시에도 진한 검정 */
+}
+
+.transfer2-btn-main,
+.transfer2-btn-sub {
+  text-decoration: none;   /* ✅ 밑줄 제거 */
+  display: inline-block;   /* 버튼처럼 보이게 */
+}
 
 /* ------------------------------------
    🔹 마이페이지 AI 챗봇 화면
@@ -2443,5 +2470,132 @@ body {
     width: 100%;
     height: 48px;
     border-radius: 12px;
+  }
+}
+
+
+
+/* =========================================================
+   출석 이벤트 페이지 전용 (FlowBank Event)
+   ========================================================= */
+body.event-page {
+  background-color: #F8FFFD !important;
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+}
+
+/* ===== 메인 이벤트 컨테이너 ===== */
+.eventpage-container {
+  max-width: 1000px;
+  margin: 60px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  padding: 28px;
+}
+
+/* ===== 배너 ===== */
+.eventpage-banner {
+  width: 50%;
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+
+.eventpage-highlight {
+  color: #2C5DE5;       /* 플로뱅크 메인 컬러 */
+  font-weight: 700;
+}
+
+/* ===== 설명 문구 ===== */
+.eventpage-desc {
+  font-size: 16px;
+  color: #666;
+  margin: 10px 0 30px;
+  line-height: 1.5;
+}
+.eventpage-desc strong {
+  color: #4A6FA5;
+  font-weight: 700;
+}
+
+/* ===== 출석 그리드 ===== */
+.eventpage-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 14px;
+  justify-items: center;
+  margin-bottom: 25px;
+}
+
+/* ===== 각 출석 칸 ===== */
+.eventpage-box {
+  width: 90px;
+  height: 100px;
+  background-color: #f9fffc;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.eventpage-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+.eventpage-box img {
+  width: 70px;
+  height: 70px;
+  transition: transform 0.2s ease;
+}
+.eventpage-box img.checked {
+  transform: scale(1.15);
+}
+.eventpage-box p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* ===== 출석 버튼 ===== */
+.eventpage-btn {
+  background-color: #4A6FA5;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.eventpage-btn:hover {
+  background-color: #3d5c88;
+}
+
+/* ===== 반응형 ===== */
+@media (max-width: 600px) {
+  .eventpage-container {
+    max-width: 95%;
+    padding: 20px;
+  }
+
+  .eventpage-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .eventpage-box {
+    width: 80px;
+    height: 90px;
+  }
+
+  .eventpage-box img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .eventpage-btn {
+    width: 100%;
   }
 }

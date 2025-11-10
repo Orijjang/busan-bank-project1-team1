@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>외화 예금 상품 목록</title>
-  <link rel="stylesheet" href="/static/css/deposit.css">
+  <title>이벤트리스트</title>
+  <link rel="stylesheet" href="/static/css/customer.css"> <!-- 각 카테고리별 css 입력-->
   
 
     <link
@@ -145,13 +145,21 @@
       </div>
     </div>
 
+
     <div id="menu6" class="dropdown">
-      <div class="menu-column"><h4><a href="#">고객상담</a></h4></div>
-      <div class="menu-column"><h4><a href="#">이용안내</a></h4></div>
-      <div class="menu-column"><h4><a href="#">금융소비자보호</a></h4></div>
-      <div class="menu-column"><h4><a href="#">상품공시실</a></h4></div>
-      <div class="menu-column"><h4><a href="#">자료실</a></h4></div>
-    </div>
+  <div class="menu-column">
+    <h4><a href="#">고객상담</a></h4>
+    <ul>
+      <li><a href="#">질문과 답변(Q&A)</a></li>
+      <li><a href="#">자주 묻는 질문</a></li>
+      <li><a href="#">챗봇</a></li>
+    </ul>
+  </div>
+  <div class="menu-column"><h4><a href="#">이용안내</a></h4></div>
+  <div class="menu-column"><h4><a href="#">금융소비자보호</a></h4></div>
+  <div class="menu-column"><h4><a href="#">상품공시실</a></h4></div>
+  <div class="menu-column"><h4><a href="#">자료실</a></h4></div>
+</div>
 
     <div id="menu7" class="dropdown">
       <div class="menu-column"><h4><a href="#">은행안내</a></h4></div>
@@ -164,139 +172,78 @@
 </header>
 
 
+<main class="customer-container">
 
-<main class="list-container">
+  <!-- 🔹 사이드바 -->
+  <aside class="customer-sidebar">
+    <h3 class="customer-title">고객상담</h3>
+    <ul class="customer-category">
 
-  <!-- 왼쪽 카테고리 -->
-  <aside class="list-sidebar">
-    <h3 class="list-title">외화예금</h3>
-    <ul class="list-category">
-      <li class="active">
-        <a href="#">외화예금상품</a>
-      </li>
       <li>
-        <a href="#">외화예금안내</a>
+        <a href="#">고객상담</a>
+        <ul class="customer-subcategory">
+          <li class="active"><a href="#">질문과 답변(Q&A)</a></li>
+          <li><a href="#">자주 묻는 질문</a></li>
+          <li><a href="#">챗봇</a></li>
+        </ul>
       </li>
+
+      <li><a href="#">이용안내</a></li>
+      <li><a href="#">금융소비자보호</a></li>
+      <li><a href="#">상품공시실</a></li>
+      <li><a href="#">자료실</a></li>
+
     </ul>
   </aside>
 
-  <!-- 오른쪽 상품 목록 -->
-  <section class="list-content">
-    <div class="list-header">
-      <p>조회결과 <strong>[총 15건]</strong></p>
-      <div class="list-sort">
-        <button class="active">추천순</button>
-        <button>판매순</button>
-        <button>최신순</button>
-        <button>상품명순</button>
-      </div>
-    </div>
+  <!-- 🔹 본문 -->
+<section class="customer-content">
+  <h2>이벤트</h2>
+  <p class="customer-desc">FLO은행에서 진행 중인 다양한 이벤트와 혜택을 확인해보세요.</p>
 
-    <!-- 상품 아이템 -->
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">SOL트래블 외화예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
+  <div class="event-board">
+    <div class="event-list">
+      <div class="event-card">
+        <alt="해외송금 이벤트">
+        <div class="event-info">
+          <h4>해외송금 수수료 0원 이벤트</h4>
+          <p>2025.11.01 ~ 2025.12.31</p>
+          <p class="tag">진행중</p>
         </div>
       </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
-    </div>
 
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">SOL트래블 외화예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
+      <div class="event-card">
+        <alt="외화예금 혜택">
+        <div class="event-info">
+          <h4>외화예금 신규고객 캐시백 이벤트</h4>
+          <p>2025.10.01 ~ 2025.11.15</p>
+          <p class="tag end">종료</p>
         </div>
       </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
-    </div>
 
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">SOL트래블 외화예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
+      <div class="event-card">
+        <alt="유학생 혜택">
+        <div class="event-info">
+          <h4>유학생 전용 외화송금 혜택 이벤트</h4>
+          <p>2025.11.05 ~ 2026.01.31</p>
+          <p class="tag">진행중</p>
         </div>
       </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
     </div>
 
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">외화 체인지업 예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
-        </div>
-      </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
+    <div class="pagination">
+      <a href="#" class="prev">〈 이전</a>
+      <a href="#" class="active">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#" class="next">다음 〉</a>
     </div>
+  </div>
+</section>
 
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">외화 체인지업 예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
-        </div>
-      </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
-    </div>
-
-
-
-
-
-  </section>
+   
 
 </main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

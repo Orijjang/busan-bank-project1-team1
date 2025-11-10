@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>외화 예금 상품 view</title>
+  <link rel="stylesheet" href="/static/css/deposit.css">
+  
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous"
+    />
+
+</head>
+<body>
+
+  <!-- 상단 헤더 -->
+  <header>
+    <div class="top-bar">
+      <ul>
+        <li><a href="#">기업뱅킹</a></li>
+        <li><a href="#">하나카드</a></li>
+        <li><a href="#">은행소개</a></li>
+        <li><a href="#">채용안내</a></li>
+      </ul>
+
+      <div class="right-menu">
+        <a href="#">로그인</a>
+        <a href="#">회원가입</a>
+        <a href="#">Language ▾</a>
+      </div>
+    </div>
+
+    <div class="main-nav">
+      <div class="logo">
+        <img src="/static/images/logo.png" alt="OO은행 로고">
+      </div>
+
+
+    <!-- ✅ nav 메뉴 -->
+    <ul class="nav-menu">
+      <li class="menu-item" data-target="menu1"><a href="#">외화예금</a></li>
+      <li class="menu-item" data-target="menu2"><a href="#">외화송금</a></li>
+      <li class="menu-item" data-target="menu3"><a href="#">환전</a></li>
+      <li class="menu-item" data-target="menu4"><a href="#">환율</a></li>
+      <li class="menu-item" data-target="menu5"><a href="#">유학/이주/여행</a></li>
+      <li class="menu-item" data-target="menu6"><a href="#">고객센터</a></li>
+      <li class="menu-item" data-target="menu7"><a href="#">은행소개</a></li>
+    </ul>
+
+    <div class="nav-icons">
+      <a href="#"><i class="fa-solid fa-comment-dots"></i></a>
+      <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+      <a href="#"><i class="fa-solid fa-bars"></i></a>
+    </div>
+
+    <!--  드롭다운들 여기로 옮김 -->
+    <div id="menu1" class="dropdown">
+      <div class="menu-column">
+        <h4><a href="#">외화예금상품</a></h4>
+      </div>
+      <div class="menu-column">
+        <h4><a href="#">외화예금안내</a></h4>
+        <ul>
+          <li><a href="#">외화예금안내</a></li>
+          <li><a href="#">당행외화이체</a></li>
+          <li><a href="#">해외외화예금개설</a></li>
+        </ul>
+      </div>
+      <div class="menu-column">
+        <h4><a href="#">외화예금우대서비스</a></h4>
+      </div>
+    </div>
+
+    <div id="menu2" class="dropdown">
+      <div class="menu-column">
+        <h4><a href="#">외화송금서비스</a></h4>
+        <ul>
+          <li><a href="#">인터넷외화송금서비스</a></li>
+          <li><a href="#">BNK공동해외송금서비스</a></li>
+          <li><a href="#">해외즉시송금서비스</a></li>
+        </ul>
+      </div>
+      <div class="menu-column">
+        <h4><a href="#">외화송금보내기</a></h4>
+        <ul>
+          <li><a href="#">송금안내</a></li>
+          <li><a href="#">송금하기</a></li>
+        </ul>
+      </div>
+      <div class="menu-column"><h4><a href="#">외화송금받기</a></h4></div>
+    </div>
+
+    <div id="menu3" class="dropdown">
+      <div class="menu-column">
+        <h4><a href="#">환전안내</a></h4>
+        <ul>
+          <li><a href="#">환전 가능 통화</a></li>
+          <li><a href="#">환전 가능 금액</a></li>
+          <li><a href="#">환전 요령</a></li>
+        </ul>
+      </div>
+      <div class="menu-column"><h4><a href="#">환율 우대</a></h4></div>
+      <div class="menu-column"><h4><a href="#">환전 계산기</a></h4></div>
+      <div class="menu-column"><h4><a href="#">환전하기</a></h4></div>
+    </div>
+
+    <div id="menu4" class="dropdown">
+      <div class="menu-column">
+        <h4><a href="#">환율 제공 서비스</a></h4>
+        <ul>
+          <li><a href="#">지정환율통지서비스</a></li>
+          <li><a href="#">이메일환율통지서비스</a></li>
+          <li><a href="#">무료환율표서비스</a></li>
+        </ul>
+      </div>
+      <div class="menu-column"><h4><a href="#">외환시장 동향</a></h4></div>
+      <div class="menu-column"><h4><a href="#">환리스크 관리</a></h4></div>
+    </div>
+
+    <div id="menu5" class="dropdown">
+      <div class="menu-column">
+        <h4><a href="#">유학</a></h4>
+        <ul>
+          <li><a href="#">해외유학서비스안내</a></li>
+          <li><a href="#">유학경비환전/송금</a></li>
+          <li><a href="#">해외유학지원서비스</a></li>
+        </ul>
+      </div>
+      <div class="menu-column">
+        <h4><a href="#">이주</a></h4>
+        <ul>
+          <li><a href="#">해외이주서비스안내</a></li>
+          <li><a href="#">해외이주비환전/송금</a></li>
+        </ul>
+      </div>
+      <div class="menu-column">
+        <h4><a href="#">여행</a></h4>
+        <ul>
+          <li><a href="#">여행시유의사항</a></li>
+          <li><a href="#">여행경비환전</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="menu6" class="dropdown">
+      <div class="menu-column"><h4><a href="#">고객상담</a></h4></div>
+      <div class="menu-column"><h4><a href="#">이용안내</a></h4></div>
+      <div class="menu-column"><h4><a href="#">금융소비자보호</a></h4></div>
+      <div class="menu-column"><h4><a href="#">상품공시실</a></h4></div>
+      <div class="menu-column"><h4><a href="#">자료실</a></h4></div>
+    </div>
+
+    <div id="menu7" class="dropdown">
+      <div class="menu-column"><h4><a href="#">은행안내</a></h4></div>
+      <div class="menu-column"><h4><a href="#">OO은행 스토리</a></h4></div>
+      <div class="menu-column"><h4><a href="#">투자자정보</a></h4></div>
+      <div class="menu-column"><h4><a href="#">영업점 안내</a></h4></div>
+    </div>
+
+  </div>
+</header>
+
+
+
+ <!-- ✅ 메인 콘텐츠 -->
+<main class="view-main">
+
+    <!-- 왼쪽 카테고리 -->
+    <aside class="list-sidebar">
+      <h3 class="list-title">외화예금</h3>
+      <ul class="list-category">
+        <li class="active"><a href="#">외화예금상품</a></li>
+        <li><a href="#">외화예금안내</a></li>
+      </ul>
+    </aside>
+
+    <section class="view-container">
+
+  <div class="view-header">
+    <div class="view-image">
+      <img src="/static/images/character8.png" alt="외화 예금 아이콘">
+    </div>
+
+    <!-- ✅ 수정된 view-textbox -->
+    <div class="view-textbox">
+      <h2>BNK모아드림외화적금</h2>
+      <p class="view-summary">
+        월단위 만기지정 가능한 적립식 외화예금<br>
+        금액, 적립횟수 제한없이 정기 및 자유적립 가능
+      </p>
+
+      <div class="view-summary-info">
+        <div class="view-info-item">
+          <span class="view-info-label">가입대상</span>
+          <span class="view-info-value">제한 없음</span>
+        </div>
+        <div class="view-info-item">
+          <span class="view-info-label">가입기간</span>
+          <span class="view-info-value">12개월</span>
+        </div>
+        <div class="view-info-item">
+          <span class="view-info-label">가입금액</span>
+          <span class="view-info-value">USD 1,000 이상</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+      <!-- 🔹 탭 버튼 -->
+      <div class="view-tabs">
+        <button class="view-tab active">상품안내</button>
+        <button class="view-tab">금리안내</button>
+        <button class="view-tab">상품약관</button>
+      </div>
+
+      <!-- 🔹 상품안내 내용 -->
+      <div class="view-details view-content active">
+        <dl class="view-detail">
+          <dt>특징</dt>
+          <dd>
+            ・ 1개월 단위로 금리가 올라가는 계단식 금리 구조<br>
+            ・ 일부 출금도 가능
+          </dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>가입 대상</dt>
+          <dd>제한 없음</dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>상품 유형</dt>
+          <dd>외화거치식예금</dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>예금 통화</dt>
+          <dd>USD(미국 달러), JPY(일본 엔), EUR(유럽 유로)</dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>예금액</dt>
+          <dd>USD 1,000 / JPY 100,000 / EUR 1,000 이상</dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>예금 기간</dt>
+          <dd>12개월</dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>일부 출금</dt>
+          <dd>
+            ・ 대상 계좌: 가입일로부터 1개월 이상 지난 계좌<br>
+            ・ 가능 횟수: 최대 3회(만기 해지 포함)<br>
+            ・ 최소 출금금액: USD 100, JPY 10,000, EUR 100 이상<br>
+            ※ 통화별 예금액 이상의 잔액이 계좌에 남아있어야 합니다.
+          </dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>가입할 수 있는 곳</dt>
+          <dd>모바일앱, 인터넷뱅킹, KB국민은행 지정 영업점</dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>이자 받는 방법</dt>
+          <dd>만기 시 한 번에 (월 이자 단리식)</dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>세제 혜택</dt>
+          <dd>없음</dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>세제 혜택</dt>
+          <dd>없음</dd>
+        </dl>
+
+        <!-- ✅ 예금자보호 안내 -->
+        <div class="view-protection">
+          <img src="/static/images/deposit.png" alt="예금자보호 로고">
+          <p>
+            이 예금은 <strong>예금자보호법</strong>에 따라 원금과 소정의 이자를 합하여 
+            <strong>1인당 “1억원까지”</strong> (본 은행의 여타 보호상품과 합산) 보호됩니다.
+          </p>
+        </div>
+      </div>
+
+
+
+      <!-- 🔹 금리안내 탭 내용 -->
+      <div class="view-content">
+        <dl class="view-detail">
+          <dt>기본금리</dt>
+          <dd>
+            신규 가입일 당시 영업점 및 당행 홈페이지에 고시된 기간별 외화 적금 이율 적용
+          </dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>우대금리</dt>
+          <dd>
+            원화연결계좌로 자동이체 등록하고 계약기간의 2/3 이상 자동이체 불입 시 연 0.10% 우대이율 지급
+          </dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>수수료 우대</dt>
+          <dd>
+            <strong>① 신규가입 후 6개월 경과 고객</strong><br>
+            - 외화 현찰 인출 시 외화현찰수수료 면제<br>
+            - 해외 외화송금 시 해외당발수수료 전액 면제<br>
+            ※ 단, 송금 금액 등이 계좌 인출 또는 해지 금액의 130%를 초과할 경우 아래 ②만 적용<br><br>
+
+            <strong>② 계좌보유자 우대조건</strong><br>
+            (계좌 잔액이 미화 $1,000 이상 또는 매월 미화 $200 상당액 이상 자동이체 고객)<br>
+            - 환전수수료 50% 우대<br>
+            - 해외당발송금 수수료 50% 우대<br>
+            - 외화현찰수수료 50% 우대<br>
+            ※ 외환관련 우대서비스와 중복 적용 불가
+          </dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>만기후이율</dt>
+          <dd>
+            - 만기 후 1년 이내: 약정 이율의 30%<br>
+            - 만기 후 1년 초과: 약정 이율의 10%
+          </dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>중도해지이율</dt>
+          <dd>
+            - 7일 미만: 통화별 외화보통예금이율<br>
+            - 7일 이상~1개월 미만: 약정 이율의 10%<br>
+            - 1개월 이상~3개월 미만: 약정 이율의 30%<br>
+            - 3개월 이상~6개월 미만: 약정 이율의 40%<br>
+            - 6개월 이상~1년 미만: 약정 이율의 50%<br>
+            - 1년 이상: 약정 이율의 70%
+          </dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>이자지급방식</dt>
+          <dd>만기일시지급식</dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>적금 분할 인출</dt>
+          <dd>
+            신규일로부터 6개월 이후부터 만기까지 만기 해지를 포함하여 3회까지 인출 가능<br>
+            당일 분할 인출 후 잔액이 미화 100불 상당액 미만인 경우 중도해지 처리됨
+          </dd>
+        </dl>
+
+        <dl class="view-detail">
+          <dt>적용환율</dt>
+          <dd>
+            외화예금을 원화로 입금(신규 입금 포함)하는 경우, 은행이 영업점에 고시한 입금 시점의 대고객 전신환매도율(송금 보내실 때 환율)을 적용합니다.<br>
+            (자동이체의 경우 자동이체일자의 1회차 전신환매도율 적용)<br><br>
+            외화예금의 원금 및 이자를 원화로 지급할 때는 은행이 영업점에 고시한 지급 시점의 대고객 전신환매입율(송금 받으실 때 환율)을 적용합니다.
+          </dd>
+        </dl>
+
+      <!-- ✅ 중도해지금리 테이블 -->
+        <h3 class="view-subtitle">중도해지금리</h3>
+        <p class="view-note">
+          가입일 또는 최종 자동연장일 당시 고시한 이 상품의 중도해지금리 적용 (2025.11.07 기준, 세금공제 전)
+        </p>
+
+        <table class="view-rate-table">
+          <thead>
+            <tr>
+              <th>예치기간</th>
+              <th>적용금리</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1개월 미만</td>
+              <td>가입시점 기본금리 × 10% × 경과일수 / 계약일수 (단, 최저금리는 연 0.10%)</td>
+            </tr>
+            <tr>
+              <td>1개월 이상 3개월 미만</td>
+              <td>가입시점 기본금리 × 30% × 경과일수 / 계약일수 (단, 최저금리는 연 0.30%)</td>
+            </tr>
+            <tr>
+              <td>3개월 이상 6개월 미만</td>
+              <td>가입시점 기본금리 × 50% × 경과일수 / 계약일수 (단, 최저금리는 연 0.50%)</td>
+            </tr>
+            <tr>
+              <td>6개월 이상 9개월 미만</td>
+              <td>가입시점 기본금리 × 70% × 경과일수 / 계약일수 (단, 최저금리는 연 0.50%)</td>
+            </tr>
+            <tr>
+              <td>9개월 이상 11개월 미만</td>
+              <td>가입시점 기본금리 × 80% × 경과일수 / 계약일수 (단, 최저금리는 연 0.50%)</td>
+            </tr>
+            <tr>
+              <td>11개월 이상</td>
+              <td>가입시점 기본금리 × 90% × 경과일수 / 계약일수 (단, 최저금리는 연 0.50%)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ✅ 만기후금리 테이블 -->
+        <h3 class="view-subtitle">만기후금리</h3>
+        <p class="view-note">
+          가입일 또는 최종 자동연장일 당시 고시한 이 상품의 만기후금리 적용 (2025.11.07 기준, 세금공제 전)<br>
+          <small>※ 만기 후 경과기간 구간별로 만기후금리는 자동 적용됨</small>
+        </p>
+
+        <table class="view-rate-table">
+          <thead>
+            <tr>
+              <th>만기 후 경과기간</th>
+              <th>적용금리</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1개월 이내</td>
+              <td>가입(또는 자동연장)시점 기본금리 × 50%</td>
+            </tr>
+            <tr>
+              <td>1개월 초과 3개월 이내</td>
+              <td>가입(또는 자동연장)시점 기본금리 × 30%</td>
+            </tr>
+            <tr>
+              <td>3개월 초과</td>
+              <td>연 0.20%</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+
+      <!-- 🔹 상품약관 탭 내용 -->
+      <div class="view-content">
+        <ul class="view-terms-list">
+          <li>
+            <a href="#" target="_blank">
+              <span>상품별적용약관동의</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank">
+              <span>BNK모아드림외화적금 상품 설명서</span>
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+
+      <!-- 하단 버튼 -->
+      <div class="view-bottom">
+        <button class="view-btn-primary">가입하기</button>
+        <a href="/deposit/list.html" class="view-btn-link">목록</a>
+      </div>
+    </section>
+  </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 푸터 -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="#">사고신고</a> |
+    <a href="#">상품공시실</a> |
+    <a href="#">보호금융상품등록부</a> |
+    <a href="#">경영공시</a> |
+    <a href="#">퇴직연금공시</a> |
+    <a href="#">인증센터</a> |
+    <a href="#">상담센터</a> |
+    <a href="#">개인정보처리방침</a> |
+    <a href="#">신용정보활용체계</a> |
+    <a href="#">영업점찾기</a>
+  </div>
+
+  <div class="footer-info">
+    <div class="footer-logos">
+      <img src="https://www.hanabank.com/static/images/footer/wa.png" alt="웹접근성">
+      <img src="https://www.hanabank.com/static/images/footer/isms.png" alt="ISMS">
+      <img src="https://www.hanabank.com/static/images/footer/bs7799.png" alt="BS 인증">
+    </div>
+    <p>© OO Bank. All rights reserved.</p>
+    <div class="footer-right">
+      <p><strong>고객센터</strong> 1588-1111 / 1599-1111</p>
+      <p><strong>고객센터(해외)</strong> +82-42-520-2500</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom-nav">
+    <div class="bottom-item">브랜드사이트 ▾</div>
+    <div class="bottom-item">하나네트워크 ▾</div>
+    <div class="bottom-item">글로벌네트워크 ↗</div>
+    <div class="bottom-item">하나은행 SNS ▾</div>
+    <div class="bottom-item">💬 하나소비자세상 ↗</div>
+  </div>
+</footer>
+
+<script src ="/static/js/index.js"></script>
+<script src ="/static/js/deposit.js"></script>
+
+</body>
+</html>
+

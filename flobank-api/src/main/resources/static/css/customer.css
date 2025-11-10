@@ -917,3 +917,147 @@ border: 1px solid #ccc;
 .btn-cancel i {
   font-size: 15px;
 }
+
+
+/* =========================================================
+   FLO BANK 이벤트/공지사항 전용 스타일 (수정 통합본)
+   ========================================================= */
+
+/* 이벤트 목록 */
+.event-board {
+  margin-top: 25px;
+}
+
+.event-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.event-card {
+  border: 1px solid #e2e6ec;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+.event-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.event-info {
+  padding: 18px 20px;
+  text-align: left;
+}
+
+.event-info h4 {
+  font-size: 17px;
+  color: #22304E;
+  margin-bottom: 6px;
+}
+
+.event-info p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+/* ✅ 진행중 / 종료 태그 스타일 (Q&A 페이지네이션 컬러와 동일) */
+.event-info .tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  background: #333;          /* 리스트 페이지 active 색상과 동일 */
+  border: 1px solid #22304E; /* 페이지네이션 테두리 색상 */
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.event-info .tag.end {
+  background: #e5e5e5;       /* 플랫한 회색 */
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+/* 공지사항 테이블 */
+.notice-board {
+  margin-top: 20px;
+}
+
+.notice-board .board-table th {
+  background: #f7f9fa;
+  font-weight: 700;
+}
+
+.notice-board .board-table td a {
+  color: #22304E;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.notice-board .board-table td a:hover {
+  color: #4FBDBA;
+  text-decoration: underline;
+}
+
+/* 페이지네이션 공통 (Q&A와 동일) */
+.pagination {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.pagination a {
+  display: inline-block;
+  margin: 0 4px;
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  text-decoration: none !important;
+}
+
+.pagination a:hover,
+.pagination a:focus,
+.pagination a:active {
+  border-color: #4FBDBA;
+  color: #4FBDBA;
+  background: #f9fdfd;
+  text-decoration: none !important;
+}
+
+.pagination a.active {
+  background: #333;
+  border-color: #22304E;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none !important;
+}
+
+.pagination .prev,
+.pagination .next {
+  color: #555;
+  font-weight: 500;
+  text-decoration: none !important;
+}
+
+.pagination .prev:hover,
+.pagination .next:hover {
+  color: #4FBDBA;
+  border-color: #4FBDBA;
+  background: #f9fdfd;
+  text-decoration: none !important;
+}

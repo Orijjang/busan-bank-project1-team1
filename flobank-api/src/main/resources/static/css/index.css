@@ -71,8 +71,6 @@ body.modal-open {
   margin-right: 10px;
 }
 
-
-
 header {
   position: relative; /* ✅ 기준점 명시 */
   z-index: 999;
@@ -84,110 +82,118 @@ header {
   background: #fff;
   border-bottom: 1px solid #ddd;
   height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* 메뉴 기준 가운데 */
 }
 
-/* 메뉴 중앙정렬 */
 .nav-menu {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 70px !important; /* ✅ 강제 적용 */
-}
-
-
-/* 로고 */
-.logo {
   position: absolute;
-  left: 300px;  /* 화면 왼쪽에서 띄우기 */
   top: 50%;
-  transform: translateY(-50%);
-}
-
-.logo img {
-  height: 60px;
-}
-
-
-
-/* nav-icons만 오른쪽 끝으로 */
-.nav-icons {
+  left: 50%;                /* ✅ 화면 정중앙 고정 */
+  transform: translate(-50%, -50%);
   display: flex;
-  align-items: center;
-  gap: 20px;
-  position: absolute; 
-  right: 80px;       
-  top: 50%;
-  transform: translateY(-50%); 
+  gap: 70px;
+  list-style: none;
 }
 
-/* ✅ Mega 메뉴 전체 박스 */
+
+/* ✅ 드롭다운 완전 숨김 */
 .mega-menu {
-  display: none;
   position: absolute;
-  top: 100%; /* nav 바로 밑 */
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  width: 40%; /* 중앙 기준 폭 */
   background: #fff;
-  border-top: 2px solid #2C5DE5;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-  padding: 40px 0 60px; /* 위아래 여백 */
+  border-top: 2px solid #4A6FA5;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  padding: 35px 60px;
   z-index: 9999;
-  justify-content: space-between;
-  align-items: flex-start;
+
+  /* ✅ 구조 */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 35px;
+  min-width: 600px;
+  justify-content: center;
+
+  /* ✅ 기본 숨김 */
+  display: none !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease;
 }
 
+/* ✅ hover 시 보여주기 */
 .mega-menu.show {
-  display: flex !important; /* 열릴 때만 flex 활성화 */
+  display: grid !important;
+  opacity: 1;
+  visibility: visible;
 }
 
-/* ✅ 각 그룹은 내부 정렬만 담당 */
+/* ✅ 각 column (상단 메뉴 바로 밑으로 배치됨) */
 .menu-group {
-  flex: 1;
-  text-align: center;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  text-align: center;
 }
 
-/* ✅ 각 항목 스타일 */
 .menu-group a {
   text-decoration: none;
-  color: #555;
+  color: #333;
   font-size: 14px;
   transition: color 0.2s ease;
 }
 
 .menu-group a:hover {
-  color: #2C5DE5;
+  color: #4A6FA5;
 }
 
-/* 상단 메뉴 */
-/* 메뉴는 완전 중앙정렬 */
-.nav-menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-  list-style: none;
-  flex: none; /* ✅ flex:1 제거 — 중앙정렬 깨짐 방지 */
-}
-
-
-
+/* ✅ 메뉴 항목 */
 .menu-item {
-  cursor: pointer;
-  padding: 10px 15px;
+  position: relative;
   font-weight: 600;
   color: #222;
-  transition: color 0.2s;
+  cursor: pointer;
+  padding: 20px 0;
 }
 
 .menu-item.active {
-  color: #2C5DE5;
+  color: #4A6FA5;
+}
+
+/* ✅ nav-menu 그대로 유지 */
+.nav-menu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 110px;
+  list-style: none;
+}
+
+
+
+/* 로고 */
+
+.logo {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 340px; /* 기본값 */
+}
+
+.logo img {
+  height: 52px;  
+  transition: transform 0.2s ease;
+}
+
+
+.nav-icons {
+  position: absolute;
+  top: 50%;
+  right: 80px;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 22px;
 }
 
 /*/////////////////////////////////////////////////////////////////////

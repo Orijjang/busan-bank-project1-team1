@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>외화 예금 상품 목록</title>
-  <link rel="stylesheet" href="/static/css/deposit.css">
+  <title>원화 계좌이체 3</title>
+  <link rel="stylesheet" href="/static/css/mypage.css">
   
 
     <link
@@ -163,142 +163,71 @@
   </div>
 </header>
 
+<main class="transfer3-container">
+  <div class="transfer3-box">
 
-
-<main class="list-container">
-
-  <!-- 왼쪽 카테고리 -->
-  <aside class="list-sidebar">
-    <h3 class="list-title">외화예금</h3>
-    <ul class="list-category">
-      <li class="active">
-        <a href="#">외화예금상품</a>
-      </li>
-      <li>
-        <a href="#">외화예금안내</a>
-      </li>
-    </ul>
-  </aside>
-
-  <!-- 오른쪽 상품 목록 -->
-  <section class="list-content">
-    <div class="list-header">
-      <p>조회결과 <strong>[총 15건]</strong></p>
-      <div class="list-sort">
-        <button class="active">추천순</button>
-        <button>판매순</button>
-        <button>최신순</button>
-        <button>상품명순</button>
+    <!-- 단계 표시 -->
+    <div class="transfer3-steps">
+      <div class="transfer3-step">
+        <span class="num">1</span><span class="text">정보입력</span>
+      </div>
+      <div class="transfer3-step">
+        <span class="num">2</span><span class="text">입력확인</span>
+      </div>
+      <div class="transfer3-step active">
+        <span class="num">3</span><span class="text">실행완료</span>
       </div>
     </div>
 
-    <!-- 상품 아이템 -->
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">SOL트래블 외화예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
-        </div>
+    <!-- ✅ 완료 안내 -->
+    <section class="transfer3-complete-box">
+      <div class="transfer3-icon">
+        <i class="fa-solid fa-circle-check"></i>
       </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
+      <div class="transfer3-complete-text">
+        <h2><strong>계좌이체</strong>가 정상적으로 완료되었습니다.</h2>
+        <p>계좌이체 처리결과를 확인해 주세요.</p>
       </div>
+    </section>
+
+    <!-- ✅ 이체결과 -->
+    <section class="transfer3-section">
+      <h3 class="transfer3-subtitle">이체결과</h3>
+      <table class="transfer3-table">
+        <thead>
+          <tr>
+            <th>출금계좌(내통장표시)</th>
+            <th>입금계좌(받는분통장표시)</th>
+            <th>받는분</th>
+            <th>이체금액</th>
+            <th>수수료</th>
+            <th>거래후잔액</th>
+            <th>처리결과</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>333-3333-3333-3333<br><span class="sub">OOO</span></td>
+            <td>333-3333-3333-3333<br><span class="sub">OOO</span></td>
+            <td>OOO</td>
+            <td>10,000</td>
+            <td>0<br><span class="sub">우대수수료</span></td>
+            <td>34,197</td>
+            <td><span class="transfer3-success">정상</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="transfer3-guide">※ SMS 통지 설정 시 결과를 문자로 받을 수 있습니다.</p>
+    </section>
+
+    <!-- ✅ 버튼 영역 -->
+    <div class="transfer3-actions">
+      <button class="transfer3-btn-main">확인</button>
     </div>
 
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">SOL트래블 외화예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
-        </div>
-      </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
-    </div>
-
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">SOL트래블 외화예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
-        </div>
-      </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
-    </div>
-
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">외화 체인지업 예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
-        </div>
-      </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
-    </div>
-
-    <div class="list-item">
-      <div class="list-info">
-        <h4><a href="#" class="list-link">외화 체인지업 예금</a></h4>
-        <p>총 21개국 통화로 자유롭게 전환 가능하며, 고객이 지정한 환율로 처리되는 입출금형 외화예금 상품입니다.</p>
-        <div class="list-tags">
-          <span>모바일</span>
-          <span>영업점</span>
-        </div>
-      </div>
-      <div class="list-actions">
-        <button class="list-detail-btn">상세보기</button>
-        <button class="list-join-btn">가입하기</button>
-      </div>
-    </div>
-
-
-
-
-
-  </section>
-
+  </div>
 </main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
