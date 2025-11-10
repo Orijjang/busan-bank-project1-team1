@@ -36,6 +36,10 @@ public class RequestRouterService {
         try {
             // switch문을 사용하여 요청 코드에 따라 분기
             switch (requestCode) {
+                case "MEMBER_REGISTER":
+                    log.info("");
+
+
                 // --- 환전 관련 ---
                 case "EXCHANGE_INQUIRY":
                     // 나중에 ExchangeService가 준비되면 이 주석을 풉니다.
