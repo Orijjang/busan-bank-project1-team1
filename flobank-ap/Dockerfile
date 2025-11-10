@@ -1,5 +1,5 @@
-# 1. Java 21(eclipse-temurin) 이미지를 불러옵니다.
-FROM eclipse-temurin:21-jdk-slim
+# 1. Java 21(Oracle) 이미지를 불러옵니다.
+FROM container-registry.oracle.com/java/jdk:21-slim
 
 # 2. 작업 디렉터리를 /app으로 설정
 WORKDIR /app
