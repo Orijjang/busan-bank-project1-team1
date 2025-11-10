@@ -31,6 +31,10 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+    # 2-1. gcloud 베타 구성요소 설치
+    - name: gcloud 베타 구성요소 설치
+      run: gcloud components install beta --quiet
+
     # 3. bnk-api-server (프론트엔드) 배포
     - name: bnk-api-server 배포
       run: |
