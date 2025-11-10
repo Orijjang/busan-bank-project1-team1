@@ -47,20 +47,20 @@ jobs:
 
   # 2. API 서버 배포 작업
   deploy-api:
-    needs: build # build 작업이 성공해야 실행
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: 1. API 서버 아티팩트 다운로드
       uses: actions/download-artifact@v4
       with:
-        name: api-jar # build에서 업로드한 이름
+        name: api-jar
 
     - name: 2. API 서버에 배포 (SSH)
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.API_SERVER_HOST }}     # GitHub Secret에서 가져오기
-        username: ${{ secrets.API_SERVER_USER }} # GitHub Secret에서 가져오기
-        key: ${{ secrets.API_SERVER_KEY }}      # GitHub Secret에서 가져오기
+        host: ${{ secrets.API_SERVER_HOST }}
+        username: ${{ secrets.API_SERVER_USER }}
+        key: ${{ secrets.API_SERVER_KEY }}
         script: |
           pkill -f 'flobank-api.jar' || true
           mkdir -p /home/mjgemini987/api
@@ -70,23 +70,23 @@ jobs:
           
   # 3. AP 서버 배포 작업
   deploy-ap:
-    needs: build # build 작업이 성공해야 실행
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: 1. AP 서버 아티팩트 다운로드
       uses: actions/download-artifact@v4
       with:
-        name: ap-jar # build에서 업로드한 이름
+        name: ap-jar
 
     - name: 2. AP 서버에 배포 (SSH)
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.AP_SERVER_HOST }}     # GitHub Secret에서 가져오기
-        username: ${{ secrets.AP_SERVER_USER }} # GitHub Secret에서 가져오기
-        key: ${{ secrets.AP_SERVER_KEY }}      # GitHub Secret에서 가져오기
+        host: ${{ secrets.AP_SERVER_HOST }}
+        username: ${{ secrets.AP_SERVER_USER }}
+        key: ${{ secrets.AP_SERVER_KEY }}
         script: |
           pkill -f 'flobank-ap.jar' || true
-          mkdir -p /home/mjgemini987/ap   # 👈 ubuntu에서 mjgemini987로 수정
+          mkdir -p /home/mjgemini987/ap
           mv ./*.jar /home/mjgemini987/ap/flobank-ap.jar
           cd /home/mjgemini987/ap
           nohup java -jar -Dspring.profiles.active=prod flobank-ap.jar > ap.log 2>&1 &
