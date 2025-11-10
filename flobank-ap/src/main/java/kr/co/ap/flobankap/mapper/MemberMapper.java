@@ -10,8 +10,5 @@ public interface MemberMapper {
 
     int insertMember(MemberDTO memberDTO);
 
-    int getNextCustSequence();
-
-
 
 }

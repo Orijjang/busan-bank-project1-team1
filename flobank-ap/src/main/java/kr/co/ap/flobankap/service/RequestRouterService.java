@@ -20,6 +20,7 @@ public class RequestRouterService {
     // (중요) 나중에 만들 실제 비즈니스 서비스들을 여기에 주입합니다.
     // private final ExchangeService exchangeService;
     // private final DepositService depositService;
+    private final ApMemberService apMemberService;
 
     private final ObjectMapper objectMapper;
 
@@ -36,8 +37,11 @@ public class RequestRouterService {
         try {
             // switch문을 사용하여 요청 코드에 따라 분기
             switch (requestCode) {
+                // --- 회원 가입 ---
                 case "MEMBER_REGISTER":
-                    log.info("");
+                    log.info("[ROUTER] 'MEMBER_REGISTER' 요청을 ApMemberService로 라우팅합니다.");
+                    response = apMemberService.registerMember(payload); // 4. 실제 서비스 호출
+                    break;
 
 
                 // --- 환전 관련 ---

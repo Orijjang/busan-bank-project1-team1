@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.nio.charset.StandardCharsets; // 1. StandardCharsets 임포트
 
 /**
  * [공통 서비스]
@@ -50,13 +51,17 @@ public class ApRequestService {
             log.info("[TCP SEND] RequestCode: {}, Payload: {}", requestCode, jsonRequest);
 
             // 4. 게이트웨이를 통해 AP 서버로 전송 및 응답 수신 (핵심)
-            String jsonResponse = apGateway.sendAndReceive(jsonRequest);
+            // [수정] String이 아닌 byte[]로 직접 통신하도록 변경
+            byte[] responseBytes = apGateway.sendAndReceive(jsonRequest.getBytes(StandardCharsets.UTF_8));
+
+            // 5. [수정] byte[] 응답을 UTF-8 문자열로 변환
+            String jsonResponse = new String(responseBytes, StandardCharsets.UTF_8);
             log.info("[TCP RECV] Response: {}", jsonResponse);
 
-            // 5. JSON 응답 -> 표준 응답 DTO(ApResponseDTO)로 변환
+            // 6. JSON 응답 -> 표준 응답 DTO(ApResponseDTO)로 변환
             ApResponseDTO responseDTO = objectMapper.readValue(jsonResponse, ApResponseDTO.class);
 
-            // 6. AP 서버가 에러를 반환했는지 확인
+            // 7. AP 서버가 에러를 반환했는지 확인
             if ("ERROR".equals(responseDTO.getStatus())) {
                 log.warn("[AP_SERVER_ERROR] Code: {}, Message: {}", requestCode, responseDTO.getMessage());
             }
