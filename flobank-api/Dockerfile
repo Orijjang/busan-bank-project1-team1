@@ -19,7 +19,7 @@ RUN ./gradlew build -x test
 # RUN rm -rf src
 
 # 7. 빌드된 JAR 파일을 app.jar로 복사
-COPY build/libs/*.jar app.jar
+RUN mv build/libs/*.jar app.jar
 
 # 8. 이 Docker 이미지가 실행될 때 실행할 명령어
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
