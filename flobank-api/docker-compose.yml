@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   flobank-api: # 서비스 이름 (프론트엔드)
     build: .   # 현재 폴더(flobank-api)의 Dockerfile을 사용

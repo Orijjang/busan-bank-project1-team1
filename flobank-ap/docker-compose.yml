@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   flobank-ap: # 서비스 이름 (백엔드)
     build: .  # 현재 폴더(flobank-ap)의 Dockerfile을 사용해 이미지를 빌드
