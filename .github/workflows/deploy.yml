@@ -41,7 +41,7 @@ jobs:
         gcloud beta compute ssh bnk-api-server \
           --project=${{ secrets.GCP_PROJECT_ID }} \
           --zone=asia-northeast3-a \
-          --command="sudo /opt/scripts/deploy-api.sh"
+          --command="bash /opt/scripts/deploy-api.sh"
 
     # 4. bnk-ap-server (백엔드) 배포
     - name: bnk-ap-server 배포
@@ -49,4 +49,4 @@ jobs:
         gcloud beta compute ssh bnk-ap-server \
           --project=${{ secrets.GCP_PROJECT_ID }} \
           --zone=asia-northeast3-a \
-          --command="sudo /opt/scripts/deploy-ap.sh"
+          --command="bash /opt/scripts/deploy-ap.sh"
