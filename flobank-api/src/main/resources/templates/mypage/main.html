@@ -1,395 +1,559 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OO은행 메인화면</title>
-  <link rel="stylesheet" href="/static/css/mypage.css">
-  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지 메인</title>
+
+    <link rel="stylesheet" th:href="@{/css/mypage.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
 
     <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    crossorigin="anonymous"
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            crossorigin="anonymous"
     />
 
 </head>
 <body>
 
-  <!-- 상단 헤더 -->
-  <header>
+<header>
     <div class="top-bar">
-      <ul>
-        <li><a href="#">기업뱅킹</a></li>
-        <li><a href="#">하나카드</a></li>
-        <li><a href="#">은행소개</a></li>
-        <li><a href="#">채용안내</a></li>
-      </ul>
-
-      <div class="right-menu">
-        <a href="#">로그인</a>
-        <a href="#">회원가입</a>
-        <a href="#">Language ▾</a>
-      </div>
+        <ul></ul>
+        <div class="right-menu">
+            <a th:href="@{/member/login}">로그인</a>
+            <a href="#">회원가입</a>
+            <a href="#">Language ▾</a>
+        </div>
     </div>
 
     <div class="main-nav">
-      <div class="logo">
-        <img src="/static/images/logo.png" alt="OO은행 로고">
-      </div>
+        <div class="logo">
+            <img th:src="@{/images/logo.png}" alt="FLOBANK 로고">
+        </div>
 
+        <ul class="nav-menu">
+            <li class="menu-item" data-menu="1">외화예금</li>
+            <li class="menu-item" data-menu="2">외화송금</li>
+            <li class="menu-item" data-menu="3">환전</li>
+            <li class="menu-item" data-menu="4">환율</li>
+            <li class="menu-item" data-menu="5">고객센터</li>
+        </ul>
 
-    <!-- ✅ nav 메뉴 -->
-    <ul class="nav-menu">
-      <li class="menu-item" data-target="menu1"><a href="#">외화예금</a></li>
-      <li class="menu-item" data-target="menu2"><a href="#">외화송금</a></li>
-      <li class="menu-item" data-target="menu3"><a href="#">환전</a></li>
-      <li class="menu-item" data-target="menu4"><a href="#">환율</a></li>
-      <li class="menu-item" data-target="menu5"><a href="#">유학/이주/여행</a></li>
-      <li class="menu-item" data-target="menu6"><a href="#">고객센터</a></li>
-      <li class="menu-item" data-target="menu7"><a href="#">은행소개</a></li>
-    </ul>
-
-    <div class="nav-icons">
-      <a href="#"><i class="fa-solid fa-comment-dots"></i></a>
-      <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
-      <a href="#"><i class="fa-solid fa-bars"></i></a>
+        <div class="nav-icons">
+            <a href="#"><i class="fa-solid fa-comment-dots"></i></a>
+            <a href="#" class="search-trigger" aria-haspopup="dialog" aria-controls="searchModal"><i class="fa-solid fa-magnifying-glass"></i></a>
+        </div>
     </div>
 
-    <!--  드롭다운들 여기로 옮김 -->
-    <div id="menu1" class="dropdown">
-      <div class="menu-column">
-        <h4><a href="#">외화예금상품</a></h4>
-      </div>
-      <div class="menu-column">
-        <h4><a href="#">외화예금안내</a></h4>
-        <ul>
-          <li><a href="#">외화예금안내</a></li>
-          <li><a href="#">당행외화이체</a></li>
-          <li><a href="#">해외외화예금개설</a></li>
-        </ul>
-      </div>
-      <div class="menu-column">
-        <h4><a href="#">외화예금우대서비스</a></h4>
-      </div>
+    <div class="mega-menu">
+        <div class="menu-group" data-menu="1">
+            <a th:href="@{/deposit/list}">외화예금상품</a>
+            <a th:href="@{/deposit/info}">외화예금안내</a>
+        </div>
+        <div class="menu-group" data-menu="2">
+            <a th:href="@{/remit/en_transfer_1}">외화 송금하기</a>
+            <a th:href="@{/remit/info}">외화 송금 안내</a>
+        </div>
+        <div class="menu-group" data-menu="3">
+            <a th:href="@{/exchange/step1}">환전하기</a>
+            <a th:href="@{/exchange/info1}">환전 가능 통화</a>
+            <a th:href="@{/exchange/info2}">환전안내</a>
+            <a href="#">환전 계산기</a>
+        </div>
+        <div class="menu-group" data-menu="4">
+            <a th:href="@{/rate/rate_info}">환율 조회</a>
+        </div>
+        <div class="menu-group" data-menu="5">
+            <a th:href="@{/customer/intro}">FLOBANK 소개</a>
+            <a th:href="@{/customer/qna_list}">질문과 답변(Q&A)</a>
+            <a th:href="@{/customer/faq_list}">자주 묻는 질문(FAQ)</a>
+            <a th:href="@{/customer/event_list}">이벤트</a>
+            <a th:href="@{/customer/notice_list}">공지사항</a>
+        </div>
     </div>
-
-    <div id="menu2" class="dropdown">
-      <div class="menu-column">
-        <h4><a href="#">외화송금서비스</a></h4>
-        <ul>
-          <li><a href="#">인터넷외화송금서비스</a></li>
-          <li><a href="#">BNK공동해외송금서비스</a></li>
-          <li><a href="#">해외즉시송금서비스</a></li>
-        </ul>
-      </div>
-      <div class="menu-column">
-        <h4><a href="#">외화송금보내기</a></h4>
-        <ul>
-          <li><a href="#">송금안내</a></li>
-          <li><a href="#">송금하기</a></li>
-        </ul>
-      </div>
-      <div class="menu-column"><h4><a href="#">외화송금받기</a></h4></div>
-    </div>
-
-    <div id="menu3" class="dropdown">
-      <div class="menu-column">
-        <h4><a href="#">환전안내</a></h4>
-        <ul>
-          <li><a href="#">환전 가능 통화</a></li>
-          <li><a href="#">환전 가능 금액</a></li>
-          <li><a href="#">환전 요령</a></li>
-        </ul>
-      </div>
-      <div class="menu-column"><h4><a href="#">환율 우대</a></h4></div>
-      <div class="menu-column"><h4><a href="#">환전 계산기</a></h4></div>
-      <div class="menu-column"><h4><a href="#">환전하기</a></h4></div>
-    </div>
-
-    <div id="menu4" class="dropdown">
-      <div class="menu-column">
-        <h4><a href="#">환율 제공 서비스</a></h4>
-        <ul>
-          <li><a href="#">지정환율통지서비스</a></li>
-          <li><a href="#">이메일환율통지서비스</a></li>
-          <li><a href="#">무료환율표서비스</a></li>
-        </ul>
-      </div>
-      <div class="menu-column"><h4><a href="#">외환시장 동향</a></h4></div>
-      <div class="menu-column"><h4><a href="#">환리스크 관리</a></h4></div>
-    </div>
-
-    <div id="menu5" class="dropdown">
-      <div class="menu-column">
-        <h4><a href="#">유학</a></h4>
-        <ul>
-          <li><a href="#">해외유학서비스안내</a></li>
-          <li><a href="#">유학경비환전/송금</a></li>
-          <li><a href="#">해외유학지원서비스</a></li>
-        </ul>
-      </div>
-      <div class="menu-column">
-        <h4><a href="#">이주</a></h4>
-        <ul>
-          <li><a href="#">해외이주서비스안내</a></li>
-          <li><a href="#">해외이주비환전/송금</a></li>
-        </ul>
-      </div>
-      <div class="menu-column">
-        <h4><a href="#">여행</a></h4>
-        <ul>
-          <li><a href="#">여행시유의사항</a></li>
-          <li><a href="#">여행경비환전</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div id="menu6" class="dropdown">
-      <div class="menu-column"><h4><a href="#">고객상담</a></h4></div>
-      <div class="menu-column"><h4><a href="#">이용안내</a></h4></div>
-      <div class="menu-column"><h4><a href="#">금융소비자보호</a></h4></div>
-      <div class="menu-column"><h4><a href="#">상품공시실</a></h4></div>
-      <div class="menu-column"><h4><a href="#">자료실</a></h4></div>
-    </div>
-
-    <div id="menu7" class="dropdown">
-      <div class="menu-column"><h4><a href="#">은행안내</a></h4></div>
-      <div class="menu-column"><h4><a href="#">OO은행 스토리</a></h4></div>
-      <div class="menu-column"><h4><a href="#">투자자정보</a></h4></div>
-      <div class="menu-column"><h4><a href="#">영업점 안내</a></h4></div>
-    </div>
-
-  </div>
 </header>
 
+<main class="mypage-container">
 
- <main class="mypage-container">
+    <aside class="profile-card">
+        <div class="profile-header">
+            <i class="fa-solid fa-circle-user"></i>
+            <h3>OOO 고객님</h3>
+            <p>최근 접속일 2025.11.02 15:03:03</p>
 
-<section class="profile-card">
-  <div class="profile-header">
-    <i class="fa-solid fa-circle-user"></i>
-    <h3>OOO 고객님</h3>
-    <p>최근 접속일 2025.11.02 15:03:03</p>
-    <button class="btn-grade">우수고객 우대서비스</button>
-  </div>
+            <div class="security-container">
+                <div class="security-info">
+                    <span class="security-badge grade-1">보안등급 1등급</span>
+                    <p class="limit-text">이체한도: 1일 5억원 / 1회 1억원</p>
+                </div>
+            </div>
 
-  <ul class="profile-info">
-    <li><i class="fa-solid fa-user"></i> idididid</li>
-    <li><i class="fa-solid fa-envelope"></i> qqqq@naver.com</li>
-    <li><i class="fa-solid fa-phone"></i> 010-1111-****</li>
-  </ul>
-
-  <div class="profile-footer">
-    <a href="#">사용자 정보 변경 <i class="fa-solid fa-pen"></i></a>
-
-    <!-- ✅ 여기에 추가 -->
-    <div class="profile-action">
-      <button class="btn-account-open">
-        <i class="fa-solid fa-building-columns"></i> 입출금통장 개설
-      </button>
-    </div>
-  </div>
-</section>
+        </div>
 
 
+        <ul class="profile-info">
+            <li><i class="fa-solid fa-user"></i> idididid</li>
+            <li><i class="fa-solid fa-envelope"></i> qqqq@naver.com</li>
+            <li><i class="fa-solid fa-phone"></i> 010-1111-****</li>
+        </ul>
+
+        <div class="profile-footer">
+            <a href="#">사용자 정보 변경 <i class="fa-solid fa-pen"></i></a>
+            <div class="profile-action">
+                <a th:href="@{/mypage/account_open_main}" class="btn-flow-open">
+                    <i class="fa-solid fa-building-columns"></i> 입출금통장 개설
+                </a>
+            </div>
+        </div>
+
+        <div class="event-btn">
+            <a th:href="@{/mypage/event}" class="btn-attendance">
+                <i class="fa-solid fa-calendar-check"></i> 출석 이벤트
+            </a>
+        </div>
+    </aside>
 
 
-    <!-- 오른쪽 주요 내용 -->
     <section class="account-section">
 
-<!-- 최근 거래 내역 -->
-<div class="transfer-history">
-  <h2>최근 거래 내역</h2>
-  <table class="history-table">
-    <thead>
-      <tr>
-        <th>거래일시</th>
-        <th>구분</th>
-        <th>계좌번호</th>
-        <th>금액</th>
-        <th>메모</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>2025-11-01 15:42</td>
-        <td>입금</td>
-        <td>112-2188-1931-00</td>
-        <td>₩2,000,000</td>
-        <td>급여</td>
-      </tr>
-      <tr>
-        <td>2025-10-31 17:35</td>
-        <td>출금</td>
-        <td>112-2188-1931-00</td>
-        <td>₩500,000</td>
-        <td>월세</td>
-      </tr>
-      <tr>
-        <td>2025-10-30 09:22</td>
-        <td>출금</td>
-        <td>112-2188-1931-00</td>
-        <td>₩120,000</td>
-        <td>식비</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+        <div class="my-account">
+            <div class="account-header">
+                <h2>나의 계좌정보</h2>
+            </div>
 
-
-      <!-- 나의 계좌정보 -->
-      <div class="my-account">
-        <div class="account-header">
-          <h2>나의 계좌정보</h2>
-          <div class="account-tabs">
-            <button class="active">출금계좌</button>
-            <button>오픈뱅킹</button>
-            <button>예금/신탁</button>
-            <button>펀드</button>
-            <button>대출</button>
-            <button>외화</button>
-            <button>보험</button>
-          </div>
+            <div class="account-body">
+                <table class="account-table">
+                    <tr>
+                        <th>계좌명</th>
+                        <th>계좌번호</th>
+                        <th>잔액</th>
+                        <th>이체</th>
+                    </tr>
+                    <tr>
+                        <td>자유저축예금</td>
+                        <td><button class="account-link">112-2188-1931-00</button></td>
+                        <td>2,450,000원</td>
+                        <td><button class="btn-transfer">이체</button></td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
-        <div class="account-body">
-          <table class="account-table">
-            <tr>
-              <th>계좌명</th>
-              <th>계좌번호</th>
-              <th>잔액</th>
-              <th>이체</th>
-            </tr>
-            <tr>
-              <td>자유저축예금</td>
-              <td>112-2188-1931-00</td>
-              <td>2,450,000원</td>
-              <td><button class="btn-transfer">이체</button></td>
-            </tr>
-          </table>
+
+
+
+        <div class="deposit-section">
+            <h2>나의 외화예금</h2>
+
+            <table class="deposit-table">
+                <thead>
+                <tr>
+                    <th>예금이름</th>
+                    <th>예금계좌</th>
+                    <th>잔액</th>
+                    <th>만기일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><a href="#" class="deposit-name" data-id="1">플로달러예금</a></td>
+                    <td>112-2188-1931-00</td>
+                    <td>$3,200</td>
+                    <td>2029.10.03 (D-159)</td>
+                </tr>
+                <tr>
+                    <td><a href="#" class="deposit-name" data-id="2">글로벌유로예금</a></td>
+                    <td>112-5566-1823-00</td>
+                    <td>€1,800</td>
+                    <td>2027.06.22 (D-98)</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-      </div>
 
-      <!-- 외화 보유 현황 -->
-      <div class="foreign-assets">
-  <div class="foreign-header">
-    <h2>보유 외화 자산</h2>
-    <button class="btn-more" id="toggleCurrencies">+ 더보기</button>
-  </div>
 
-  <div class="currency-list" id="currencyList">
-    <!-- 대표 3개 -->
-    <div class="currency-card">
-      <i class="fa-solid fa-dollar-sign"></i>
-      <p>USD (달러)</p>
-      <strong>$1,245.00</strong>
-    </div>
-    <div class="currency-card">
-      <i class="fa-solid fa-yen-sign"></i>
-      <p>JPY (엔화)</p>
-      <strong>¥158,230</strong>
-    </div>
-    <div class="currency-card">
-      <i class="fa-solid fa-euro-sign"></i>
-      <p>EUR (유로)</p>
-      <strong>€980.50</strong>
-    </div>
 
-    <!-- 추가 통화: 초기에 숨김 -->
-    <div class="currency-card hidden">
-      <i class="fa-solid fa-sterling-sign"></i>
-      <p>GBP (파운드)</p>
-      <strong>£700.20</strong>
-    </div>
-    <div class="currency-card hidden">
-      <i class="fa-solid fa-yuan-sign"></i>
-      <p>CNY (위안)</p>
-      <strong>¥8,350.00</strong>
-    </div>
-    <div class="currency-card hidden">
-      <i class="fa-solid fa-dollar-sign"></i>
-      <p>AUD (호주달러)</p>
-      <strong>$530.45</strong>
-    </div>
-  </div>
-</div>
 
+        <div class="my-account">
+            <div class="account-header">
+                <h2>나의 환전 이력</h2>
+            </div>
+
+            <div class="account-body">
+                <table class="account-table">
+                    <thead>
+                    <tr>
+                        <th>환전 번호</th>
+                        <th>환전 전 통화</th>
+                        <th>환전 후 통화</th>
+                        <th>적용환율</th>
+                        <th>신청 금액</th>
+                        <th>환전 신청 일시</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><button class="exchange-link" data-id="EX202511001">EX202511001</button></td>
+                        <td>USD</td>
+                        <td>KRW</td>
+                        <td>1,380.25</td>
+                        <td>$500</td>
+                        <td>2025-11-01 14:35</td>
+                    </tr>
+                    <tr>
+                        <td><button class="exchange-link" data-id="EX202510025">EX202510025</button></td>
+                        <td>JPY</td>
+                        <td>KRW</td>
+                        <td>9.32</td>
+                        <td>¥10,000</td>
+                        <td>2025-10-25 10:20</td>
+                    </tr>
+                    <tr>
+                        <td><button class="exchange-link" data-id="EX202510010">EX202510010</button></td>
+                        <td>EUR</td>
+                        <td>KRW</td>
+                        <td>1,485.10</td>
+                        <td>€200</td>
+                        <td>2025-10-10 11:05</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="foreign-assets">
+            <div class="foreign-header">
+                <h2>보유 외화 자산</h2>
+            </div>
+
+            <div class="currency-list">
+                <div class="currency-card">
+                    <i class="fa-solid fa-dollar-sign"></i>
+                    <p>미국 달러 (USD)</p>
+                    <strong>$1,245.00</strong>
+                </div>
+
+                <div class="currency-card">
+                    <i class="fa-solid fa-yen-sign"></i>
+                    <p>일본 엔화 (JPY)</p>
+                    <strong>¥158,230</strong>
+                </div>
+
+                <div class="currency-card">
+                    <i class="fa-solid fa-euro-sign"></i>
+                    <p>유럽 유로 (EUR)</p>
+                    <strong>€980.50</strong>
+                </div>
+
+                <div class="currency-card">
+                    <i class="fa-solid fa-yen-sign"></i>
+                    <p>중국 위안화 (CNY)</p>
+                    <strong>¥8,350.00</strong>
+                </div>
+
+                <div class="currency-card">
+                    <i class="fa-solid fa-sterling-sign"></i>
+                    <p>영국 파운드 (GBP)</p>
+                    <strong>£700.20</strong>
+                </div>
+
+                <div class="currency-card">
+                    <i class="fa-solid fa-dollar-sign"></i>
+                    <p>호주 달러 (AUD)</p>
+                    <strong>$530.45</strong>
+                </div>
+            </div>
+        </div>
 
     </section>
-  </main>
-
-</body>
-</html>
+</main>
 
 
+<div id="userInfoModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>사용자 정보 변경</h2>
+
+        <form class="user-info-form">
+            <div class="form-group">
+                <label>이름</label>
+                <input type="text" value="홍길동" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>성별</label>
+                <input type="text" value="남자" readonly>
+            </div>
+
+            <div class="form-group">
+                <label>아이디</label>
+                <input type="text" value="idididid">
+            </div>
+
+            <div class="form-group">
+                <label>비밀번호</label>
+                <input type="password" placeholder="새 비밀번호 입력">
+            </div>
+
+            <div class="form-group">
+                <label>비밀번호 확인</label>
+                <input type="password" placeholder="비밀번호를 다시 입력하세요">
+            </div>
+
+            <div class="form-group">
+                <label>이메일</label>
+                <input type="email" value="qqqq@naver.com">
+            </div>
+
+            <div class="form-group">
+                <label>휴대폰번호</label>
+                <input type="text" value="010-1111-****">
+            </div>
+
+            <div class="form-group">
+                <label>주소</label>
+                <div class="address-group">
+                    <div class="input-inline">
+                        <input type="text" id="zipcode" placeholder="우편번호" readonly>
+                        <button type="button" class="register-btn">우편번호 검색</button>
+                    </div>
+                    <input type="text" id="addr1" placeholder="기본주소">
+                    <input type="text" id="addr2" placeholder="상세주소">
+                </div>
+            </div>
+
+            <button type="button" class="btn-save">변경사항 저장</button>
+        </form>
+    </div>
+</div>
 
 
+<div id="exchangeModal" class="ex-modal">
+    <div class="ex-modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>환전 상세 내역</h2>
+
+        <table class="deposit-detail-table">
+            <tbody>
+            <tr><th>환전 번호</th><td id="ex-id">EX202511001</td></tr>
+            <tr><th>환전 전 통화</th><td id="ex-from">USD</td></tr>
+            <tr><th>환전 후 통화</th><td id="ex-to">KRW</td></tr>
+            <tr><th>적용환율</th><td id="ex-rate">1,380.25</td></tr>
+            <tr><th>신청 금액</th><td id="ex-amount">$500</td></tr>
+            <tr><th>환전 신청 일시</th><td id="ex-date">2025-11-01 14:35</td></tr>
+            </tbody>
+        </table>
+
+        <h3>환전 금액 세부내역</h3>
+        <table class="deposit-detail-table">
+            <tbody>
+            <tr><th>수수료</th><td id="ex-fee">₩3,000</td></tr>
+            <tr><th>원화금액</th><td id="ex-krw">₩690,125</td></tr>
+            <tr><th>현재 고시환율</th><td id="ex-market-rate">1,382.10</td></tr>
+            <tr><th>적용환율</th><td id="ex-applied-rate">1,380.25</td></tr>
+            </tbody>
+        </table>
+
+        <h3>수령 정보</h3>
+        <table class="deposit-detail-table">
+            <tbody>
+            <tr><th>수령희망지점</th><td id="ex-branch">BNK 부산본점</td></tr>
+            <tr><th>수령희망일</th><td id="ex-pickup">2025-11-02</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
+<div id="accountModal" class="account-modal">
+    <div class="account-modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>계좌 거래내역</h2>
+
+        <table class="detail-table">
+            <tbody>
+            <tr><th>계좌명</th><td id="acc-name">자유저축예금</td></tr>
+            <tr><th>계좌번호</th><td id="acc-number">112-2188-1931-00</td></tr>
+            <tr><th>계좌개설일</th><td id="acc-date">2024-06-15</td></tr>
+            </tbody>
+        </table>
+
+        <h3>거래내역</h3>
+        <table class="detail-table transaction-table">
+            <thead>
+            <tr>
+                <th>거래일시</th>
+                <th>구분</th>
+                <th>거래금액</th>
+                <th>잔액</th>
+                <th>메모</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>2025-11-01 15:42</td>
+                <td>입금</td>
+                <td>₩2,000,000</td>
+                <td>₩2,450,000</td>
+                <td>급여</td>
+            </tr>
+            <tr>
+                <td>2025-10-31 17:35</td>
+                <td>출금</td>
+                <td>₩500,000</td>
+                <td>₩450,000</td>
+                <td>월세</td>
+            </tr>
+            <tr>
+                <td>2025-10-30 09:22</td>
+                <td>출금</td>
+                <td>₩120,000</td>
+                <td>₩350,000</td>
+                <td>식비</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
+<div id="depositModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>예금 상세정보</h2>
+
+        <table class="detail-table">
+            <tbody>
+            <tr><th>예금이름</th><td id="detail-name">플로달러예금</td></tr>
+            <tr><th>예금유형</th><td id="detail-type">자유적립식</td></tr>
+            <tr><th>예금계좌</th><td id="detail-account">112-2188-1931-00</td></tr>
+            <tr><th>가입일</th><td id="detail-join">2023-01-10</td></tr>
+            <tr><th>만기일</th><td id="detail-end">2029-10-03</td></tr>
+            <tr><th>금액</th><td id="detail-amount">$3,200</td></tr>
+            <tr><th>환율 적용 기준</th><td id="detail-rate">1,380.25</td></tr>
+            <tr><th>가입 통화</th><td id="detail-currency">USD</td></tr>
+            <tr><th>추가납입</th><td id="detail-extra">가능</td></tr>
+            <tr><th>자동 연장</th><td id="detail-auto">설정 안함</td></tr>
+            <tr><th>일부 출금</th><td id="detail-partial">불가능</td></tr>
+            </tbody>
+        </table>
+
+        <h3>거래 내역</h3>
+        <table class="detail-table transaction-table">
+            <thead>
+            <tr>
+                <th>거래 일시</th>
+                <th>입금액</th>
+                <th>총 잔액</th>
+            </tr>
+            </thead>
+            <tbody id="depositHistory">
+            <tr><td>2025-10-10</td><td>$500</td><td>$3,200</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 푸터 -->
 <footer class="footer">
-  <div class="footer-links">
-    <a href="#">사고신고</a> |
-    <a href="#">상품공시실</a> |
-    <a href="#">보호금융상품등록부</a> |
-    <a href="#">경영공시</a> |
-    <a href="#">퇴직연금공시</a> |
-    <a href="#">인증센터</a> |
-    <a href="#">상담센터</a> |
-    <a href="#">개인정보처리방침</a> |
-    <a href="#">신용정보활용체계</a> |
-    <a href="#">영업점찾기</a>
-  </div>
-
-  <div class="footer-info">
-    <div class="footer-logos">
-      <img src="https://www.hanabank.com/static/images/footer/wa.png" alt="웹접근성">
-      <img src="https://www.hanabank.com/static/images/footer/isms.png" alt="ISMS">
-      <img src="https://www.hanabank.com/static/images/footer/bs7799.png" alt="BS 인증">
+    <div class="footer-top">
+        <div class="footer-links">
+            <a href="#">개인정보처리방침</a> ·
+            <a href="#">경영공시</a> ·
+            <a href="#">고객정보취급방침</a> ·
+            <a href="#">보호금융상품등록부</a> ·
+            <a href="#">상품공시실</a> ·
+            <a href="#">전자민원접수</a> ·
+            <a href="#">전자금융이용자보호수칙</a> ·
+            <a href="#">전자금융사기피해금환급제도</a>
+        </div>
+        <p class="footer-location">위치기반서비스 이용약관</p>
     </div>
-    <p>© OO Bank. All rights reserved.</p>
-    <div class="footer-right">
-      <p><strong>고객센터</strong> 1588-1111 / 1599-1111</p>
-      <p><strong>고객센터(해외)</strong> +82-42-520-2500</p>
-    </div>
-  </div>
 
-  <div class="footer-bottom-nav">
-    <div class="bottom-item">브랜드사이트 ▾</div>
-    <div class="bottom-item">하나네트워크 ▾</div>
-    <div class="bottom-item">글로벌네트워크 ↗</div>
-    <div class="bottom-item">하나은행 SNS ▾</div>
-    <div class="bottom-item">💬 하나소비자세상 ↗</div>
-  </div>
+    <div class="footer-middle">
+        <p class="footer-call">
+            고객상담 <strong>1588-6200, 1544-6200</strong> &nbsp; | &nbsp;
+            해외 <strong>82-2-1588-6200</strong>
+        </p>
+        <p class="footer-copy">COPYRIGHT ⓒ 2025 FLOBANK ALL RIGHTS RESERVED.</p>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="footer-left">
+            <a href="https://www.webwatch.or.kr/Situation/WA_Situation.html?MenuCD=110" target="_blank">
+                <img th:src="@{/images/web.png}" alt="웹 접근성 인증" class="footer-cert">
+            </a>
+            <div class="footer-sns">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+    </div>
 </footer>
 
-<script src ="/static/js/index.js"></script>
+<div
+        class="search-top-sheet"
+        id="searchModal"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden="true"
+>
+    <div class="search-top-sheet__panel" role="document">
+        <div class="search-top-sheet__header">
+            <form class="search-top-sheet__form" role="search">
+                <label for="globalSearch" class="sr-only">검색어 입력</label>
+                <input
+                        type="text"
+                        id="globalSearch"
+                        placeholder="검색어를 입력하세요."
+                        autocomplete="off"
+                />
+                <button
+                        type="submit"
+                        class="search-top-sheet__submit"
+                        aria-label="검색"
+                >
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+
+            <button type="button" class="search-top-sheet__close" aria-label="닫기">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="search-top-sheet__content">
+            <div class="search-section">
+                <h3>최근 검색어</h3>
+                <ul class="search-list">
+                    <li class="empty">최근 검색 내역이 없습니다.</li>
+                </ul>
+            </div>
+            <div class="search-section">
+                <h3>인기 검색어</h3>
+                <ol class="search-list rank">
+                    <li>환율우대</li>
+                    <li>여행자보험</li>
+                    <li>OTP</li>
+                    <li>환율 계산기</li>
+                    <li>외화예금</li>
+                    <li>모바일뱅킹</li>
+                    <li>자동이체</li>
+                    <li>주거래</li>
+                    <li>카드교체</li>
+                    <li>무료주차</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <script th:src="@{/js/index.js}"></script>
+        <script th:src="@{/js/user.js}"></script>
 
 </body>
 </html>
-

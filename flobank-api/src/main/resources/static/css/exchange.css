@@ -1,293 +1,3 @@
-/* =========================================================
-   FLO BANK Base Style Sheet
-   파일명: base.css
-   설명: 모든 페이지 공통 적용 (reset + header + footer)
-   ========================================================= */
-
-/* 기본 초기화 및 폰트 */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Noto Sans KR', sans-serif;
-}
-
-body {
-  background: #fff;
-  color: #222;
-  line-height: 1.6;
-}
-
-/* ------------------------------------
-   🔹 상단 헤더 영역 (top-bar + main-nav)
------------------------------------- */
-
-/* 상단 탑바 */
-.top-bar {
-  background: #fafafa;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 80px;
-  font-size: 14px;
-}
-
-.top-bar ul {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-}
-
-.top-bar a {
-  text-decoration: none;
-  color: #555;
-}
-
-.right-menu {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.right-menu a {
-  text-decoration: none;
-  color: #555;
-  font-size: 14px;
-  transition: color 0.2s ease;
-}
-
-.right-menu a:hover {
-  color: #4A6FA5; 
-}
-
-/* 메인 네비게이션 */
-.main-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 80px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  position: relative;
-}
-
-.logo img {
-  height: 40px;
-}
-
-/* NAV 메뉴 */
-.nav-menu {
-  display: flex;
-  list-style: none;
-  gap: 40px;
-  position: relative;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-menu > li {
-  position: relative;
-}
-
-.nav-menu > li > a {
-  text-decoration: none;
-  color: #111;
-  font-weight: 600;
-  padding: 15px;
-  display: inline-block;
-  transition: color 0.2s ease;
-}
-
-.nav-menu > li > a:hover {
-  color: #4A6FA5;
-}
-
-/* 드롭다운 메뉴 */
-.dropdown {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  width: 1100px;
-  background: #fff;
-  border-top: 2px solid #4A6FA5;
-  display: none;
-  justify-content: flex-start;
-  gap: 60px;
-  padding: 30px 50px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-  opacity: 0;
-  transition: all 0.25s ease;
-  z-index: 100;
-}
-
-.dropdown.show {
-  display: flex;
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* 드롭다운 - 컬럼 */
-.menu-column {
-  min-width: 180px;
-}
-
-.menu-column h4 {
-  font-size: 16px;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 10px;
-}
-
-.menu-column h4 a {
-  text-decoration: none;
-  color: #111;
-  transition: color 0.2s ease;
-}
-
-.menu-column h4 a:hover {
-  color: #4A6FA5;
-}
-
-/* 드롭다운 - 하위 목록 */
-.menu-column ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.menu-column li {
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 6px;
-}
-
-.menu-column li a {
-  text-decoration: none;
-  color: #777;
-  transition: color 0.2s ease;
-}
-
-.menu-column li a:hover {
-  color: #4A6FA5;
-}
-
-/* 폰트어썸 네비 아이콘 */
-.nav-icons {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-}
-
-.nav-icons a {
-  color: #333;
-  font-size: 18px;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.nav-icons a:hover {
-  color: #4A6FA5;
-}
-
-/* ------------------------------------
-   🔹 푸터 영역
------------------------------------- */
-
-footer {
-  margin-top: 60px;
-}
-
-.footer {
-  background: #f8f8f8;
-  border-top: 1px solid #e5e5e5; 
-  box-shadow: none;
-  padding: 60px 0 70px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  color: #333;
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-/* 푸터 링크 */
-.footer-links {
-  margin-bottom: 25px;
-  text-align: center;
-}
-
-.footer-links a {
-  color: #444;
-  text-decoration: none;
-  margin: 0 10px;
-}
-
-.footer-links a:hover {
-  text-decoration: underline;
-}
-
-/* 로고 + 저작권 */
-.footer-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 30px;
-}
-
-.footer-logos {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
-.footer-logos img {
-  height: 35px;
-  opacity: 0.9;
-}
-
-.footer-info p {
-  font-size: 13px;
-  color: #666;
-}
-
-/* 고객센터 연락처 */
-.footer-right p {
-  margin: 3px 0;
-  font-size: 14px;
-}
-
-.footer-right strong {
-  color: #222;
-  font-weight: 700;
-}
-
-/* 하단 버튼 */
-.footer-bottom-nav {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.bottom-item {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 8px 18px;
-  cursor: pointer;
-  transition: background 0.2s ease, box-shadow 0.2s ease;
-}
-
-.bottom-item:hover {
-  background: #f1f1f1;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-}
-
 
 
 
@@ -506,6 +216,14 @@ footer {
   --text-dark: #222;
   --text-gray: #666;
   --border-light: #e5e5e5;
+}
+
+.step1-top-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #22304E;  /* 플로뱅크 테마 색상 */
+  margin-bottom: 20px;
 }
 
 
@@ -938,4 +656,137 @@ footer {
 .step3-complete-btn:hover {
   background: var(--highlight);
   transform: translateY(-2px);
+}
+
+
+
+
+
+/* ✅ 쿠폰 모달 기본 스타일 */
+.coupon-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.coupon-modal-content {
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px 30px;
+  width: 320px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.coupon-modal-content h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.coupon-modal-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.coupon-modal-content li {
+  margin: 8px 0;
+}
+
+.coupon-option {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background-color: #22304E;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.coupon-option:hover {
+  background-color: #22304E;
+}
+
+.coupon-close {
+  margin-top: 15px;
+  padding: 6px 12px;
+  background-color: #ccc;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* 쿠폰 적용 버튼 */
+.coupon-btn {
+  background-color: #22304E;
+  color: #fff;
+  border: none;
+  padding: 3px 8px;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.coupon-btn:hover {
+  background-color: #22304E;
+}
+
+/* 언어번역 */
+
+.language-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.language-toggle {
+  cursor: pointer;
+  color: #333;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* ✅ 항상 닫힌 상태로 시작 */
+.language-menu {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  list-style: none;
+  padding: 6px 0;
+  margin: 6px 0 0 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 1000;
+  transition: opacity 0.2s ease;
+}
+
+/* ✅ 열릴 때 */
+.language-menu.show {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+.language-menu li {
+  padding: 8px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.language-menu li:hover {
+  background-color: #f2f4ff;
+  color: #2C5DE5;
 }

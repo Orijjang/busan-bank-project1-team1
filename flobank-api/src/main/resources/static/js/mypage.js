@@ -5,24 +5,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   ////////////////////////////////////////////////////////////////////////////
-  // 1️⃣ 통화 리스트 “+더보기” 버튼
-  ////////////////////////////////////////////////////////////////////////////
-  const toggleBtn = document.getElementById("toggleCurrencies");
-  const hiddenCurrencies = document.querySelectorAll(".currency-card.hidden");
-
-  if (toggleBtn && hiddenCurrencies.length > 0) {
-    let expanded = false;
-
-    toggleBtn.addEventListener("click", () => {
-      expanded = !expanded;
-      hiddenCurrencies.forEach(card => {
-        card.style.display = expanded ? "block" : "none";
-      });
-      toggleBtn.textContent = expanded ? "− 접기" : "+ 더보기";
-    });
-  }
-
-  ////////////////////////////////////////////////////////////////////////////
   // 2️⃣ 계좌개설 약관 전체 동의
   ////////////////////////////////////////////////////////////////////////////
   const agreeAll = document.getElementById("agreeAll");

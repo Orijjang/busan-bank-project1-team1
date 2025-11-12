@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>외화 계좌이체 1</title>
+  <link rel="stylesheet" href="/static/css/mypage.css">
+  <link rel="stylesheet" href="/static/css/header.css">
+  <link rel="stylesheet" href="/static/css/footer.css">
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous"
+    />
+
+</head>
+<body>
+
+ <!-- 상단 헤더 -->
+  <header>
+    <div class="top-bar">
+      <ul></ul>
+      <div class="right-menu">
+        <a href="/member/login.html">로그인</a>
+        <a href="#">회원가입</a>
+        <a href="#">Language ▾</a>
+      </div>
+    </div>
+
+    <!--  메인 네비게이션 (하나만 유지) -->
+    <div class="main-nav">
+      <div class="logo">
+        <img src="/static/images/logo.png" alt="FLOBANK 로고">
+      </div>
+
+      <ul class="nav-menu">
+        <li class="menu-item" data-menu="1">외화예금</li>
+        <li class="menu-item" data-menu="2">외화송금</li>
+        <li class="menu-item" data-menu="3">환전</li>
+        <li class="menu-item" data-menu="4">환율</li>
+        <li class="menu-item" data-menu="5">고객센터</li>
+      </ul>
+
+      <div class="nav-icons">
+        <a href="#"><i class="fa-solid fa-comment-dots"></i></a>
+        <a href="#" class="search-trigger" aria-haspopup="dialog" aria-controls="searchModal"><i class="fa-solid fa-magnifying-glass"></i></a>
+      </div>
+    </div>
+
+    <!-- ✅ Mega Dropdown -->
+    <div class="mega-menu">
+      <div class="menu-group" data-menu="1">
+        <a href="/deposit/list.html">외화예금상품</a>
+        <a href="/deposit/info.html">외화예금안내</a>
+      </div>
+      <div class="menu-group" data-menu="2">
+        <a href="/remit/en_transfer_1.html">외화 송금하기</a>
+        <a href="/remit/info.html">외화 송금 안내</a>
+      </div>
+      <div class="menu-group" data-menu="3">
+        <a href="/exchange/step1.html">환전하기</a>
+        <a href="/exchange/info1.html">환전 가능 통화</a>
+        <a href="/exchange/info2.html">환전안내</a>
+        <a href="#">환전 계산기</a>
+      </div>
+      <div class="menu-group" data-menu="4">
+        <a href="/rate/rate_info.html">환율 조회</a>
+      </div>
+      <div class="menu-group" data-menu="5">
+        <a href="/customer/intro.html">FLOBANK 소개</a>
+        <a href="/customer/qna_list.html">질문과 답변(Q&A)</a>
+        <a href="/customer/faq_list.html">자주 묻는 질문(FAQ)</a>
+        <a href="/customer/event_list.html">이벤트</a>
+        <a href="/customer/notice_list.html">공지사항</a>
+      </div>
+    </div>
+  </header>
+
+
+<main class="transfer1-container">
+  <!-- 단계 표시 -->
+  <div class="transfer1-steps">
+    <div class="transfer1-step active">
+      <span class="num">1</span>
+      <span class="text">약관동의</span>
+    </div>
+    <div class="transfer1-step">
+      <span class="num">2</span>
+      <span class="text">정보입력</span>
+    </div>
+    <div class="transfer1-step">
+      <span class="num">3</span>
+      <span class="text">이체확인</span>
+    </div>
+    <div class="transfer1-step">
+      <span class="num">4</span>
+      <span class="text">이체완료</span>
+    </div>
+  </div>
+
+  <div class="transfer1-box">
+    <h2 class="transfer1-title">외화계좌이체 약관동의</h2>
+
+    <p class="terms-desc">
+      외화계좌이체를 이용하시기 전에 아래 약관을 반드시 확인하고 동의해 주세요.
+    </p>
+
+    <!-- 약관 그룹 -->
+    <section class="terms-group">
+      <!-- 1️⃣ 서비스 이용 약관 -->
+      <div class="terms-box">
+        <p class="terms-title">외화계좌이체 서비스 이용 약관</p>
+        <div class="terms-content">
+          본 약관은 고객이 플로뱅크 외화계좌이체 서비스를 이용함에 있어 필요한 사항을 규정합니다.<br><br>
+          ① 고객은 이체 시 수취은행, 수취계좌번호, 금액, 통화 등을 정확히 입력해야 하며, 입력 오류로 인한 책임은 고객에게 있습니다.<br>
+          ② 외화계좌이체는 당행 및 제휴은행의 외환거래 기준을 따르며, 환율 변동에 따라 송금액이 조정될 수 있습니다.<br>
+          ③ 은행은 외환거래법 및 관련 규정에 따라 필요한 정보를 고객으로부터 요청할 수 있습니다.<br>
+          ④ 서비스 이용 시 발생하는 수수료는 별도의 고지 없이 변경될 수 있습니다.
+        </div>
+        <div class="terms-check">
+          <label class="custom-check">
+            <input type="checkbox" class="term-check">
+            <span class="checkmark"></span> 위 약관에 동의합니다.
+          </label>
+        </div>
+      </div>
+
+      <!-- 2️⃣ 개인정보 수집 및 이용동의 -->
+      <div class="terms-box">
+        <p class="terms-title">개인정보 수집 및 이용 동의</p>
+        <div class="terms-content">
+          플로뱅크는 외화계좌이체 서비스 제공을 위해 아래와 같은 개인정보를 수집·이용합니다.<br><br>
+          - 수집 항목: 성명, 계좌번호, 연락처, 송금 및 수취인 정보 등<br>
+          - 이용 목적: 외화 송금 이체 처리 및 본인 확인<br>
+          - 보유 기간: 관계법령에 따른 보존 기간 후 파기<br><br>
+          이용자는 위 내용에 대해 동의를 거부할 수 있으나, 동의하지 않을 경우 서비스 이용이 제한될 수 있습니다.
+        </div>
+        <div class="terms-check">
+          <label class="custom-check">
+            <input type="checkbox" class="term-check">
+            <span class="checkmark"></span> 위 약관에 동의합니다.
+          </label>
+        </div>
+      </div>
+
+      <!-- 3️⃣ 외환거래 관련 유의사항 -->
+      <div class="terms-box">
+        <p class="terms-title">외환거래 관련 유의사항</p>
+        <div class="terms-content">
+          외화 송금은 국제 금융망을 통해 처리되므로, 중계은행의 절차에 따라 수수료가 부과될 수 있습니다.<br><br>
+          또한, 거래 목적에 따라 외환신고가 필요할 수 있으며, 해당 사항은 고객이 직접 확인해야 합니다.<br>
+          불법 외환거래로 판단될 경우, 관련 법령에 따라 송금이 제한되거나 취소될 수 있습니다.
+        </div>
+        <div class="terms-check">
+          <label class="custom-check">
+            <input type="checkbox" class="term-check">
+            <span class="checkmark"></span> 위 약관에 동의합니다.
+          </label>
+        </div>
+      </div>
+
+      <!-- 전체 동의 -->
+      <div class="terms-all">
+        <label class="custom-check">
+          <input type="checkbox" id="agreeAll">
+          <span class="checkmark"></span> 전체 약관에 동의합니다.
+        </label>
+      </div>
+    </section>
+
+    <!-- 다음 버튼 -->
+    <div class="transfer1-actions">
+      <a href="./en_transfer_2.html" class="transfer1-btn-next">다음</a>
+    </div>
+  </div>
+</main>
+
+
+
+<!-- 푸터 -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-links">
+      <a href="#">개인정보처리방침</a> ·
+      <a href="#">경영공시</a> ·
+      <a href="#">고객정보취급방침</a> ·
+      <a href="#">보호금융상품등록부</a> ·
+      <a href="#">상품공시실</a> ·
+      <a href="#">전자민원접수</a> ·
+      <a href="#">전자금융이용자보호수칙</a> ·
+      <a href="#">전자금융사기피해금환급제도</a>
+    </div>
+    <p class="footer-location">위치기반서비스 이용약관</p>
+  </div>
+
+  <div class="footer-middle">
+    <p class="footer-call">
+      고객상담 <strong>1588-6200, 1544-6200</strong> &nbsp; | &nbsp;
+      해외 <strong>82-2-1588-6200</strong>
+    </p>
+    <p class="footer-copy">COPYRIGHT ⓒ 2025 FLOBANK ALL RIGHTS RESERVED.</p>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-left">
+      <a href="https://www.webwatch.or.kr/Situation/WA_Situation.html?MenuCD=110" target="_blank">
+        <img src="/static/images/web.png" alt="웹 접근성 인증" class="footer-cert">
+      </a>
+      <div class="footer-sns">
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+
+    
+
+    </div>
+  </div>
+</footer>
+
+    <!-- ✅ 수정된 검색 Top Sheet -->
+    <div
+      class="search-top-sheet"
+      id="searchModal"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
+      <div class="search-top-sheet__panel" role="document">
+        <div class="search-top-sheet__header">
+          <form class="search-top-sheet__form" role="search">
+            <label for="globalSearch" class="sr-only">검색어 입력</label>
+            <input
+              type="text"
+              id="globalSearch"
+              placeholder="검색어를 입력하세요."
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="search-top-sheet__submit"
+              aria-label="검색"
+            >
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+
+          <button type="button" class="search-top-sheet__close" aria-label="닫기">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="search-top-sheet__content">
+          <div class="search-section">
+            <h3>최근 검색어</h3>
+            <ul class="search-list">
+              <li class="empty">최근 검색 내역이 없습니다.</li>
+            </ul>
+          </div>
+          <div class="search-section">
+            <h3>인기 검색어</h3>
+            <ol class="search-list rank">
+              <li>환율우대</li>
+              <li>여행자보험</li>
+              <li>OTP</li>
+              <li>환율 계산기</li>
+              <li>외화예금</li>
+              <li>모바일뱅킹</li>
+              <li>자동이체</li>
+              <li>주거래</li>
+              <li>카드교체</li>
+              <li>무료주차</li>
+            </ol>
+          </div>
+        </div>
+
+<script src ="/static/js/index.js"></script>
+<script src ="/static/js/mypage.js"></script>
+
+</body>
+</html>
+

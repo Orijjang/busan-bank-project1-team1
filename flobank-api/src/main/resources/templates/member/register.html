@@ -1,241 +1,185 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원가입</title>
-    <link rel="stylesheet" th:href="@{/css/member.css}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+  <link rel="stylesheet" href="/static/css/member.css">
+  <link rel="stylesheet" href="/static/css/header.css">
+  <link rel="stylesheet" href="/static/css/footer.css">
 
 
     <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-            crossorigin="anonymous"
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous"
     />
 
 </head>
 <body>
 
-<header>
+  <!-- 상단 헤더 -->
+  <header>
     <div class="top-bar">
-        <ul>
-            <li><a href="#">기업뱅킹</a></li>
-            <li><a href="#">하나카드</a></li>
-            <li><a href="#">은행소개</a></li>
-            <li><a href="#">채용안내</a></li>
-        </ul>
-
-        <div class="right-menu">
-            <a th:href="@{/member/login}">로그인</a>
-            <a th:href="@{/member/terms}">회원가입</a>
-            <a href="#">Language ▾</a>
-        </div>
+      <ul></ul>
+      <div class="right-menu">
+        <a href="/member/login.html">로그인</a>
+        <a href="#">회원가입</a>
+        <a href="#">Language ▾</a>
+      </div>
     </div>
 
+    <!--  메인 네비게이션 (하나만 유지) -->
     <div class="main-nav">
-        <div class="logo">
-            <a th:href="@{/}"><img th:src="@{/images/logo.png}" alt="OO은행 로고"></a>
-        </div>
+      <div class="logo">
+        <img src="/static/images/logo.png" alt="FLOBANK 로고">
+      </div>
 
+      <ul class="nav-menu">
+        <li class="menu-item" data-menu="1">외화예금</li>
+        <li class="menu-item" data-menu="2">외화송금</li>
+        <li class="menu-item" data-menu="3">환전</li>
+        <li class="menu-item" data-menu="4">환율</li>
+        <li class="menu-item" data-menu="5">고객센터</li>
+      </ul>
 
-        <ul class="nav-menu">
-            <li class="menu-item" data-target="menu1"><a th:href="@{/deposit/list}">외화예금</a></li>
-            <li class="menu-item" data-target="menu2"><a th:href="@{/remit/info}">외화송금</a></li>
-            <li class="menu-item" data-target="menu3"><a th:href="@{/exchange/step1}">환전</a></li>
-            <li class="menu-item" data-target="menu4"><a th:href="@{/rate/info}">환율</a></li>
-            <li class="menu-item" data-target="menu5"><a href="#">유학/이주/여행</a></li>
-            <li class="menu-item" data-target="menu6"><a th:href="@{/customer/qna}">고객센터</a></li>
-            <li class="menu-item" data-target="menu7"><a href="#">은행소개</a></li>
-        </ul>
-
-        <div class="nav-icons">
-            <a href="#"><i class="fa-solid fa-comment-dots"></i></a>
-            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
-            <a href="#"><i class="fa-solid fa-bars"></i></a>
-        </div>
-
-        <div id="menu1" class="dropdown">
-            <div class="menu-column">
-                <h4><a th:href="@{/deposit/list}">외화예금상품</a></h4>
-            </div>
-            <div class="menu-column">
-                <h4><a th:href="@{/deposit/info}">외화예금안내</a></h4>
-                <ul>
-                    <li><a th:href="@{/deposit/info1}">외화예금안내</a></li>
-                    <li><a th:href="@{/deposit/info2}">당행외화이체</a></li>
-                    <li><a th:href="@{/deposit/info3}">해외외화예금개설</a></li>
-                </ul>
-            </div>
-            <div class="menu-column">
-                <h4><a href="#">외화예금우대서비스</a></h4>
-            </div>
-        </div>
-
-        <div id="menu2" class="dropdown">
-            <div class="menu-column">
-                <h4><a href="#">외화송금서비스</a></h4>
-                <ul>
-                    <li><a th:href="@{/remit/info1}">인터넷외화송금서비스</a></li>
-                    <li><a th:href="@{/remit/info2}">BNK공동해외송금서비스</a></li>
-                    <li><a th:href="@{/remit/info3}">해외즉시송금서비스</a></li>
-                </ul>
-            </div>
-            <div class="menu-column">
-                <h4><a th:href="@{/remit/info}">외화송금보내기</a></h4>
-                <ul>
-                    <li><a th:href="@{/remit/info}">송금안내</a></li>
-                    <li><a href="#">송금하기</a></li>
-                </ul>
-            </div>
-            <div class="menu-column"><h4><a th:href="@{/remit/get}">외화송금받기</a></h4></div>
-        </div>
-
-        <div id="menu3" class="dropdown">
-            <div class="menu-column">
-                <h4><a href="#">환전안내</a></h4>
-                <ul>
-                    <li><a th:href="@{/exchange/info1}">환전 가능 통화</a></li>
-                    <li><a th:href="@{/exchange/info2}">환전 가능 금액</a></li>
-                    <li><a th:href="@{/exchange/info3}">환전 요령</a></li>
-                </ul>
-            </div>
-            <div class="menu-column"><h4><a th:href="@{/exchange/benefit}">환율 우대</a></h4></div>
-            <div class="menu-column"><h4><a th:href="@{/exchange/calculator}">환전 계산기</a></h4></div>
-            <div class="menu-column"><h4><a th:href="@{/exchange/step1}">환전하기</a></h4></div>
-        </div>
-
-        <div id="menu4" class="dropdown">
-            <div class="menu-column">
-                <h4><a th:href="@{/rate/info}">환율 제공 서비스</a></h4>
-                <ul>
-                    <li><a th:href="@{/rate/info1}">지정환율통지서비스</a></li>
-                    <li><a href="#">이메일환율통지서비스</a></li>
-                    <li><a href="#">무료환율표서비스</a></li>
-                </ul>
-            </div>
-            <div class="menu-column"><h4><a href="#">외환시장 동향</a></h4></div>
-            <div class="menu-column"><h4><a href="#">환리스크 관리</a></h4></div>
-        </div>
-
-        <div id="menu5" class="dropdown">
-            <div class="menu-column">
-                <h4><a href="#">유학</a></h4>
-                <ul>
-                    <li><a href="#">해외유학서비스안내</a></li>
-                    <li><a href="#">유학경비환전/송금</a></li>
-                    <li><a href="#">해외유학지원서비스</a></li>
-                </ul>
-            </div>
-            <div class="menu-column">
-                <h4><a href="#">이주</a></h4>
-                <ul>
-                    <li><a href="#">해외이주서비스안내</a></li>
-                    <li><a href="#">해외이주비환전/송금</a></li>
-                </ul>
-            </div>
-            <div class="menu-column">
-                <h4><a href="#">여행</a></h4>
-                <ul>
-                    <li><a href="#">여행시유의사항</a></li>
-                    <li><a href="#">여행경비환전</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="menu6" class="dropdown">
-            <div class="menu-column"><h4><a th:href="@{/customer/qna}">고객상담</a></h4></div>
-            <div class="menu-column"><h4><a href="#">이용안내</a></h4></div>
-            <div class="menu-column"><h4><a href="#">금융소비자보호</a></h4></div>
-            <div class="menu-column"><h4><a href="#">상품공시실</a></h4></div>
-            <div class="menu-column"><h4><a href="#">자료실</a></h4></div>
-        </div>
-
-        <div id="menu7" class="dropdown">
-            <div class="menu-column"><h4><a href="#">은행안내</a></h4></div>
-            <div class="menu-column"><h4><a href="#">OO은행 스토리</a></h4></div>
-            <div class="menu-column"><h4><a href="#">투자자정보</a></h4></div>
-            <div class="menu-column"><h4><a href="#">영업점 안내</a></h4></div>
-        </div>
-
+      <div class="nav-icons">
+        <a href="#"><i class="fa-solid fa-comment-dots"></i></a>
+        <a href="#" class="search-trigger" aria-haspopup="dialog" aria-controls="searchModal"><i class="fa-solid fa-magnifying-glass"></i></a>
+      </div>
     </div>
-</header>
+
+    <!-- ✅ Mega Dropdown -->
+    <div class="mega-menu">
+      <div class="menu-group" data-menu="1">
+        <a href="/deposit/list.html">외화예금상품</a>
+        <a href="/deposit/info.html">외화예금안내</a>
+      </div>
+      <div class="menu-group" data-menu="2">
+        <a href="/remit/en_transfer_1.html">외화 송금하기</a>
+        <a href="/remit/info.html">외화 송금 안내</a>
+      </div>
+      <div class="menu-group" data-menu="3">
+        <a href="/exchange/step1.html">환전하기</a>
+        <a href="/exchange/info1.html">환전 가능 통화</a>
+        <a href="/exchange/info2.html">환전안내</a>
+        <a href="#">환전 계산기</a>
+      </div>
+      <div class="menu-group" data-menu="4">
+        <a href="/rate/rate_info.html">환율 조회</a>
+      </div>
+      <div class="menu-group" data-menu="5">
+        <a href="/customer/intro.html">FLOBANK 소개</a>
+        <a href="/customer/qna_list.html">질문과 답변(Q&A)</a>
+        <a href="/customer/faq_list.html">자주 묻는 질문(FAQ)</a>
+        <a href="/customer/event_list.html">이벤트</a>
+        <a href="/customer/notice_list.html">공지사항</a>
+      </div>
+    </div>
+  </header>
 
 
 <main class="join-container">
-    <h2>회원가입</h2>
-    <p class="join-desc">고객님의 정보를 정확히 입력해주세요.</p>
+  <h2>회원가입</h2>
+  <p class="join-desc">고객님의 정보를 정확히 입력해주세요.</p>
 
-    <form class="join-form" th:action="@{/member/register}" th:object="${memberDTO}" method="post">
+  <form class="join-form">
 
-        <div class="form-group">
-            <label for="custId">아이디</label>
-            <div class="input-inline">
-                <input type="text" th:field="*{custId}" placeholder="아이디를 입력하세요">
-                <button type="button" class="register-btn">중복확인</button>
-            </div>
+    <!-- 아이디 -->
+    <div class="form-group">
+      <label for="userId">아이디</label>
+      <div class="input-inline">
+        <input type="text" id="userId" placeholder="아이디를 입력하세요">
+        <button type="button" class="register-btn">중복확인</button>
+      </div>
+    </div>
+
+    <!-- 비밀번호 -->
+    <div class="form-group">
+      <label for="userPw">비밀번호</label>
+      <input type="password" id="userPw" placeholder="영문, 숫자, 특수문자 포함 8~16자">
+    </div>
+
+    <!-- 비밀번호 확인 -->
+    <div class="form-group">
+      <label for="userPw2">비밀번호 확인</label>
+      <input type="password" id="userPw2" placeholder="비밀번호를 다시 입력하세요">
+    </div>
+
+    <!-- 이름 -->
+    <div class="form-group">
+      <label for="userName">이름</label>
+      <input type="text" id="userName" placeholder="이름을 입력하세요">
+    </div>
+
+    <!--  영문이름 추가 -->
+    <div class="form-group">
+      <label for="userNameEng">영문 이름</label>
+      <input type="text" id="userNameEng" placeholder="영문 이름을 입력하세요">
+    </div>
+
+    <!--  주민등록번호 추가 -->
+    <div class="form-group">
+      <label for="userRrn1">주민등록번호</label>
+      <div class="input-inline">
+        <input type="text" id="userRrn1" maxlength="6" placeholder="앞 6자리 (YYMMDD)">
+        <span class="divider">-</span>
+        <input type="password" id="userRrn2" maxlength="7" placeholder="뒤 7자리">
+      </div>
+    </div>
+
+    <!-- 생년월일 -->
+    <div class="form-group">
+      <label for="birth">생년월일</label>
+      <input type="date" id="birth">
+    </div>
+
+    <!-- 성별 -->
+    <div class="form-group">
+      <label>성별</label>
+      <div class="gender-group">
+        <label><input type="radio" name="gender" value="M"> 남성</label>
+        <label><input type="radio" name="gender" value="F"> 여성</label>
+      </div>
+    </div>
+
+    <!-- 이메일 -->
+    <div class="form-group">
+      <label for="email">이메일</label>
+      <div class="input-inline">
+        <input type="email" id="email" placeholder="example@email.com">
+        <button type="button" class="register-btn">이메일 인증</button>
+      </div>
+    </div>
+
+    <!-- 휴대폰 -->
+    <div class="form-group">
+      <label for="phone">휴대폰 번호</label>
+      <div class="input-inline">
+        <input type="tel" id="phone" placeholder="010-1234-5678">
+        <button type="button" class="register-btn">인증번호 전송</button>
+      </div>
+    </div>
+
+    <!-- 주소 -->
+    <div class="form-group">
+      <label>주소</label>
+      <div class="address-group">
+        <div class="input-inline">
+          <input type="text" id="zipcode" placeholder="우편번호" readonly>
+          <button type="button" class="register-btn">우편번호 검색</button>
         </div>
+        <input type="text" id="addr1" placeholder="기본주소">
+        <input type="text" id="addr2" placeholder="상세주소">
+      </div>
+    </div>
 
-        <div class="form-group">
-            <label for="custPw">비밀번호</label>
-            <input type="password" th:field="*{custPw}" placeholder="영문, 숫자, 특수문자 포함 8~16자">
-        </div>
+    <!-- 가입 버튼 -->
+    <div class="form-actions">
+      <button type="submit" class="btn-join">가입하기</button>
+    </div>
 
-        <div class="form-group">
-            <label for="userPw2">비밀번호 확인</label>
-            <input type="password" id="userPw2" placeholder="비밀번호를 다시 입력하세요">
-        </div>
-
-        <div class="form-group">
-            <label for="custName">이름</label>
-            <input type="text" th:field="*{custName}" placeholder="이름을 입력하세요">
-        </div>
-
-        <div class="form-group">
-            <label for="custBirth">생년월일</label>
-            <input type="date" th:field="*{custBirth}">
-        </div>
-
-        <div class="form-group">
-            <label>성별</label>
-            <div class="gender-group">
-                <label><input type="radio" th:field="*{custGen}" value="M"> 남성</label>
-                <label><input type="radio" th:field="*{custGen}" value="F"> 여성</label>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="custEmail">이메일</label>
-            <div class="input-inline">
-                <input type="email" th:field="*{custEmail}" placeholder="example@email.com">
-                <button type="button" class="register-btn">이메일 인증</button>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="custHp">휴대폰 번호</label>
-            <div class="input-inline">
-                <input type="tel" th:field="*{custHp}" placeholder="010-1234-5678">
-                <button type="button" class="register-btn">인증번호 전송</button>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>주소</label>
-            <div class="address-group">
-                <div class="input-inline">
-                    <input type="text" th:field="*{custZip}" placeholder="우편번호" readonly>
-                    <button type="button" class="register-btn">우편번호 검색</button>
-                </div>
-                <input type="text" th:field="*{custAddr1}" placeholder="기본주소">
-                <input type="text" th:field="*{custAddr2}" placeholder="상세주소">
-            </div>
-        </div>
-
-        <div class="form-actions">
-            <button type="submit" class="btn-join">가입하기</button>
-        </div>
-
-    </form>
+  </form>
 </main>
 
 
@@ -269,43 +213,108 @@
 
 
 
+<!-- 푸터 -->
 <footer class="footer">
+  <div class="footer-top">
     <div class="footer-links">
-        <a href="#">사고신고</a> |
-        <a href="#">상품공시실</a> |
-        <a href="#">보호금융상품등록부</a> |
-        <a href="#">경영공시</a> |
-        <a href="#">퇴직연금공시</a> |
-        <a href="#">인증센터</a> |
-        <a href="#">상담센터</a> |
-        <a href="#">개인정보처리방침</a> |
-        <a href="#">신용정보활용체계</a> |
-        <a href="#">영업점찾기</a>
+      <a href="#">개인정보처리방침</a> ·
+      <a href="#">경영공시</a> ·
+      <a href="#">고객정보취급방침</a> ·
+      <a href="#">보호금융상품등록부</a> ·
+      <a href="#">상품공시실</a> ·
+      <a href="#">전자민원접수</a> ·
+      <a href="#">전자금융이용자보호수칙</a> ·
+      <a href="#">전자금융사기피해금환급제도</a>
+    </div>
+    <p class="footer-location">위치기반서비스 이용약관</p>
+  </div>
+
+  <div class="footer-middle">
+    <p class="footer-call">
+      고객상담 <strong>1588-6200, 1544-6200</strong> &nbsp; | &nbsp;
+      해외 <strong>82-2-1588-6200</strong>
+    </p>
+    <p class="footer-copy">COPYRIGHT ⓒ 2025 FLOBANK ALL RIGHTS RESERVED.</p>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-left">
+      <a href="https://www.webwatch.or.kr/Situation/WA_Situation.html?MenuCD=110" target="_blank">
+        <img src="/static/images/web.png" alt="웹 접근성 인증" class="footer-cert">
+      </a>
+      <div class="footer-sns">
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
     </div>
 
-    <div class="footer-info">
-        <div class="footer-logos">
-            <img src="https://www.hanabank.com/static/images/footer/wa.png" alt="웹접근성">
-            <img src="https://www.hanabank.com/static/images/footer/isms.png" alt="ISMS">
-            <img src="https://www.hanabank.com/static/images/footer/bs7799.png" alt="BS 인증">
-        </div>
-        <p>© OO Bank. All rights reserved.</p>
-        <div class="footer-right">
-            <p><strong>고객센터</strong> 1588-1111 / 1599-1111</p>
-            <p><strong>고객센터(해외)</strong> +82-42-520-2500</p>
-        </div>
-    </div>
+    
 
-    <div class="footer-bottom-nav">
-        <div class="bottom-item">브랜드사이트 ▾</div>
-        <div class="bottom-item">하나네트워크 ▾</div>
-        <div class="bottom-item">글로벌네트워크 ↗</div>
-        <div class="bottom-item">하나은행 SNS ▾</div>
-        <div class="bottom-item">💬 하나소비자세상 ↗</div>
     </div>
+  </div>
 </footer>
 
-<script src ="/static/js/index.js" th:src="@{/js/index.js}"></script>
+    <!-- ✅ 수정된 검색 Top Sheet -->
+    <div
+      class="search-top-sheet"
+      id="searchModal"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
+      <div class="search-top-sheet__panel" role="document">
+        <div class="search-top-sheet__header">
+          <form class="search-top-sheet__form" role="search">
+            <label for="globalSearch" class="sr-only">검색어 입력</label>
+            <input
+              type="text"
+              id="globalSearch"
+              placeholder="검색어를 입력하세요."
+              autocomplete="off"
+            />
+            <button
+              type="submit"
+              class="search-top-sheet__submit"
+              aria-label="검색"
+            >
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </form>
+
+          <button type="button" class="search-top-sheet__close" aria-label="닫기">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="search-top-sheet__content">
+          <div class="search-section">
+            <h3>최근 검색어</h3>
+            <ul class="search-list">
+              <li class="empty">최근 검색 내역이 없습니다.</li>
+            </ul>
+          </div>
+          <div class="search-section">
+            <h3>인기 검색어</h3>
+            <ol class="search-list rank">
+              <li>환율우대</li>
+              <li>여행자보험</li>
+              <li>OTP</li>
+              <li>환율 계산기</li>
+              <li>외화예금</li>
+              <li>모바일뱅킹</li>
+              <li>자동이체</li>
+              <li>주거래</li>
+              <li>카드교체</li>
+              <li>무료주차</li>
+            </ol>
+          </div>
+        </div>
+
+
+
+<script src ="/static/js/index.js"></script>
 
 </body>
 </html>
+

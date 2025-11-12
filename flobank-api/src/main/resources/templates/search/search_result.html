@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>검색결과</title>
+  <link rel="stylesheet" href="./static/css/index.css">
+  
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous"
+    />
+
+</head>
+<body>
+
+<!-- 상단 헤더 -->
+  <header>
+    <div class="top-bar">
+      <ul></ul>
+      <div class="right-menu">
+        <a href="/member/login.html">로그인</a>
+        <a href="#">회원가입</a>
+        <a href="#">Language ▾</a>
+      </div>
+    </div>
+
+    <!--  메인 네비게이션 (하나만 유지) -->
+    <div class="main-nav">
+      <div class="logo">
+        <img src="/static/images/logo.png" alt="FLOBANK 로고">
+      </div>
+
+      <ul class="nav-menu">
+        <li class="menu-item" data-menu="1">외화예금</li>
+        <li class="menu-item" data-menu="2">외화송금</li>
+        <li class="menu-item" data-menu="3">환전</li>
+        <li class="menu-item" data-menu="4">환율</li>
+        <li class="menu-item" data-menu="5">고객센터</li>
+      </ul>
+
+      <div class="nav-icons">
+        <a href="#"><i class="fa-solid fa-comment-dots"></i></a>
+        <a href="#" class="search-trigger" aria-haspopup="dialog" aria-controls="searchModal"><i class="fa-solid fa-magnifying-glass"></i></a>
+      </div>
+    </div>
+
+    <!-- ✅ Mega Dropdown -->
+    <div class="mega-menu">
+      <div class="menu-group" data-menu="1">
+        <a href="/deposit/list.html">외화예금상품</a>
+        <a href="/deposit/info.html">외화예금안내</a>
+      </div>
+      <div class="menu-group" data-menu="2">
+        <a href="/remit/en_transfer_1.html">외화 송금하기</a>
+        <a href="/remit/info.html">외화 송금 안내</a>
+      </div>
+      <div class="menu-group" data-menu="3">
+        <a href="/exchange/step1.html">환전하기</a>
+        <a href="/exchange/info1.html">환전 가능 통화</a>
+        <a href="/exchange/info2.html">환전안내</a>
+        <a href="#">환전 계산기</a>
+      </div>
+      <div class="menu-group" data-menu="4">
+        <a href="/rate/rate_info.html">환율 조회</a>
+      </div>
+      <div class="menu-group" data-menu="5">
+        <a href="#">FLOBANK 소개</a>
+        <a href="/customer/qna_list.html">질문과 답변(Q&A)</a>
+        <a href="/customer/faq_list.html">자주 묻는 질문(FAQ)</a>
+        <a href="/customer/event_list.html">이벤트</a>
+        <a href="/customer/notice_list.html">공지사항</a>
+      </div>
+    </div>
+  </header>
+
+<main class="search-result-container">
+  <h2 class="search-title">통합검색 결과</h2>
+  <p class="search-summary">
+    "<span class="highlight-keyword">외화예금</span>"에 대한 검색 결과가 총 
+    <strong>2,309건</strong> 검색되었습니다.
+  </p>
+
+   <!--  검색창 추가 -->
+  <form class="search-bar" action="/search" method="get">
+    <input type="text" name="keyword" placeholder="검색어를 입력하세요" value="외화예금">
+    <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+  </form>
+
+
+
+  <!-- 🔹탭 메뉴 -->
+  <ul class="search-tabs">
+    <li class="active" data-tab="all">통합검색(2309)</li>
+    <li data-tab="menu">메뉴(120)</li>
+    <li data-tab="product">상품(14)</li>
+    <li data-tab="faq">FAQ(28)</li>
+    <li data-tab="docs">약관(2111)</li>
+    <li data-tab="notice">공지사항&이벤트(36)</li>
+  </ul>
+
+  <!-- 메뉴 -->
+  <section class="search-section" data-tab="menu">
+    <h3>메뉴 (120) <span class="more" data-tab="menu">더보기</span></h3>
+    <ul>
+      <li><a href="#">고객센터 → 소비자보호 → 예금</a></li>
+      <li><a href="#">개인뱅킹 → 금융상품 → 예금</a></li>
+      <li class="hidden"><a href="#">기업뱅킹 → 조회 → 예금조회</a></li>
+      <li class="hidden"><a href="#">외화예금 관리 → 외화예금조회</a></li>
+    </ul>
+  </section>
+
+  <!-- 상품 -->
+  <section class="search-section" data-tab="product">
+    <h3>상품 (14) <span class="more" data-tab="product">더보기</span></h3>
+    <ul>
+      <li><a href="#">플로뱅크 외화예금</a> — 다양한 통화로 운용 가능</li>
+      <li><a href="#">정기외화예금</a> — 6개월~1년 단위 외화상품</li>
+      <li class="hidden"><a href="#">자유입출금 외화예금</a></li>
+      <li class="hidden"><a href="#">USD 환테크 예금</a></li>
+    </ul>
+  </section>
+
+  <!-- FAQ -->
+  <section class="search-section" data-tab="faq">
+    <h3>FAQ (28) <span class="more" data-tab="faq">더보기</span></h3>
+    <ul>
+      <li>외화예금은 어떻게 가입하나요?</li>
+      <li>예금 가입 시 환율우대는 적용되나요?</li>
+      <li class="hidden">외화예금 이자는 어떻게 지급되나요?</li>
+      <li class="hidden">만기 전 해지 시 이자는 어떻게 계산되나요?</li>
+    </ul>
+  </section>
+
+  <!-- 약관 -->
+  <section class="search-section" data-tab="docs">
+    <h3>약관 (2111) <span class="more" data-tab="docs">더보기</span></h3>
+    <ul>
+      <li>외화예금 약관.pdf</li>
+      <li>플로뱅크 외화예금 이용약관.pdf</li>
+      <li class="hidden">외화예금 상품설명서.pdf</li>
+      <li class="hidden">정기외화예금 상품조건.pdf</li>
+    </ul>
+  </section>
+
+  <!-- 공지사항&이벤트 -->
+  <section class="search-section" data-tab="notice">
+    <h3>공지사항&이벤트 (36) <span class="more" data-tab="notice">더보기</span></h3>
+    <ul>
+      <li><a href="#">[공지] 외화예금 신규가입 이벤트 안내</a><span>2025.11.01</span></li>
+      <li><a href="#">[이벤트] 환전고객 대상 사은품 증정</a><span>2025.10.24</span></li>
+      <li class="hidden"><a href="#">외화예금 추천고객 이벤트</a><span>2025.09.11</span></li>
+      <li class="hidden"><a href="#">신규가입 고객 캐시백 프로모션</a><span>2025.08.28</span></li>
+    </ul>
+  </section>
+</main>
+
+
+
+
+
+<!-- 푸터 -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-links">
+      <a href="#">개인정보처리방침</a> ·
+      <a href="#">경영공시</a> ·
+      <a href="#">고객정보취급방침</a> ·
+      <a href="#">보호금융상품등록부</a> ·
+      <a href="#">상품공시실</a> ·
+      <a href="#">전자민원접수</a> ·
+      <a href="#">전자금융이용자보호수칙</a> ·
+      <a href="#">전자금융사기피해금환급제도</a>
+    </div>
+    <p class="footer-location">위치기반서비스 이용약관</p>
+  </div>
+
+  <div class="footer-middle">
+    <p class="footer-call">
+      고객상담 <strong>1588-6200, 1544-6200</strong> &nbsp; | &nbsp;
+      해외 <strong>82-2-1588-6200</strong>
+    </p>
+    <p class="footer-copy">COPYRIGHT ⓒ 2025 FLOBANK ALL RIGHTS RESERVED.</p>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-left">
+      <a href="https://www.webwatch.or.kr/Situation/WA_Situation.html?MenuCD=110" target="_blank">
+        <img src="/static/images/web.png" alt="웹 접근성 인증" class="footer-cert">
+      </a>
+      <div class="footer-sns">
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+
+    
+
+    </div>
+  </div>
+</footer>
+
+
+
+       
+
+<script src ="./static/js/index.js"></script>
+<script src ="./static/js/search_result.js"></script>
+
+</body>
+</html>
+

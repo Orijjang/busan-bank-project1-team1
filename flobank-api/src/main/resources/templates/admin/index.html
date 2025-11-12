@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>OO은행 관리자 메인</title>
+    <title>관리자 메인</title>
     <link rel="stylesheet" href="/static/css/admin.css" />
     <link
       rel="stylesheet"
@@ -15,176 +15,138 @@
     <div class="admin-layout">
       <aside class="sidebar">
         <div class="logo">
-          <img src="/static/images/logo.png" alt="OO은행" />
-          <span>OO은행 ADMIN</span>
+          <span>FLOWBANK ADMIN</span>
         </div>
         <nav>
           <ul>
             <li><a class="active" href="/admin/index.html"><i class="fa-solid fa-gauge"></i>대시보드</a></li>
-            <li><a href="/admin/settings.html"><i class="fa-solid fa-gear"></i>환경설정</a></li>
-            <li><a href="/admin/products.html"><i class="fa-solid fa-coins"></i>예·적금 관리</a></li>
-            <li><a href="/admin/members.html"><i class="fa-solid fa-user-group"></i>회원 관리</a></li>
-            <li><a href="/admin/board.html"><i class="fa-solid fa-building-columns"></i>은행소개 게시판</a></li>
-            <li><a href="/admin/customer.html"><i class="fa-solid fa-headset"></i>고객센터</a></li>
-            <li><a href="/admin/rate.html"><i class="fa-solid fa-chart-line"></i>환율 관리</a></li>
+            <li><a href="/admin/member.html"><i class="fa-solid fa-gear"></i>고객센터</a></li>
+            <li><a href="/admin/products.html"><i class="fa-solid fa-coins"></i>외화예금</a></li>
+            <li><a href="/admin/exchange.html"><i class="fa-solid fa-hand-holding-dollar"></i>환전</a></li>
           </ul>
         </nav>
-        <div class="quick-actions">
-          <h4>빠른 처리</h4>
-          <a href="/admin/customer.html#qna">
-            <i class="fa-solid fa-envelope-open-text"></i>
-            미답변 Q&amp;A 확인
-          </a>
-          <a href="/admin/products.html#pending">
-            <i class="fa-solid fa-circle-check"></i>
-            신규 상품 승인
-          </a>
-          <a href="/admin/settings.html#notices">
-            <i class="fa-solid fa-bullhorn"></i>
-            시스템 공지 등록
-          </a>
-        </div>
+       
       </aside>
 
       <main class="main-panel">
         <header class="admin-header">
           <div>
-            <h1 class="page-title">관리자 대시보드</h1>
-            <p class="page-subtitle">
-              인터넷 외환서비스 현황과 주요 지표를 한눈에 확인하세요.
-            </p>
+            <h1 class="page-title">대시보드</h1>
           </div>
-          <div class="user-info">
-            <div class="status">
-              <i class="fa-solid fa-circle text-green"></i>
-              실시간 모니터링 가동 중
-            </div>
-            <div class="profile">
-              <div>
-                <strong>홍길동 관리자</strong>
-                <div class="label">디지털금융센터</div>
+            <div class="user-info">
+              <div class="profile">
+                <div class="profile-info">
+                  <strong>홍길동 관리자</strong>
+                </div>
               </div>
-              <img src="https://i.pravatar.cc/100?img=12" alt="관리자" />
             </div>
-          </div>
         </header>
 
-        <section class="admin-content">
-          <div class="stats-grid">
-            <article class="stat-card">
-              <div class="icon"><i class="fa-solid fa-users"></i></div>
-              <h3>금일 신규 가입</h3>
-              <div class="value">128명</div>
-              <div class="meta"><i class="fa-solid fa-arrow-trend-up"></i> 전일 대비 12% 증가</div>
-            </article>
-            <article class="stat-card">
-              <div class="icon"><i class="fa-solid fa-sack-dollar"></i></div>
-              <h3>외화예금 신규 계좌</h3>
-              <div class="value">46건</div>
-              <div class="meta"><i class="fa-solid fa-arrow-trend-up"></i> 주간 목표 82% 달성</div>
-            </article>
-            <article class="stat-card">
-              <div class="icon"><i class="fa-solid fa-paper-plane"></i></div>
-              <h3>송금 처리 현황</h3>
-              <div class="value">312건</div>
-              <div class="meta"><i class="fa-solid fa-clock"></i> 지연 처리 3건</div>
-            </article>
-            <article class="stat-card">
-              <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
-              <h3>환율 모니터링</h3>
-              <div class="value">실시간</div>
-              <div class="meta"><i class="fa-solid fa-bell"></i> 변동 경보 2건</div>
-            </article>
+        <!-- 1행: 방문·거래 통계 섹션 -->
+        <section class="section">
+          <div class="section-header">
+            <h2>오늘 주요 통계</h2>
           </div>
 
-          <section class="section">
-            <div class="section-header">
-              <h2>실시간 알림</h2>
-              <a href="/admin/settings.html#alerts"><i class="fa-solid fa-list-check"></i> 알림 설정</a>
-            </div>
-            <div class="grid-2">
-              <ul class="timeline">
-                <li>
-                  <strong>외화예금 신규 상품 출시 알림</strong>
-                  <span>5분 전 · 예적금 관리팀</span>
-                </li>
-                <li>
-                  <strong>외화송금 지연 거래 확인 필요</strong>
-                  <span>18분 전 · 해외송금 운영</span>
-                </li>
-                <li>
-                  <strong>고객센터 AI 챗봇 답변 품질 리포트 도착</strong>
-                  <span>1시간 전 · 디지털 CS센터</span>
-                </li>
-                <li>
-                  <strong>환율 급변동 알림 (USD/KRW)</strong>
-                  <span>3시간 전 · 리스크 관리</span>
-                </li>
-              </ul>
-              <div class="card">
-                <h3>업무 중요 일정</h3>
-                <div class="badge-list">
-                  <span class="badge"><i class="fa-solid fa-calendar-day"></i> 금주 점검: 환전 가능 통화 정보</span>
-                  <span class="badge"><i class="fa-solid fa-people-group"></i> 3/12 임직원 교육</span>
-                  <span class="badge"><i class="fa-solid fa-shield-halved"></i> 정보보안 패치 적용</span>
-                  <span class="badge"><i class="fa-solid fa-flag-checkered"></i> 분기 목표 점검 D-3</span>
-                </div>
-                <p class="label">오늘 처리해야 할 승인 요청 5건, 게시판 게시물 검수 2건이 남았습니다.</p>
+          <div class="admin-stats-row">
+            <!-- 오늘 방문자 수 -->
+            <article class="admin-stat-card admin-graph-card">
+              <h3>오늘 방문자 수<span>(2025.11.10 14:16:13 기준)</span></h3>
+              <div class="admin-graph-box">
+                <img src="/static/images/ex.png" alt="오늘 방문자 수 그래프" />
               </div>
-            </div>
-          </section>
+            </article>
 
-          <section class="section">
-            <div class="section-header">
-              <h2>최근 업무 현황</h2>
-              <a href="/admin/members.html"><i class="fa-solid fa-up-right-from-square"></i> 전체 보기</a>
-            </div>
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>업무 구분</th>
-                    <th>담당 부서</th>
-                    <th>처리 현황</th>
-                    <th>갱신일</th>
-                    <th>비고</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>외화예금 상품 금리 변경</td>
-                    <td>예적금 관리</td>
-                    <td><span class="status-badge success"><i class="fa-solid fa-circle-check"></i> 완료</span></td>
-                    <td>2024-03-01</td>
-                    <td>모바일 공지 반영 완료</td>
-                  </tr>
-                  <tr>
-                    <td>인터넷 외화송금 FAQ 갱신</td>
-                    <td>고객센터</td>
-                    <td><span class="status-badge warning"><i class="fa-solid fa-hourglass-half"></i> 검수 중</span></td>
-                    <td>2024-03-02</td>
-                    <td>AI 챗봇 시나리오 반영 예정</td>
-                  </tr>
-                  <tr>
-                    <td>환율 조회 페이지 UI 개선</td>
-                    <td>디지털 전략</td>
-                    <td><span class="status-badge info"><i class="fa-solid fa-spinner"></i> 진행</span></td>
-                    <td>2024-03-02</td>
-                    <td>그래프 영역 추가 작업</td>
-                  </tr>
-                  <tr>
-                    <td>은행소개 스토리 신규 콘텐츠 등록</td>
-                    <td>브랜드 커뮤니케이션</td>
-                    <td><span class="status-badge success"><i class="fa-solid fa-circle-check"></i> 완료</span></td>
-                    <td>2024-03-03</td>
-                    <td>메인 노출 예정</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </section>
+            <!-- 오늘 거래 건수 -->
+            <article class="admin-stat-card admin-graph-card">
+              <h3>오늘 거래 건수 <span>(입출금·환전·송금·예금가입 | 2025.11.10 14:16:13 기준)</span></h3>
+              <div class="admin-graph-box">
+                <img src="/static/images/ex.png" alt="오늘 거래 건수 그래프" />
+              </div>
+            </article>
+          </div>
         </section>
+
+        <!-- 4행: 가입자수 추이 -->
+        <section class="section">
+          <div class="section-header">
+            <h2>가입자수 추이</h2>
+          </div>
+
+          <div class="admin-stats-row-3">
+            <!-- 월별 -->
+            <article class="admin-stat-card-3 admin-graph-card">
+              <h3>월별 가입자수 <span>(2025.11.10 14:16:13 기준)</span></h3>
+              <div class="admin-graph-box-3">
+                <img src="/static/images/ex.png" alt="월별 가입자수 그래프" />
+              </div>
+            </article>
+
+            <!-- 주별 -->
+            <article class="admin-stat-card-3 admin-graph-card">
+              <h3>주별 가입자수 <span>(2025.11.10 14:16:13 기준)</span></h3>
+              <div class="admin-graph-box-3">
+                <img src="/static/images/ex.png" alt="주별 가입자수 그래프" />
+              </div>
+            </article>
+
+            <!-- 일별 -->
+            <article class="admin-stat-card-3 admin-graph-card">
+              <h3>일별 가입자수 <span>(2025.11.10 14:16:13 기준)</span></h3>
+              <div class="admin-graph-box-3">
+                <img src="/static/images/ex.png" alt="일별 가입자수 그래프" />
+              </div>
+            </article>
+          </div>
+        </section>
+
+
+
+
+
+        <!-- 2행 -->
+        <div class="admin-stats-row">
+          <article class="admin-stat-card admin-graph-card">
+            <h3>연령대별 분포 <span>(2025.11.10 14:16:13 기준)</span></h3>
+            <div class="admin-graph-box">
+              <img src="/static/images/ex.png" alt="연령대별 분포 그래프" />
+            </div>
+          </article>
+
+          <article class="admin-stat-card admin-graph-card">
+            <h3>성별 분포 <span>(2025.11.10 14:16:13 기준)</span></h3>
+            <div class="admin-graph-box">
+              <img src="/static/images/ex.png" alt="성별 분포 그래프" />
+            </div>
+          </article>
+        </div>
+
+      
+
+
+
+        
+      </section>
+
+
+      <script>
+        document.querySelectorAll('.admin-keyword-box span').forEach(el => {
+          const randomSize = Math.floor(Math.random() * 14) + 14; // 14~28px
+          el.style.fontSize = randomSize + 'px';
+        });
+      </script>
+
+
       </main>
-    </div>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+

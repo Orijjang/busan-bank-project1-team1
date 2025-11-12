@@ -1,0 +1,101 @@
+
+/* 푸터 */
+
+.footer {
+  background: #fff;
+  border-top: 1px solid #ddd;
+  padding: 40px 0 60px;
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.8;
+}
+
+.footer a {
+  color: #333;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+  color: #2C5DE5; /* FLOBANK 포인트컬러 */
+}
+
+/* 상단 링크 */
+.footer-top {
+  margin-bottom: 10px;
+}
+
+.footer-links {
+  margin-bottom: 5px;
+  font-size: 13px;
+  color: #555;
+}
+
+.footer-location {
+  font-size: 13px;
+  color: #777;
+}
+
+/* 중간 상담번호 & 카피라이트 */
+.footer-middle {
+  margin: 15px 0;
+}
+
+.footer-call {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #222;
+}
+
+.footer-copy {
+  font-size: 13px;
+  color: #777;
+}
+
+/* 하단 영역 */
+.footer-bottom {
+  display: flex;
+  flex-direction: column; /* ✅ 세로 배치 */
+  justify-content: center;
+  align-items: center;
+  gap: 15px; /* 아이콘과 마크 간 간격 */
+  max-width: 1200px;
+  margin: 25px auto 0;
+  padding-top: 0; /* ✅ 위 여백 제거 */
+  border-top: none; /* ✅ 선 제거 */
+}
+
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* ✅ 가운데 정렬 */
+  gap: 20px;
+}
+
+/* 인증마크 크기 조정 */
+.footer-cert {
+  height: 50px; /* ✅ 조금 더 작게 */
+  opacity: 0.9;
+  transition: transform 0.2s ease;
+}
+
+
+.footer-cert:hover {
+  transform: scale(1.05);
+}
+
+/* SNS 아이콘 */
+.footer-sns a {
+  color: #2C3E91; /* ✅ 남색 */
+  margin: 0 8px;
+  font-size: 19px;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.footer-sns a:hover {
+  color: #1E2C80;
+  transform: scale(1.1);
+}
+

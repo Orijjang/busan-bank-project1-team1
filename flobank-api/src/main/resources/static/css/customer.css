@@ -1,292 +1,3 @@
-/* =========================================================
-   FLO BANK Base Style Sheet
-   파일명: base.css
-   설명: 모든 페이지 공통 적용 (reset + header + footer)
-   ========================================================= */
-
-/* 기본 초기화 및 폰트 */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Noto Sans KR', sans-serif;
-}
-
-body {
-  background: #fff;
-  color: #222;
-  line-height: 1.6;
-}
-
-/* ------------------------------------
-   🔹 상단 헤더 영역 (top-bar + main-nav)
------------------------------------- */
-
-/* 상단 탑바 */
-.top-bar {
-  background: #fafafa;
-  border-bottom: 1px solid #ddd;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 80px;
-  font-size: 14px;
-}
-
-.top-bar ul {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-}
-
-.top-bar a {
-  text-decoration: none;
-  color: #555;
-}
-
-.right-menu {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.right-menu a {
-  text-decoration: none;
-  color: #555;
-  font-size: 14px;
-  transition: color 0.2s ease;
-}
-
-.right-menu a:hover {
-  color: #4A6FA5; 
-}
-
-/* 메인 네비게이션 */
-.main-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 80px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  position: relative;
-}
-
-.logo img {
-  height: 40px;
-}
-
-/* NAV 메뉴 */
-.nav-menu {
-  display: flex;
-  list-style: none;
-  gap: 40px;
-  position: relative;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-menu > li {
-  position: relative;
-}
-
-.nav-menu > li > a {
-  text-decoration: none;
-  color: #111;
-  font-weight: 600;
-  padding: 15px;
-  display: inline-block;
-  transition: color 0.2s ease;
-}
-
-.nav-menu > li > a:hover {
-  color: #4A6FA5;
-}
-
-/* 드롭다운 메뉴 */
-.dropdown {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  width: 1100px;
-  background: #fff;
-  border-top: 2px solid #4A6FA5;
-  display: none;
-  justify-content: flex-start;
-  gap: 60px;
-  padding: 30px 50px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-  opacity: 0;
-  transition: all 0.25s ease;
-  z-index: 100;
-}
-
-.dropdown.show {
-  display: flex;
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* 드롭다운 - 컬럼 */
-.menu-column {
-  min-width: 180px;
-}
-
-.menu-column h4 {
-  font-size: 16px;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 10px;
-}
-
-.menu-column h4 a {
-  text-decoration: none;
-  color: #111;
-  transition: color 0.2s ease;
-}
-
-.menu-column h4 a:hover {
-  color: #4A6FA5;
-}
-
-/* 드롭다운 - 하위 목록 */
-.menu-column ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.menu-column li {
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 6px;
-}
-
-.menu-column li a {
-  text-decoration: none;
-  color: #777;
-  transition: color 0.2s ease;
-}
-
-.menu-column li a:hover {
-  color: #4A6FA5;
-}
-
-/* 폰트어썸 네비 아이콘 */
-.nav-icons {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-}
-
-.nav-icons a {
-  color: #333;
-  font-size: 18px;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.nav-icons a:hover {
-  color: #4A6FA5;
-}
-
-/* ------------------------------------
-   🔹 푸터 영역
------------------------------------- */
-
-footer {
-  margin-top: 60px;
-}
-
-.footer {
-  background: #f8f8f8;
-  border-top: 1px solid #e5e5e5; 
-  box-shadow: none;
-  padding: 60px 0 70px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  color: #333;
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-/* 푸터 링크 */
-.footer-links {
-  margin-bottom: 25px;
-  text-align: center;
-}
-
-.footer-links a {
-  color: #444;
-  text-decoration: none;
-  margin: 0 10px;
-}
-
-.footer-links a:hover {
-  text-decoration: underline;
-}
-
-/* 로고 + 저작권 */
-.footer-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 30px;
-}
-
-.footer-logos {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
-.footer-logos img {
-  height: 35px;
-  opacity: 0.9;
-}
-
-.footer-info p {
-  font-size: 13px;
-  color: #666;
-}
-
-/* 고객센터 연락처 */
-.footer-right p {
-  margin: 3px 0;
-  font-size: 14px;
-}
-
-.footer-right strong {
-  color: #222;
-  font-weight: 700;
-}
-
-/* 하단 버튼 */
-.footer-bottom-nav {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.bottom-item {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 8px 18px;
-  cursor: pointer;
-  transition: background 0.2s ease, box-shadow 0.2s ease;
-}
-
-.bottom-item:hover {
-  background: #f1f1f1;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-}
 
 
 /* -----------------------------/* -----------------------------/* -----------------------------
@@ -448,22 +159,6 @@ footer {
   text-decoration: underline;
 }
 
-.pagination {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.pagination a {
-  margin: 0 5px;
-  padding: 4px 8px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
-
-.pagination a.active {
-  background: #333;
-  color: #fff;
-}
 
 /* 상세보기 */
 .qna-view {
@@ -510,61 +205,6 @@ footer {
 .btn-edit {
   background: #007b83;
   color: #fff;
-}
-
-/* =========================================================
-   Q&A 게시판 - 페이지네이션 (FLO BANK 톤 + 밑줄 제거 완전 버전)
-   ========================================================= */
-
-.pagination {
-  text-align: center;
-  margin-top: 25px;
-}
-
-.pagination a {
-  display: inline-block;
-  margin: 0 4px;
-  padding: 8px 15px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  background: #fff;
-  color: #555;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.25s ease;
-  text-decoration: none !important;     /* ✅ 기본 밑줄 제거 */
-}
-
-.pagination a:hover,
-.pagination a:focus,
-.pagination a:active {
-  border-color: #4FBDBA;
-  color: #4FBDBA;
-  background: #f9fdfd;
-  text-decoration: none !important;     /* ✅ hover/focus/active 시에도 밑줄 제거 */
-}
-
-.pagination a.active {
-  background: #333;
-  border-color: #22304E;
-  color: #fff;
-  font-weight: 600;
-  text-decoration: none !important;     /* ✅ 활성 페이지도 밑줄 제거 */
-}
-
-.pagination .prev,
-.pagination .next {
-  color: #555;
-  font-weight: 500;
-  text-decoration: none !important;     /* ✅ 이전/다음 밑줄 제거 */
-}
-
-.pagination .prev:hover,
-.pagination .next:hover {
-  color: #4FBDBA;
-  border-color: #4FBDBA;
-  background: #f9fdfd;
-  text-decoration: none !important;
 }
 
 
@@ -1010,54 +650,436 @@ border: 1px solid #ccc;
   text-decoration: underline;
 }
 
-/* 페이지네이션 공통 (Q&A와 동일) */
-.pagination {
-  text-align: center;
-  margin-top: 25px;
+
+/* 🔹 FAQ 전용 스타일 */
+.faq-container {
+  width: 100%;
 }
 
-.pagination a {
-  display: inline-block;
-  margin: 0 4px;
-  padding: 8px 15px;
-  border-radius: 20px;
+.faq-category {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #22304E;
+  margin: 25px 0 10px;
+  border-left: 4px solid #22304E;
+  padding-left: 10px;
+}
+
+.faq-item {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+}
+
+.faq-question {
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color 0.3s;
+}
+
+.faq-question:hover {
+  color: #2C5DE5;
+}
+
+.faq-answer {
+  display: none;
+  padding: 10px 5px 10px 20px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.faq-item.active .faq-answer {
+  display: block;
+}
+
+.faq-item.active .faq-question i {
+  transform: rotate(180deg);
+  transition: transform 0.3s;
+}
+
+
+/* =========================================================
+   FLOBANK 소개 / 이벤트 / 공지 등 공통 소개 페이지 전용 스타일
+   ========================================================= */
+
+/* 전체 래퍼 */
+.intro-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+/* ===============================
+   HERO SECTION
+   =============================== */
+.intro-hero {
+  position: relative;
+  height: 320px; /* ✅ 더 커진 로고를 자연스럽게 배치하기 위한 높이 */
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* 배경 */
+  background: #fff;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 중앙 로고 및 문구 */
+.hero-overlay {
+  text-align: center;
+  color: #22304E;
+  z-index: 10;
+  animation: fadeUp 1s ease forwards;
+}
+
+/* ✅ 로고 크게 + 그림자 완전 제거 */
+.hero-logo {
+  width: 300px; /* 기존보다 크게 확대 */
+  margin-bottom: 20px;
+  filter: none; /* ✅ 그림자 완전 제거 */
+  transition: transform 0.25s ease;
+}
+
+.hero-logo:hover {
+  transform: scale(1.02); /* 부드럽게 약간 확대 효과 */
+}
+
+/* 영문 슬로건 */
+.hero-overlay h3 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.3px;
+  color: #2f3a5f;
+}
+
+/* 한글 설명 */
+.hero-overlay p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+  letter-spacing: -0.2px;
+  opacity: 0.95;
+}
+
+/* 등장 애니메이션 */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 반응형 대응 */
+@media (max-width: 768px) {
+  .hero-logo {
+    width: 200px;
+  }
+  .hero-overlay h3 {
+    font-size: 22px;
+  }
+  .hero-overlay p {
+    font-size: 14px;
+  }
+}
+
+/* ===============================
+   공통 섹션 (본문)
+   =============================== */
+.intro-section h3 {
+  font-size: 18px;
+  color: #22304E;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.intro-section p {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.8;
+}
+
+/* ===============================
+   비전 카드
+   =============================== */
+.vision-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.vision-card {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+  border: 1px solid #e3e8f0;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #f9fbff 0%, #eef3fa 100%);
+  padding: 25px 18px;
+  transition: all 0.25s ease;
+}
+
+.vision-card i {
+  font-size: 28px;
+  color: #4A6FA5;
+  margin-bottom: 8px;
+}
+
+.vision-card h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #22304E;
+  margin-bottom: 6px;
+}
+
+.vision-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.vision-card:hover {
+  transform: translateY(-4px);
+  background: #f0f6ff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* ===============================
+   서비스 카드
+   =============================== */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.service-card {
+  text-align: center;
+  border: 1px solid #e2e6ec;
+  border-radius: 10px;
+  padding: 25px 15px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: all 0.25s ease;
+}
+
+.service-card i {
+  font-size: 26px;
+  color: #4A6FA5;
+  margin-bottom: 10px;
+}
+
+.service-card h4 {
+  font-size: 16px;
+  color: #22304E;
+  margin-bottom: 6px;
+}
+
+.service-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  background: #f5f9ff;
+}
+
+
+/* =========================================================
+   ✅ FLO BANK 고객센터 — 사이드바 Active 
+   ========================================================= */
+
+/* 🔹 사이드바 메뉴 (색상만 변경) */
+.customer-category a {
+  display: block;
+  color: #333;
+  text-decoration: none;
+  padding: 8px 12px;
+  transition: color 0.25s ease;
+}
+
+/* hover 시 색상 변화 */
+.customer-category a:hover {
+  color: var(--color-point); /* #3c4f76 (FLO 블루톤) */
+}
+
+/* active: 색상만 진하게 변경, 배경 변화 없음 */
+.customer-category a.active {
+  color: #2C5DE5; /* 포인트 파랑 */
+  font-weight: 700;
+  background: none;
+}
+
+
+/* =========================================================
+   페이지네이션 완전 통합 (이전/다음 포함, 중앙정렬)
+   ========================================================= */
+
+.notice-board .pagination,
+.qna-board .pagination,
+.event-board .pagination,
+.customer-content .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  margin: 25px auto 0;
+  text-align: center;
+}
+
+/* 모든 버튼 공통 스타일 */
+.notice-board .pagination a,
+.qna-board .pagination a,
+.event-board .pagination a,
+.customer-content .pagination a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
   border: 1px solid #ccc;
   background: #fff;
   color: #555;
   font-size: 14px;
   font-weight: 500;
+  text-decoration: none;
   transition: all 0.25s ease;
-  text-decoration: none !important;
 }
 
-.pagination a:hover,
-.pagination a:focus,
-.pagination a:active {
-  border-color: #4FBDBA;
-  color: #4FBDBA;
-  background: #f9fdfd;
-  text-decoration: none !important;
+/* 🔹 이전 / 다음 버튼: 폭 넓게 */
+.notice-board .pagination .page-prev,
+.notice-board .pagination .page-next,
+.qna-board .pagination .page-prev,
+.qna-board .pagination .page-next,
+.event-board .pagination .page-prev,
+.event-board .pagination .page-next,
+.customer-content .pagination .page-prev,
+.customer-content .pagination .page-next {
+  width: 70px;              /* 동일 높이, 넓은 폭 */
+  border-radius: 20px;
+  font-size: 13px;
 }
 
-.pagination a.active {
-  background: #333;
+/* 활성 페이지 */
+.notice-board .pagination a.active,
+.qna-board .pagination a.active,
+.event-board .pagination a.active,
+.customer-content .pagination a.active {
+  background: #22304E;
   border-color: #22304E;
   color: #fff;
   font-weight: 600;
-  text-decoration: none !important;
 }
 
-.pagination .prev,
-.pagination .next {
-  color: #555;
-  font-weight: 500;
-  text-decoration: none !important;
-}
-
-.pagination .prev:hover,
-.pagination .next:hover {
-  color: #4FBDBA;
+/* hover 효과 */
+.notice-board .pagination a:hover,
+.qna-board .pagination a:hover,
+.event-board .pagination a:hover,
+.customer-content .pagination a:hover {
   border-color: #4FBDBA;
+  color: #4FBDBA;
   background: #f9fdfd;
-  text-decoration: none !important;
+}
+
+/* 비활성 (첫/마지막 페이지) */
+.notice-board .pagination .page-prev.disabled,
+.notice-board .pagination .page-next.disabled,
+.qna-board .pagination .page-prev.disabled,
+.qna-board .pagination .page-next.disabled,
+.event-board .pagination .page-prev.disabled,
+.event-board .pagination .page-next.disabled,
+.customer-content .pagination .page-prev.disabled,
+.customer-content .pagination .page-next.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ✅ 반응형 (모바일 시 크기 축소) */
+@media (max-width: 600px) {
+  .notice-board .pagination a,
+  .qna-board .pagination a,
+  .event-board .pagination a,
+  .customer-content .pagination a {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .notice-board .pagination .page-prev,
+  .notice-board .pagination .page-next,
+  .qna-board .pagination .page-prev,
+  .qna-board .pagination .page-next,
+  .event-board .pagination .page-prev,
+  .event-board .pagination .page-next,
+  .customer-content .pagination .page-prev,
+  .customer-content .pagination .page-next {
+    width: 60px;
+    font-size: 12px;
+  }
+}
+
+/* 언어번역 */
+
+.language-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.language-toggle {
+  cursor: pointer;
+  color: #333;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* ✅ 항상 닫힌 상태로 시작 */
+.language-menu {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  list-style: none;
+  padding: 6px 0;
+  margin: 6px 0 0 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 1000;
+  transition: opacity 0.2s ease;
+}
+
+/* ✅ 열릴 때 */
+.language-menu.show {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+.language-menu li {
+  padding: 8px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.language-menu li:hover {
+  background-color: #f2f4ff;
+  color: #2C5DE5;
 }
