@@ -47,7 +47,7 @@ jobs:
     - name: bnk-api-server (flobank-api)에 JAR 파일 복사
       run: |
         gcloud beta compute scp flobank-api/build/libs/flobank-api-*.jar \
-          bnk-api-server:/opt/flobank-api/app.jar \
+          bnk-api-server:/tmp/app.jar \
           --project=${{ secrets.GCP_PROJECT_ID }} \
           --zone=asia-northeast3-a
 
@@ -57,7 +57,7 @@ jobs:
         gcloud beta compute ssh bnk-api-server \
           --project=${{ secrets.GCP_PROJECT_ID }} \
           --zone=asia-northeast3-a \
-          --command="cd /opt/flobank-api && sudo docker-compose up -d --build"
+          --command="sudo mv /tmp/app.jar /opt/flobank-api/app.jar && cd /opt/flobank-api && sudo docker-compose up -d --build"
 
     # --- 3. bnk-ap-server (flobank-ap) 배포 ---
 
@@ -73,7 +73,7 @@ jobs:
     - name: bnk-ap-server (flobank-ap)에 JAR 파일 복사
       run: |
         gcloud beta compute scp flobank-ap/build/libs/flobank-ap-*.jar \
-          bnk-ap-server:/opt/flobank-ap/app.jar \
+          bnk-ap-server:/tmp/app.jar \
           --project=${{ secrets.GCP_PROJECT_ID }} \
           --zone=asia-northeast3-a
 
@@ -83,4 +83,4 @@ jobs:
         gcloud beta compute ssh bnk-ap-server \
           --project=${{ secrets.GCP_PROJECT_ID }} \
           --zone=asia-northeast3-a \
-          --command="cd /opt/flobank-ap && sudo docker-compose up -d --build"
+          --command="sudo mv /tmp/app.jar /opt/flobank-ap/app.jar && cd /opt/flobank-ap && sudo docker-compose up -d --build"
