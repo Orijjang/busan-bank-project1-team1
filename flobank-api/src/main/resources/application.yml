@@ -8,10 +8,25 @@ spring:
 
     # ✅ 1. DB 접속 정보
     datasource:
-      url: jdbc:oracle:thin:@34.22.80.47:1521/XEPDB1
+      url: jdbc:oracle:thin:@//34.22.80.47:1521/XEPDB1
       username: flobank
       password: 1234
       driver-class-name: oracle.jdbc.OracleDriver
+
+    mail:
+      host: smtp.gmail.com
+      port: 587
+      username: alswnstl23@gmail.com
+      password: nkel ifue pjnh hzyj
+      properties:
+        mail:
+          smtp:
+            auth: true
+            timeout: 5000
+            starttls:
+              enable: true
+            ssl:
+              trust: smtp.gmail.com
 
 
 flobank:
@@ -42,7 +57,11 @@ openai:
   api-key: ${OPENAI_API_KEY}
   base-url: "https://api.openai.com/v1"
 
-
+#휴대폰 인증
+solapi:
+  apiKey: NCSGTLVVAFB7GAHV
+  apiSecret: N7V7FAHACZ8KWKNQPQFUCGSDSWWL4K5E
+  phoneNumber: 01021098237
 
 
 #############################################
