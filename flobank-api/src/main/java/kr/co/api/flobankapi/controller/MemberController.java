@@ -33,6 +33,11 @@ public class MemberController {
     private final JwtTokenProvider jwtTokenProvider;
     private final EmailService emailService;
 
+    @GetMapping("/terms")
+    public String termsPage() {
+        return "member/terms";
+    }
+
     // 3. registerPage 메소드가 에러 메시지를 받을 수 있도록 수정
     @GetMapping("/register")
     public String registerPage(Model model) {

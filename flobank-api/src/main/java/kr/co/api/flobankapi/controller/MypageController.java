@@ -37,7 +37,10 @@ public class MypageController {
     }
 
     @GetMapping("/ko_account_open_2")
-    public String ko_account_open_2(@ModelAttribute CustAcctDTO custAcctDTO) {
+    public String ko_account_open_2(@ModelAttribute CustAcctDTO custAcctDTO, Model model) {
+
+
+
         return "mypage/ko_account_open_2";
     }
 
