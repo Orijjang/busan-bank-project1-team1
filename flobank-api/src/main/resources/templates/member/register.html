@@ -72,7 +72,12 @@
             <label for="custEmail">이메일</label>
             <div class="input-inline">
                 <input type="email" id="custEmail" th:field="*{custEmail}" placeholder="example@email.com">
-                <button type="button" class="register-btn">이메일 인증</button>
+                <button type="button" class="register-btn" id="btnSendEmailCode">이메일 인증</button>
+            </div>
+
+            <div class="input-inline" id="emailVerifyBox" style="display:none; margin-top: 10px;">
+                <input type="text" id="emailVerifyCodeInput" placeholder="인증번호 입력" style="width:100px;">
+                <button type="button" id="btnVerifyEmailCode" class="register-btn">확인</button>
             </div>
         </div>
 

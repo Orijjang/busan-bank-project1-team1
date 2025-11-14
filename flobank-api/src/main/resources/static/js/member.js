@@ -1,3 +1,7 @@
+let isIdChecked = false;     // 아이디 중복 확인 여부
+let isEmailVerified = false; // 이메일 인증 여부
+let isPhoneVerified = false; // 휴대폰 인증 여부
+
 document.addEventListener("DOMContentLoaded", () => {
 
     /* ============================================================
@@ -61,14 +65,20 @@ document.addEventListener("DOMContentLoaded", () => {
                             alert("이미 사용 중인 아이디입니다.");
                             idInput.value = "";
                             idInput.focus();
+                            isIdChecked = false;
                         } else {
                             alert("사용 가능한 아이디입니다.");
+                            isIdChecked = true;
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
                         alert("중복 확인 중 오류가 발생했습니다.");
                     });
+            });
+            idInput.addEventListener('input', () => {
+                // 아이디를 다시 입력하면 중복 확인 상태 초기화
+                isIdChecked = false;
             });
         }
     }
@@ -294,6 +304,136 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    /* ============================================================
+               회원가입 페이지 - 메일 인증
+       ============================================================ */
+    // 1. 이메일 인증용 요소 선택 (HTML에서 새로 추가한 ID 기준)
+    const btnSendEmail = document.querySelector('#btnSendEmailCode');
+    const btnVerifyEmail = document.querySelector('#btnVerifyEmailCode');
+    const inputEmail = document.querySelector('#custEmail');
+    const inputEmailCode = document.querySelector('#emailVerifyCodeInput');
+    const emailVerifyBox = document.querySelector('#emailVerifyBox'); // 인증번호 입력 영역
+
+// 2. 이메일 인증 관련 이벤트 리스너 추가
+    if (btnSendEmail && btnVerifyEmail && inputEmail) {
+
+        // [이메일 인증번호 전송] 버튼 클릭
+        btnSendEmail.addEventListener('click', async function (e) {
+            e.preventDefault();
+            const email = inputEmail.value.trim();
+
+            // 이메일 유효성 검사
+            if (!validateEmail(email)) {
+                return;
+            }
+
+            btnSendEmail.disabled = true;
+            btnSendEmail.textContent = '전송중...';
+
+            try {
+                const response = await fetch(`/flobank/email/send?email=${encodeURIComponent(email)}`, { method: 'POST' });
+
+                if (!response.ok) {
+                    throw new Error('이메일 전송에 실패했습니다.');
+                }
+
+                alert('인증번호가 전송되었습니다.');
+
+                // 인증번호 입력창과 확인 버튼을 보여줍니다.
+                emailVerifyBox.style.display = 'flex'; // (div 자체를 보여줌)
+                inputEmailCode.focus(); // 인증번호 입력창에 포커스
+                btnSendEmail.textContent = '재전송';
+
+            } catch (err) {
+                console.error('Email Send Error:', err);
+                alert(`이메일 전송 중 오류 발생: ${err.message}`);
+            } finally {
+                btnSendEmail.disabled = false; // 재전송 가능하도록 활성화
+            }
+        });
+
+        // [이메일 인증번호 확인] 버튼 클릭
+        btnVerifyEmail.addEventListener('click', async function (e) {
+            e.preventDefault();
+            const email = inputEmail.value.trim();
+            const code = inputEmailCode.value.trim();
+
+            if (!email || !code) {
+                alert('이메일 주소와 인증번호를 입력해주세요.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/flobank/email/verify?email=${encodeURIComponent(email)}&code=${encodeURIComponent(code)}`, { method: 'POST' });
+                const isValid = await response.json(); // 백엔드에서 true/false 반환 가정
+
+                if (isValid) {
+                    alert('이메일 인증 완료!');
+                    isEmailVerified = true; // 전역 변수 상태 변경
+
+                    // 필드 및 버튼 비활성화
+                    inputEmail.readOnly = true;
+                    inputEmailCode.readOnly = true;
+                    btnSendEmail.disabled = true; // 재전송 버튼도 비활성화
+                    btnVerifyEmail.disabled = true;
+                    btnVerifyEmail.textContent = '인증완료';
+                } else {
+                    alert('인증번호가 일치하지 않습니다.');
+                    isEmailVerified = false; // 인증 실패
+                }
+            } catch (err) {
+                console.error('Email Verify Error:', err);
+                alert('인증 확인 중 오류 발생');
+                isEmailVerified = false;
+            }
+        });
+    }
+
+    /* ============================================================
+           폼 제출(Submit) 시 최종 유효성 검사
+       ============================================================ */
+    const joinForm = document.querySelector('form.join-form');
+
+    if (joinForm) {
+        joinForm.addEventListener('submit', function(e) {
+
+            // 1. 아이디 중복 확인 검사
+            if (!isIdChecked) {
+                e.preventDefault(); // 폼 제출 중단
+                alert('아이디 중복 확인을 해주세요.');
+                document.getElementById('reg-custId').focus();
+                return;
+            }
+
+            // 2. 이메일 인증 검사
+            if (!isEmailVerified) {
+                e.preventDefault(); // 폼 제출 중단
+                alert('이메일 인증을 완료해주세요.');
+                document.getElementById('custEmail').focus();
+                return;
+            }
+
+            // 3. 휴대폰 인증 검사
+            if (!isPhoneVerified) {
+                e.preventDefault(); // 폼 제출 중단
+                alert('휴대폰 인증을 완료해주세요.');
+                document.getElementById('custHp').focus();
+                return;
+            }
+
+            // 4. 비밀번호 일치 여부 최종 확인
+            const pw = document.getElementById('custPw').value;
+            const pwConfirm = document.getElementById('custPwConfirm').value;
+            if (pw !== pwConfirm) {
+                e.preventDefault(); // 폼 제출 중단
+                alert('비밀번호가 일치하지 않습니다.');
+                document.getElementById('custPwConfirm').focus();
+                return;
+            }
+
+        });
+    }
+
 });
 
 /**
@@ -318,18 +458,20 @@ function validatePhone(phone) {
 }
 
 /**
- * 휴대폰 번호 자동 하이픈 추가
+ * 이메일 유효성 검사
  */
-function formatPhoneNumber(value) {
-    const numbers = value.replace(/[^0-9]/g, '');
+function validateEmail(email) {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (numbers.length <= 3) {
-        return numbers;
-    } else if (numbers.length <= 7) {
-        return numbers.slice(0, 3) + '-' + numbers.slice(3);
-    } else if (numbers.length <= 10) {
-        return numbers.slice(0, 3) + '-' + numbers.slice(3, 6) + '-' + numbers.slice(6);
-    } else {
-        return numbers.slice(0, 3) + '-' + numbers.slice(3, 7) + '-' + numbers.slice(7, 11);
+    if (!email) {
+        alert('이메일을 입력해주세요.');
+        document.querySelector('#custEmail').focus();
+        return false;
     }
+    if (!emailPattern.test(email)) {
+        alert('올바른 이메일 형식이 아닙니다.');
+        document.querySelector('#custEmail').focus();
+        return false;
+    }
+    return true;
 }
