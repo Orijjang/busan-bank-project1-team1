@@ -2,15 +2,21 @@ package kr.co.api.flobankapi.controller;
 
 import kr.co.api.flobankapi.dto.CustAcctDTO;
 import kr.co.api.flobankapi.service.TermsService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/mypage")
 public class MypageController {
+
+    @Autowired
+    private final TermsService termsService;
 
     @GetMapping({"/main","/"})
     public String mypage() {
@@ -25,10 +31,10 @@ public class MypageController {
     @GetMapping("/ko_account_open_1")
     public String openAccountTerms(Model model) {
 
-        model.addAttribute("termsType1", TermsService.getTermsByType(1));
-        model.addAttribute("termsType2", TermsService.getTermsByType(2));
-        model.addAttribute("termsType3", TermsService.getTermsByType(3));
-        model.addAttribute("termsType4", TermsService.getTermsByType(4));
+        model.addAttribute("termsType1", termsService.getTermsByType(1));
+        model.addAttribute("termsType2", termsService.getTermsByType(2));
+        model.addAttribute("termsType3", termsService.getTermsByType(3));
+        model.addAttribute("termsType4", termsService.getTermsByType(4));
 
         return "mypage/ko_account_open_1";  // Thymeleaf 템플릿 경로
     }
