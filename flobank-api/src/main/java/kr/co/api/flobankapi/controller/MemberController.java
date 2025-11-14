@@ -10,14 +10,18 @@ import kr.co.api.flobankapi.dto.CustInfoDTO;
 import kr.co.api.flobankapi.dto.MemberDTO;
 import kr.co.api.flobankapi.jwt.JwtTokenProvider;
 import kr.co.api.flobankapi.service.CustInfoService;
+import kr.co.api.flobankapi.service.EmailService;
 import kr.co.api.flobankapi.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.HttpServletBean;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes; // 2. RedirectAttributes 임포트
+
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -27,6 +31,7 @@ public class MemberController {
 
     private final CustInfoService custInfoService;
     private final JwtTokenProvider jwtTokenProvider;
+    private final EmailService emailService;
 
     // 3. registerPage 메소드가 에러 메시지를 받을 수 있도록 수정
     @GetMapping("/register")
@@ -63,7 +68,6 @@ public class MemberController {
     public Boolean checkId(@RequestParam("custId") String custId) {
         return custInfoService.checkId(custId);
     }
-
 
     // 5. /member/complete GET 매핑 추가
     @GetMapping("/complete")
