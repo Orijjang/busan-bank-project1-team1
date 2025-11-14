@@ -41,7 +41,7 @@
         #{dpstMaxAge, jdbcType=INTEGER},
         #{dpstAutoRenewYn},
         #{dpstAddPayYn},
-        #{dpstAddPayMax},
+        #{dpstAddPayMax, jdbcType=INTEGER},
         #{dpstPartWdrwYn},
         SYSDATE
         )
