@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
         updateAgeLimit();
         updateWithdrawal();
         updateAutoRenew();
+        updateMinYn();
     }
 
 
@@ -217,5 +218,22 @@ document.addEventListener("DOMContentLoaded", function () {
         const selected = document.querySelector('input[name="dpstAutoRenewYn"]:checked').value;
         autoRenewSection.style.display = (selected === "Y") ? "block" : "none";
     }
+
+
+
+    function updateMinYn() {
+        const type = document.querySelector('input[name="dpstType"]:checked').value;
+
+        const old = document.querySelector('input[name="dpstMinYn"]');
+        if (old) old.remove();
+
+        const hidden = document.createElement("input");
+        hidden.type = "hidden";
+        hidden.name = "dpstMinYn";
+        hidden.value = (type === "1") ? "Y" : "N";
+
+        document.getElementById("foreignDepositForm").appendChild(hidden);
+    }
+
 
 });

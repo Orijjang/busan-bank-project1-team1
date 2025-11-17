@@ -211,9 +211,21 @@
             <div class="form-section">
                 <h3>상품설명서 첨부</h3>
                 <div class="form-group">
-                    <input type="file" name="productFile" accept=".pdf,.doc,.docx" />
+                    <input type="file" name="dpstInfoPdf" accept=".pdf,.doc,.docx" />
                 </div>
             </div>
+
+            <!-- 상품 게시일자 선택 -->
+            <div class="form-section">
+                <h3>상품 게시일자</h3>
+
+                <div class="form-group">
+                    <label for="dpstRegDt">게시일자 선택</label>
+                    <input type="date" id="dpstRegDt" name="dpstRegDt" required />
+                </div>
+            </div>
+
+
 
             <div class="form-submit">
                 <button type="submit" class="btn-submit">등록하기</button>

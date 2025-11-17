@@ -1,8 +1,7 @@
 package kr.co.api.flobankapi.mapper.admin;
 
 
-import kr.co.api.flobankapi.dto.ProductDTO;
-import kr.co.api.flobankapi.dto.ProductLimitDTO;
+import kr.co.api.flobankapi.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,4 +17,16 @@ public interface ProductMapper {
 
     // ★ 트리거가 생성한 가장 최근 상품 ID 조회 (필수)
     String getRecentDpstId();
+
+    // 가입 기간 저장
+    void insertProductPeriods(List<ProductPeriodDTO> periods);
+
+    // 분할 인출
+    void insertWithdrawalRule(ProductWithdrawRuleDTO rule);
+
+    // 통화별 최소 출금 금액
+    void insertWithdrawalAmounts(List<ProductWithdrawAmtDTO> amts);
+
+
+
 }

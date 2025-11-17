@@ -7,7 +7,16 @@
 
     <insert id="insertProduct" parameterType="kr.co.api.flobankapi.dto.ProductDTO">
 
-        INSERT INTO TB_DPST_PROD_INFO(
+        <selectKey keyProperty="dpstId" resultType="string" order="AFTER">
+            SELECT dpst_id
+            FROM TB_DPST_PROD_INFO
+            WHERE ROWID = (
+            SELECT MAX(ROWID)
+            FROM TB_DPST_PROD_INFO
+            )
+        </selectKey>
+
+        INSERT INTO TB_DPST_PROD_INFO (
         dpst_name,
         dpst_info,
         dpst_type,
@@ -24,16 +33,17 @@
         dpst_add_pay_yn,
         dpst_add_pay_max,
         dpst_part_wdrw_yn,
-        dpst_reg_dt
-        )
-        VALUES (
+        dpst_reg_dt,
+        dpst_info_pdf
+        ) VALUES (
         #{dpstName},
         #{dpstInfo},
         #{dpstType},
         #{dpstCurrency},
         #{dpstRateType},
-        #{dpstMinYn},
-        #{dpstMaxYn},
+
+        #{dpstMinYn, jdbcType=INTEGER},
+        #{dpstMaxYn, jdbcType=INTEGER},
         #{dpstStatus},
         #{dpstDescript},
         #{dpstPeriodType},
@@ -42,38 +52,94 @@
         #{dpstAutoRenewYn},
         #{dpstAddPayYn},
         #{dpstAddPayMax, jdbcType=INTEGER},
+
         #{dpstPartWdrwYn},
-        SYSDATE
+        #{dpstRegDt},
+        #{dpstInfoPdf}
         )
     </insert>
 
-    <select id="getRecentDpstId" resultType="string">
-        SELECT dpst_id
-        FROM (
-        SELECT dpst_id
-        FROM TB_DPST_PROD_INFO
-        ORDER BY dpst_reg_dt DESC
-        )
-        WHERE ROWNUM = 1
-    </select>
 
 
-    <insert id="insertProductLimits" parameterType="java.util.List">
-        INSERT INTO TB_DPST_AMT_LMT (
-        lmt_dpst_id,
-        lmt_currency,
-        lmt_min_amt,
-        lmt_max_amt
-        )
-        <foreach collection="list" item="item" separator="UNION ALL">
-            SELECT
+
+
+    <insert id="insertProductLimits">
+        INSERT ALL
+        <foreach collection="list" item="item">
+            INTO TB_DPST_AMT_LMT (
+            lmt_dpst_id,
+            lmt_currency,
+            lmt_min_amt,
+            lmt_max_amt
+            )
+            VALUES (
             #{item.lmtDpstId},
             #{item.lmtCurrency},
-            #{item.lmtMinAmt, jdbcType=NUMERIC},
-            #{item.lmtMaxAmt, jdbcType=NUMERIC}
+            #{item.lmtMinAmt},
+            #{item.lmtMaxAmt}
+            )
+        </foreach>
+        SELECT 1 FROM dual
+    </insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <insert id="insertProductPeriods" parameterType="java.util.List">
+        INSERT INTO TB_DPST_PROD_PERIOD (
+        period_min_month,
+        period_max_month,
+        period_fixed_month,
+        period_dpst_id
+        )
+        <foreach collection="list" item="p" separator="UNION ALL">
+            SELECT
+            #{p.minMonth, jdbcType=INTEGER},
+            #{p.maxMonth, jdbcType=INTEGER},
+            #{p.fixedMonth, jdbcType=INTEGER},
+            #{p.dpstId}
             FROM dual
         </foreach>
     </insert>
+
+    <insert id="insertWithdrawalRule"
+            parameterType="kr.co.api.flobankapi.dto.ProductWithdrawRuleDTO">
+        INSERT INTO TB_DPST_PARTIAL_WDRW_INFO (
+        wdrw_dpst_id,
+        wdrw_min_month,
+        wdrw_max
+        ) VALUES (
+        #{dpstId},
+        #{minMonths},
+        #{maxCount}
+        )
+    </insert>
+
+
+    <insert id="insertWithdrawalAmounts" parameterType="java.util.List">
+        INSERT INTO TB_DPST_PARTIAL_WDRW_AMT (
+        amt_dpst_id,
+        amt_currency,
+        amt_min
+        )
+        <foreach collection="list" item="a" separator="UNION ALL">
+            SELECT
+            #{a.dpstId},
+            #{a.currency},
+            #{a.minAmt}
+            FROM dual
+        </foreach>
+    </insert>
+
 
 
 
