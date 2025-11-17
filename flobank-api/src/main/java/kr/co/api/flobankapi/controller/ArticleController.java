@@ -29,16 +29,23 @@ public class ArticleController {
         BriefingViewDTO briefingView = briefingService.buildBriefingView(mode);
         Map<String, Object> articlePage = articleService.getArticlePage(page);
 
+        // 브리핑 정보
         model.addAttribute("briefingMode", briefingView.getBriefingMode());
         model.addAttribute("briefingTitle", briefingView.getBriefingTitle());
         model.addAttribute("briefingDateText", briefingView.getBriefingDateText());
         model.addAttribute("briefingLines", briefingView.getBriefingLines());
 
+        // 기사 리스트 + 페이징
         model.addAttribute("articles", articlePage.get("list"));
         model.addAttribute("page", articlePage.get("page"));
         model.addAttribute("totalPage", articlePage.get("totalPage"));
         model.addAttribute("totalCount", articlePage.get("totalCount"));
         model.addAttribute("pageSize", articlePage.get("pageSize"));
+
+        // ⭐⭐⭐ 블록 페이징 추가 (이게 있어야 page 1~10 / 11~20 잘 뜸)
+        model.addAttribute("startPage", articlePage.get("startPage"));
+        model.addAttribute("endPage", articlePage.get("endPage"));
+        model.addAttribute("blockSize", articlePage.get("blockSize"));
 
         return "article/list";
     }

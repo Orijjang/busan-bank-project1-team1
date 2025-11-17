@@ -180,12 +180,12 @@
             }
 
             if (moreLink && data.briefingMode) {
-                moreLink.href = `/articles?mode=${data.briefingMode}`;
+                moreLink.href = `/flobank/articles?mode=${data.briefingMode}`;
             }
         }
 
         function fetchBriefing(mode) {
-            fetch(`/api/briefing?mode=${mode}`)
+            fetch(`/flobank/api/briefing?mode=${mode}`)
                 .then(res => res.json())
                 .then(renderBriefing)
                 .catch(() => {});
