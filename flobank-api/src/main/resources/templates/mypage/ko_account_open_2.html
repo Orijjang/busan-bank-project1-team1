@@ -28,16 +28,6 @@
             <p class="desc">고객 정보를 확인하고 이체한도를 설정해주세요.</p>
 
             <section class="open2-user-info-section">
-                <div class="open2-form-row">
-                    <div class="open2-form-group half">
-                        <label class="open2-form-label">생년월일</label>
-                        <input type="text" class="open2-form-input readonly" th:value="${custInfoDTO.custBirthDt}"  readonly>
-                    </div>
-                    <div class="open2-form-group half">
-                        <label class="open2-form-label">성별</label>
-                        <input type="text" class="open2-form-input readonly" th:value="${gender}" readonly>
-                    </div>
-                </div>
                 <div class="open2-form-group">
                     <label class="open2-form-label">휴대폰 번호</label>
                     <input type="text" class="open2-form-input readonly" th:value="${custInfoDTO.custMaskHp}" readonly>

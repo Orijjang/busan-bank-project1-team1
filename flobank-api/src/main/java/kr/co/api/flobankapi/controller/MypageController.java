@@ -56,6 +56,7 @@ public class MypageController {
         log.info("userId = " + userId);
         CustInfoDTO custInfoDTO = mypageService.getCustInfo(userId);
 
+        // 보안 등급별 1회, 1일 이체한도 고시
         if(custInfoDTO.getCustSecurityLevel().equals(1)) {
             model.addAttribute("dayTrsfLmt", "5억");
             model.addAttribute("onceTrsfLmt", "1억");
@@ -67,11 +68,21 @@ public class MypageController {
             model.addAttribute("onceTrsfLmt", "1천만원");
         }
 
+        // '남자', '여자'
         if("M".equals(custInfoDTO.getCustGen())) {
             model.addAttribute("gender", "남자");
         } else {
             model.addAttribute("gender", "여자");
         }
+
+        // 생년월일 마스킹
+        String maskedBirth = "";
+
+        if (custInfoDTO.getCustBirthDt() != null) {
+            String birthString = custInfoDTO.getCustBirthDt().toString(); //
+            maskedBirth = birthString.substring(0, 4) + "-**-**";
+        }
+        model.addAttribute("maskedBirthDt", maskedBirth);
 
         model.addAttribute("custInfoDTO", custInfoDTO);
         model.addAttribute("custAcctDTO", new CustAcctDTO()); // View의 폼이 사용할 빈 객체 전달
@@ -129,6 +140,18 @@ public class MypageController {
     public String en_account_open_1() {
 
         return "mypage/en_account_open_1";
+    }
+
+    @GetMapping("/en_account_open_2")
+    public String en_account_open_2() {
+
+        return "mypage/en_account_open_2";
+    }
+
+    @GetMapping("/en_account_open_3")
+    public String en_account_open_3() {
+
+        return "mypage/en_account_open_3";
     }
 
     @GetMapping("/chatbot")

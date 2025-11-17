@@ -35,12 +35,10 @@ public class CustInfoService {
         // 주민번호, 전화번호, 생년월일, 이메일 암호화 (encrypt : 암호화, decrypt : 복호화)
         String aesJumin = AesUtil.encrypt(custInfoDTO.getCustJumin());
         String aesHp = AesUtil.encrypt(custInfoDTO.getCustHp());
-        String aesBirth = AesUtil.encrypt(custInfoDTO.getCustBirthDt());
         String aesEmail = AesUtil.encrypt(custInfoDTO.getCustEmail());
 
         custInfoDTO.setCustJumin(aesJumin);
         custInfoDTO.setCustHp(aesHp);
-        custInfoDTO.setCustBirthDt(aesBirth);
         custInfoDTO.setCustEmail(aesEmail);
 
         memberMapper.registerCustInfo(custInfoDTO);

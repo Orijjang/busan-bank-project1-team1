@@ -31,20 +31,13 @@ public class MypageService {
         CustInfoDTO custInfoDTO = memberMapper.findByIdCustInfo(custId);
 
         String decHp = AesUtil.decrypt(custInfoDTO.getCustHp());
-        //String decBirth = AesUtil.decrypt(custInfoDTO.getCustBirthDt());
 
         // 전화번호 마스킹 처리 (정규식 사용)
         // 이 정규식은 '01012345678'과 '010-1234-5678' 형식을 모두 '010-****-5678'로 변환합니다.
         String maskedHp = decHp.replaceAll("^(\\d{3})-?(\\d{4})-?(\\d{4})$", "$1-****-$3");
 
-        // 생년월일 마스킹 처리
-        String year = custInfoDTO.getCustBirthDt().substring(0, 4);
-        // 뒤에 마스킹 문자를 붙입니다.
-        String maskedBirth = year + "-**-**";
-
         custInfoDTO.setCustHp(decHp); // 마스킹 안된 전화번호
         custInfoDTO.setCustMaskHp(maskedHp); // 마스킹 된 전화번호
-        custInfoDTO.setCustBirthDt(maskedBirth); // 마스킹 된 생년월일
 
         return custInfoDTO;
     }
