@@ -12,7 +12,8 @@
 
         <form class="terms-form"
               method="post"
-              th:action="@{/admin/termsdb/register}">
+              th:action="@{/admin/terms/register}">
+
 
             <!-- 카테고리 선택 -->
             <div class="form-section">
@@ -70,33 +71,6 @@
     </section>
 
 
-            <!-- ===================================================== -->
-            <!-- 2) 약관 현황 -->
-            <!-- ===================================================== -->
-            <section class="terms-section">
-                <h2 class="product-title">약관 현황</h2>
-
-                <!-- 검색 영역 -->
-                <div class="terms-search-area">
-
-                    <!-- 검색 조건 선택 -->
-                    <select class="terms-search-type">
-                        <option value="category">약관 카테고리</option>
-                        <option value="title">약관 제목</option>
-                        <option value="content">약관 내용</option>
-                    </select>
-
-                    <!-- 검색어 입력 -->
-                    <input type="text"
-                        class="terms-search-input"
-                        placeholder="검색어를 입력하세요">
-
-                    <!-- 검색 버튼 -->
-                    <button class="terms-search-btn">
-                        <i class="fa-solid fa-search"></i>
-                    </button>
-                </div>
-
 
                 <!-- 테이블 -->
                 <!-- 테이블 -->
@@ -139,15 +113,129 @@
 
                     </table>
                 </div>
+    <!-- ===================================================== -->
+    <!-- 2) 약관 현황 -->
+    <!-- ===================================================== -->
+    <section class="terms-section" id="termsListSection">
+        <h2 class="product-title">약관 현황</h2>
 
-            </section>
+        <!-- 검색 Form -->
+        <form class="terms-search-area" method="get"
+              th:action="@{/admin/terms#termsListSection}">
+            <select name="type" class="terms-search-type">
+                <option value="category" th:selected="${type == 'category'}">약관 카테고리</option>
+                <option value="title" th:selected="${type == 'title'}">약관 제목</option>
+                <option value="content" th:selected="${type == 'content'}">약관 내용</option>
+            </select>
 
+            <input type="text"
+                   name="keyword"
+                   class="terms-search-input"
+                   placeholder="검색어를 입력하세요"
+                   th:value="${keyword != null and keyword != 'null' ? keyword : ''}">
+
+
+            <button type="submit" class="terms-search-btn">
+                <i class="fa-solid fa-search"></i>
+            </button>
+        </form>
+
+        <!-- 테이블 -->
+        <div class="product-table-wrap">
+            <table class="product-table terms-table">
+                <thead>
+                <tr>
+                    <th>카테고리</th>
+                    <th>순번</th>
+                    <th>약관 제목</th>
+                    <th>버전</th>
+                    <th>등록일</th>
+                    <th>수정일</th>
+                    <th>관리</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="t : ${termsList}">
+                    <td th:text="${t.termCate == 1 ? '회원가입' :
+                      (t.termCate == 2 ? '환전하기' :
+                      (t.termCate == 3 ? '외화송금' :
+                      (t.termCate == 4 ? '외환예금' :
+                      (t.termCate == 5 ? '원화통장개설' :
+                      (t.termCate == 6 ? '외화통장개설' : '기타')))))}">
+                    </td>
+
+                    <td th:text="${t.termOrder}"></td>
+                    <td th:text="${t.termTitle}"></td>
+                    <td th:text="'v' + ${t.latestVersion}"></td>
+                    <td th:text="${t.termRegDy}"></td>
+                    <td th:text="${t.latestRegDy}"></td>
+
+                    <td class="terms-actions">
+                        <button type="button" class="terms-edit-btn"
+                                th:attr="data-cate=${t.termCate},
+                 data-order=${t.termOrder},
+                 data-title=${t.termTitle}">
+                            수정
+                        </button>
+
+                        <button type="button" class="terms-delete-btn"
+                                th:attr="data-cate=${t.termCate}, data-order=${t.termOrder}">
+                            삭제
+                        </button>
+
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
 
+        <!-- 페이지네이션 -->
+        <div class="pagination">
 
-<!-- ==========================
-     🔹 약관 수정 모달 
-========================== -->
+            <!-- 이전 -->
+            <a th:if="${page > 1}"
+               th:href="@{|/admin/terms?page=${page-1}&type=${type}&keyword=${keyword}#termsListSection|}"
+               class="page-btn prev">〈</a>
+
+            <!-- 첫 페이지 -->
+            <a th:href="@{|/admin/terms?page=1&type=${type}&keyword=${keyword}#termsListSection|}"
+               th:classappend="${page == 1} ? 'active'"
+               class="page-btn">1</a>
+
+            <!-- ... -->
+            <span class="ellipsis" th:if="${page > 4}">...</span>
+
+            <!-- 현재 페이지 주변 -->
+            <a th:each="p : ${#numbers.sequence(page-2, page+2)}"
+               th:if="${p > 1 and p < totalPage}"
+               th:href="@{|/admin/terms?page=${p}&type=${type}&keyword=${keyword}#termsListSection|}"
+               th:text="${p}"
+               th:classappend="${p == page} ? 'active'"
+               class="page-btn"></a>
+
+            <!-- ... -->
+            <span class="ellipsis" th:if="${page < totalPage-3}">...</span>
+
+            <!-- 마지막 페이지 -->
+            <a th:if="${totalPage > 1}"
+               th:href="@{|/admin/terms?page=${totalPage}&type=${type}&keyword=${keyword}#termsListSection|}"
+               th:text="${totalPage}"
+               th:classappend="${page == totalPage} ? 'active'"
+               class="page-btn"></a>
+
+            <!-- 다음 -->
+            <a th:if="${page < totalPage}"
+               th:href="@{|/admin/terms?page=${page+1}&type=${type}&keyword=${keyword}#termsListSection|}"
+               class="page-btn next">〉</a>
+        </div>
+    </section>
+
+
+                <!-- ==========================
+                 🔹 약관 수정 모달
+            ========================== -->
 <div class="terms-modal" id="termsModal">
     <div class="terms-modal-content">
 
@@ -195,8 +283,9 @@
 
 
 
-
         </div>
+
+
 
         <div class="terms-modal-footer">
             <button class="terms-modal-cancel">취소</button>
@@ -207,18 +296,19 @@
 </div>
 
 
-</div>
 
 
-
-
-
-    <script src="/static/js/terms.js"></script>
-</th:block>
-</html>
 
 <script th:if="${msg != null}">
     alert([[${msg}]]);
 </script>
 
+
+</th:block>
+
+<th:block th:fragment="script">
+    <script th:src="@{/js/terms.js}"></script>
+</th:block>
+
+</html>
 

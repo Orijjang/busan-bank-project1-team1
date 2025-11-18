@@ -14,24 +14,76 @@
               th:action="@{/admin/products/register}"
               method="post">
 
+            <!-- ==========================
+                 📌 PDF AI 분석 UI 영역
+            =========================== -->
+            <div class="form-section">
+                <h3>상품설명서 AI 분석 준비</h3>
 
-            <!-- 기본정보 -->
+                <!-- PDF 업로드 -->
+                <div class="form-group">
+                    <label for="dpstInfoPdfUpload">PDF 파일 선택</label>
+
+                    <div class="pdf-upload-controls">
+                        <input type="file" id="dpstInfoPdfUpload" accept=".pdf" />
+                        <button type="button" id="btnPdfUpload" class="btn-secondary">업로드</button>
+                    </div>
+
+                    <small class="helper-text">업로드 후 AI 분석 결과를 기다려 주세요.</small>
+                </div>
+
+                <!-- PDF 목록 -->
+                <div class="pdf-list">
+                    <div class="pdf-list-header">
+                        <span>업로드된 PDF 목록</span>
+                        <span class="status-legend">상태: wait / done / used</span>
+                    </div>
+
+                    <div class="pdf-list-body" id="pdfListBody">
+                        <!-- JS로 목록이 채워집니다 -->
+                    </div>
+                </div>
+
+                <!-- done 상태만 선택 가능한 드롭다운 -->
+                <div class="form-group">
+                    <label for="pdfSelector">AI 분석 완료 PDF 선택 (done만 선택 가능)</label>
+                    <select id="pdfSelector" name="donePdf" class="pdf-select">
+                        <option value="">선택하세요</option>
+                        <!-- JS에서 done만 option 생성 예정 -->
+                    </select>
+                </div>
+
+                <!-- AI 코멘트 박스 -->
+                <div class="ai-comment-box">
+                    <div class="ai-comment-header">
+                        <h4>AI 분석 코멘트</h4>
+                        <span class="ai-comment-status">AI 분석 코멘트 표시 예정</span>
+                    </div>
+                    <p class="ai-comment-placeholder">
+                        AI 분석이 완료되면 생성된 코멘트가 이 영역에 표시됩니다.
+                    </p>
+                </div>
+            </div>
+
+
+
+
+            <!-- ==============================
+                 📌 기본정보
+            =============================== -->
             <div class="form-section">
                 <h3>기본정보</h3>
 
-                <!-- dpstName -->
                 <div class="form-group">
                     <label for="dpstName">상품명</label>
                     <input type="text" id="dpstName" name="dpstName" placeholder="상품명을 입력하세요" required />
                 </div>
 
-                <!-- dpstInfo -->
                 <div class="form-group">
                     <label for="dpstInfo">상품 한 줄 설명</label>
                     <input type="text" id="dpstInfo" name="dpstInfo" placeholder="간단한 설명을 입력하세요" />
                 </div>
 
-                <!-- dpstType -->
                 <div class="form-group">
                     <label>예금 유형</label>
                     <div class="radio-group">
@@ -42,11 +94,12 @@
             </div>
 
 
-            <!-- 통화 및 금액 설정 -->
+            <!-- ==============================
+                 📌 통화 및 금액 설정
+            =============================== -->
             <div class="form-section">
                 <h3>통화 및 금액 설정</h3>
 
-                <!-- dpstCurrency -->
                 <div class="form-group">
                     <label>가능한 통화</label>
                     <div class="checkbox-group">
@@ -59,12 +112,9 @@
                     </div>
                 </div>
 
-                <!-- 거치식 예금 전용 -->
                 <div class="conditional deposit-type" data-type="1">
-                    <!-- 선택된 통화별 최소/최대 가입액 -->
                     <div id="currencyAmountContainer"></div>
 
-                    <!-- dpstAddPayYn -->
                     <div class="form-group">
                         <label>추가납입 가능 여부</label>
                         <div class="radio-group">
@@ -73,7 +123,6 @@
                         </div>
                     </div>
 
-                    <!-- dpstAddPayMax (조건부) -->
                     <div class="conditional extra-deposit">
                         <div class="form-group">
                             <label>신규 포함 최대 납입 회수</label>
@@ -84,7 +133,9 @@
             </div>
 
 
-            <!-- 환율 적용 기준 -->
+            <!-- ==============================
+                 📌 환율 적용 기준
+            =============================== -->
             <div class="form-section">
                 <h3>환율 적용 기준</h3>
                 <div class="radio-group">
@@ -94,17 +145,17 @@
             </div>
 
 
-            <!-- 상품 정보 -->
+            <!-- ==============================
+                 📌 상품 정보
+            =============================== -->
             <div class="form-section">
                 <h3>상품 정보</h3>
 
-                <!-- dpstDescript -->
                 <div class="form-group">
                     <label for="dpstDescript">상품 개요</label>
                     <textarea id="dpstDescript" name="dpstDescript" rows="3" placeholder="상품 특징 및 안내를 입력하세요"></textarea>
                 </div>
 
-                <!-- dpstPeriodType -->
                 <div class="form-group">
                     <label>상품 가입기간 유형</label>
                     <div class="radio-group">
@@ -113,7 +164,6 @@
                     </div>
                 </div>
 
-                <!-- 자유형: dpstMinAge/dpstMaxAge는 별도 -->
                 <div class="conditional join-type" data-type="1">
                     <div class="form-inline">
                         <label>최소 가입월수</label>
@@ -125,7 +175,6 @@
                     </div>
                 </div>
 
-                <!-- 고정형 -->
                 <div class="conditional join-type" data-type="2">
                     <div class="form-group">
                         <label>가입 가능한 개월수</label>
@@ -135,7 +184,9 @@
             </div>
 
 
-            <!-- 가입 대상 -->
+            <!-- ==============================
+                 📌 가입 대상
+            =============================== -->
             <div class="form-section">
                 <h3>가입 대상</h3>
 
@@ -144,7 +195,6 @@
                     <label><input type="radio" name="ageLimit" value="yes" /> 제한 있음</label>
                 </div>
 
-                <!-- dpstMinAge / dpstMaxAge -->
                 <div class="conditional age-limit">
                     <div class="form-inline">
                         <label>최소 나이</label>
@@ -158,11 +208,12 @@
             </div>
 
 
-            <!-- 분할 인출 -->
+            <!-- ==============================
+                 📌 분할 인출
+            =============================== -->
             <div class="form-section">
                 <h3>분할 인출 설정</h3>
 
-                <!-- dpstPartWdrwYn -->
                 <div class="radio-group">
                     <label><input type="radio" name="dpstPartWdrwYn" value="Y" /> 가능</label>
                     <label><input type="radio" name="dpstPartWdrwYn" value="N" checked /> 불가능</label>
@@ -184,7 +235,9 @@
             </div>
 
 
-            <!-- 자동연장 -->
+            <!-- ==============================
+                 📌 자동연장
+            =============================== -->
             <div class="form-section">
                 <h3>자동연장 설정</h3>
 
@@ -207,7 +260,10 @@
                 </div>
             </div>
 
-            <!-- 상품설명서 첨부 -->
+
+            <!-- ==============================
+                 📌 상품 설명서 첨부 (최종본)
+            =============================== -->
             <div class="form-section">
                 <h3>상품설명서 첨부</h3>
                 <div class="form-group">
@@ -215,7 +271,10 @@
                 </div>
             </div>
 
-            <!-- 상품 개시일자 선택 -->
+
+            <!-- ==============================
+                 📌 상품 개시일
+            =============================== -->
             <div class="form-section">
                 <h3>상품 개시일자</h3>
 
@@ -226,7 +285,6 @@
             </div>
 
 
-
             <div class="form-submit">
                 <button type="submit" class="btn-submit">등록하기</button>
             </div>
@@ -235,20 +293,18 @@
     </section>
 
 
+    <!-- ==============================
+         📌 상품 관리(아래는 그대로 유지)
+    =============================== -->
     <section class="product-card">
 
         <h2 class="product-title">외화예금 상품 관리</h2>
 
-        <!-- 상태 탭 -->
         <div class="product-tabs">
             <button class="tab-btn active" data-status="approve">승인 대기 중</button>
             <button class="tab-btn" data-status="pending">상품 등록 대기 중</button>
         </div>
 
-
-        <!-- ============================
-             승인 대기 중 (STATUS = 1)
-        ============================= -->
         <div class="product-table-wrap" data-status-group="approve">
             <table class="product-table">
                 <thead>
@@ -258,25 +314,16 @@
                     <th>관리</th>
                 </tr>
                 </thead>
-
                 <tbody>
                 <tr th:each="p : ${approveList}" data-status="approve" th:data-id="${p.dpstId}">
                     <td th:text="${p.dpstName}"></td>
-                    <td>
-                        <span class="status-badge status-approve">승인 대기 중</span>
-                    </td>
-                    <td>
-                        <button class="btn-approve">승인</button>
-                    </td>
+                    <td><span class="status-badge status-approve">승인 대기 중</span></td>
+                    <td><button class="btn-approve">승인</button></td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
-
-        <!-- ============================
-             상품 등록 대기 중 (STATUS = 2)
-        ============================= -->
         <div class="product-table-wrap" data-status-group="pending" style="display:none;">
             <table class="product-table">
                 <thead>
@@ -286,13 +333,10 @@
                     <th>상품 개시일</th>
                 </tr>
                 </thead>
-
                 <tbody>
                 <tr th:each="p : ${pendingList}" th:data-id="${p.dpstId}">
                     <td th:text="${p.dpstName}"></td>
-                    <td>
-                        <span class="status-badge status-pending">상품 등록 대기 중</span>
-                    </td>
+                    <td><span class="status-badge status-pending">상품 등록 대기 중</span></td>
                     <td th:text="${p.dpstRegDt}"></td>
                 </tr>
                 </tbody>
@@ -302,7 +346,6 @@
     </section>
 
 
-    <!-- 외화예금 상품 현황 -->
     <section class="product-card">
         <h2 class="product-title">외화예금 상품 현황</h2>
 
@@ -316,37 +359,27 @@
                     <th>상태</th>
                 </tr>
                 </thead>
-
                 <tbody>
 
-                <!-- STATUS = 3 (판매중) -->
                 <tr th:each="p : ${saleList}">
                     <td>
                         <a th:href="@{/admin/products/view/{id}(id=${p.dpstId})}"
                            class="product-link"
                            th:text="${p.dpstName}"></a>
                     </td>
-
-                    <!-- 상품 개시일 → dpstRegDt 사용 -->
                     <td th:text="${p.dpstRegDt}"></td>
-
-                    <!-- 가입자 수 → 0 고정 -->
                     <td>0</td>
-
                     <td><span class="status-badge status-sale">판매중</span></td>
                 </tr>
 
-                <!-- STATUS = 4 (판매중단) -->
                 <tr th:each="p : ${stopList}">
                     <td>
                         <a th:href="@{/admin/products/view/{id}(id=${p.dpstId})}"
                            class="product-link"
                            th:text="${p.dpstName}"></a>
                     </td>
-
                     <td th:text="${p.dpstRegDt}"></td>
                     <td>0</td>
-
                     <td><span class="status-badge status-stop">판매중단</span></td>
                 </tr>
 
@@ -354,7 +387,84 @@
             </table>
         </div>
     </section>
+
 </div>
+
+<!-- ==========================
+     📌 PDF 업로드 & 목록 조회 JS
+=========================== -->
+<script>
+    // ==========================
+    // PDF 업로드
+    // ==========================
+    document.getElementById("btnPdfUpload").addEventListener("click", async () => {
+
+        const input = document.getElementById("dpstInfoPdfUpload");
+
+        if (input.files.length === 0) {
+            alert("PDF 파일을 선택하세요.");
+            return;
+        }
+
+        const form = new FormData();
+        form.append("file", input.files[0]);
+
+        const res = await fetch("/flobank/admin/pdf-ai/upload", {
+            method: "POST",
+            body: form
+        });
+
+        if (!res.ok) {
+            alert("업로드 실패");
+            return;
+        }
+
+        alert("업로드 성공!");
+        loadPdfList();
+    });
+
+
+    // ==========================
+    // PDF 목록 조회
+    // ==========================
+    async function loadPdfList() {
+        const res = await fetch("/flobank/admin/pdf-ai/list");
+        const list = await res.json();
+
+        const body = document.getElementById("pdfListBody");
+        const selector = document.getElementById("pdfSelector");
+
+        body.innerHTML = "";
+        selector.innerHTML = `<option value="">선택하세요</option>`;
+
+        list.forEach(item => {
+
+            // 목록 출력
+            body.innerHTML += `
+                <div class="pdf-list-item">
+                    <div>
+                        <strong>${item.orgFileName}</strong>
+                        <div class="pdf-meta">${item.createdAt || ''}</div>
+                    </div>
+                    <span class="status-chip status-${item.status}">${item.status}</span>
+                </div>
+            `;
+
+            // done만 드롭다운에 넣기
+            if (item.status === "done") {
+                selector.innerHTML += `
+                    <option value="${item.pdfId}">
+                        ${item.orgFileName} (done)
+                    </option>
+                `;
+            }
+        });
+    }
+
+    // 페이지 로딩 시 초기 목록
+    document.addEventListener("DOMContentLoaded", loadPdfList);
+</script>
+
 
 <script th:src="@{/js/product1.js}"></script>
 <script th:src="@{/js/product2.js}"></script>
