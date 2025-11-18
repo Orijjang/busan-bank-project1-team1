@@ -1,6 +1,7 @@
 package kr.co.api.flobankapi.service;
 
 import kr.co.api.flobankapi.dto.CustAcctDTO;
+import kr.co.api.flobankapi.dto.CustFrgnAcctDTO;
 import kr.co.api.flobankapi.dto.CustInfoDTO;
 import kr.co.api.flobankapi.mapper.MemberMapper;
 import kr.co.api.flobankapi.mapper.MypageMapper;
@@ -25,6 +26,20 @@ public class MypageService {
         custAcctDTO.setAcctPw(endPw);
 
         mypageMapper.insertAcct(custAcctDTO);
+    }
+
+    // 외화 입출금계좌 생성
+    public void saveFrgnAcct(CustFrgnAcctDTO custFrgnAcctDTO) {
+        // 계좌 비밀번호 암호화 = > 단방향
+        String endPw = passwordEncoder.encode(custFrgnAcctDTO.getFrgnAcctPw());
+        custFrgnAcctDTO.setFrgnAcctPw(endPw);
+
+        mypageMapper.insertFrgnAcct(custFrgnAcctDTO);
+    }
+
+    // 외화 입출금 통장 이미 있는지 확인
+    public int checkEnAcct(String custCode) {
+        return mypageMapper.selectCheckCntEnAcct(custCode);
     }
 
     public CustInfoDTO getCustInfo(String userCode) { // 고객 정보 받아오기

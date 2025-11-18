@@ -2,6 +2,7 @@ package kr.co.api.flobankapi.controller;
 
 import kr.co.api.flobankapi.dto.CustAcctDTO;
 
+import kr.co.api.flobankapi.dto.CustFrgnAcctDTO;
 import kr.co.api.flobankapi.dto.SearchResDTO;
 import kr.co.api.flobankapi.service.ChatGPTService;
 import kr.co.api.flobankapi.service.EmbeddingService;
@@ -145,13 +146,19 @@ public class MypageController {
         log.info("UserCode = " + UserCode);
         CustInfoDTO custInfoDTO = mypageService.getCustInfo(UserCode);
         if(mypageService.checkCntKoAcct(custInfoDTO.getCustCode()) >= 1){
-            return "redirect:/mypage/en_account_open_1";
+            int checkCnt = mypageService.checkEnAcct(UserCode);
+            if(checkCnt >= 1){
+                redirectAttributes.addFlashAttribute("errorMessage",
+                        "이미 외화 입출금통장이 있습니다. 외화 입출금통장은 2개 이상 만들 수 없습니다.");
+                return "redirect:/mypage/account_open_main";
+            }else {
+                return "redirect:/mypage/en_account_open_1";
+            }
         }else{
             redirectAttributes.addFlashAttribute("errorMessage",
                     "원화 입출금 통장이 1개 이상 있어야 개설 가능합니다. 원화 입출금 통장을 먼저 만들어주세요.");
             return "redirect:/mypage/account_open_main";
         }
-
 
     }
 
@@ -162,11 +169,44 @@ public class MypageController {
     }
 
     @GetMapping("/en_account_open_2")
-    public String en_account_open_2(@AuthenticationPrincipal CustomUserDetails userDetails) {
+    public String en_account_open_2(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
 
+        // custInfoDTO 정보 보내기
         String custCode = userDetails.getUsername();
+        CustInfoDTO custInfoDTO = mypageService.getCustInfo(custCode);
+        model.addAttribute("custInfoDTO", custInfoDTO);
+
+        // 계좌 개설 정보 전달용
+        CustFrgnAcctDTO custFrgnAcctDTO = new CustFrgnAcctDTO();
+        model.addAttribute("custFrgnAcctDTO", custFrgnAcctDTO);
+
+        // 보안 등급 확인 후 1일, 1회 이체한도 보내기
+        if(custInfoDTO.getCustSecurityLevel().equals(3)) {
+            model.addAttribute("dayTrsfLmt", "7,000$");
+            model.addAttribute("onceTrsfLmt", "7,000$");
+        }else if(custInfoDTO.getCustSecurityLevel().equals(2)) {
+            model.addAttribute("dayTrsfLmt", "35,000$");
+            model.addAttribute("onceTrsfLmt", "7,000$");
+        }else if(custInfoDTO.getCustSecurityLevel().equals(1)) {
+            model.addAttribute("dayTrsfLmt", "350,000$");
+            model.addAttribute("onceTrsfLmt", "70,000$");
+        }
 
         return "mypage/en_account_open_2";
+    }
+
+    @PostMapping("/en_account_open_2")
+    public String saveEnAcct(@ModelAttribute CustFrgnAcctDTO custFrgnAcctDTO, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        String userCode = userDetails.getUsername();
+        CustInfoDTO custInfoDTO = mypageService.getCustInfo(userCode);
+        custFrgnAcctDTO.setFrgnAcctCustCode(userCode);
+        custFrgnAcctDTO.setFrgnAcctCustEngName(custInfoDTO.getCustEngName());
+
+        log.info("custFrgnAcctDTO = " + custFrgnAcctDTO);
+
+        mypageService.saveFrgnAcct(custFrgnAcctDTO);
+
+        return "redirect:/mypage/en_account_open_3";
     }
 
     @GetMapping("/en_account_open_3")
