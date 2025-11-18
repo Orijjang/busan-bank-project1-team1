@@ -51,7 +51,7 @@
                 <div class="bubble">
                     <span th:if="${hist.botType==2}" class="meta">AI 외환 도우미 · [[${hist.botDt}]]</span>
                     <span th:if="${hist.botType==1}" class="meta">나 · [[${hist.botDt}]]</span>
-                    <p>[[${hist.botContent}]]</p>
+                    <p th:utext="${hist.botContent}"></p>
                 </div>
 
             </div>

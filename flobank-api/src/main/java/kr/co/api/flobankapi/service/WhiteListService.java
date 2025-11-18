@@ -1,5 +1,6 @@
 package kr.co.api.flobankapi.service;
 
+import kr.co.api.flobankapi.dto.InterestInfoDTO;
 import kr.co.api.flobankapi.dto.ProductDTO;
 import kr.co.api.flobankapi.mapper.WhiteListMapper;
 import lombok.RequiredArgsConstructor;
@@ -14,30 +15,52 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WhiteListService {
     private final WhiteListMapper whiteListMapper;
-/*
+
     public String queryAndFormat(String templateName) {
 
         return switch (templateName) {
-            case "formatDepositProd" -> {
+            case "flobankDepositProduct" -> {
 
                 List<String> list = whiteListMapper.dpstIdList();
+                StringBuilder sb = new StringBuilder();
+
                 List<ProductDTO> dtoList = new ArrayList<>();
                 for (String dpstId : list) {
                     dtoList = whiteListMapper.dpstAllInfo(dpstId);
+                    if (dtoList.isEmpty()) {
+                        continue;
+                    }
+                    sb.append(flobankDepositProduct(dtoList))
+                    .append("\n\n");
                 }
 
 
-                yield formatDepositProd(dtoList);
+                yield sb.toString();
+            }
+            case "flobankInterest" -> {
+                List<InterestInfoDTO> dtoList = whiteListMapper.interestInfo();
+                yield flobankInterest(dtoList);
             }
 
             default -> "";
         };
     }
 
+    private String flobankInterest(List<InterestInfoDTO> dtoList) {
+        StringBuilder sb = new StringBuilder();
+        for (InterestInfoDTO interest : dtoList) {
+            String a = "플로뱅크 " + interest.getInterestCurrency() +" " + interest.getInterestMonth() + "개월 예치 금리 : " + interest.getInterestRate() + "\n";
+            sb.append(a);
+        }
 
-    private String formatDepositProd(List<ProductDTO> dtoList) {
+        return sb.toString();
 
-        String dpstId = dtoList.get(0).getDpstId();
+    }
+
+
+    private String flobankDepositProduct(List<ProductDTO> dtoList) {
+
+
         String dpstName = dtoList.get(0).getDpstName();
         String dpstInfo = dtoList.get(0).getDpstInfo();
         String dpstType;
@@ -54,18 +77,7 @@ public class WhiteListService {
             dpstRateType = "만기시점환율형";
         }
         String dpstDescript =  dtoList.get(0).getDpstDescript();
-        String dpstMinAge;
-        String dpstMaxAge;
-        if (dtoList.get(0).getDpstMinAge() == null){
-            dpstMinAge = "최소 나이 제한 없음";
-        }else{
-            dpstMinAge = String.valueOf(dtoList.get(0).getDpstMinAge())+"세";
-        }
-        if (dtoList.get(0).getDpstMaxAge() == null){
-            dpstMaxAge = "최대 나이 제한 없음";
-        }else{
-            dpstMaxAge = String.valueOf(dtoList.get(0).getDpstMaxAge())+"세";
-        }
+
         String dpstAutoRenewYn;
         if (dtoList.get(0).getDpstAutoRenewYn().equals("Y")){
             dpstAutoRenewYn = "가능";
@@ -117,7 +129,6 @@ public class WhiteListService {
                 if (!d.getAmtCurrency().equals(cur)){
                     dpstPartWdrw = dpstPartWdrw + ", " + d.getAmtCurrency() + " "+ d.getAmtMin();
                     cur = d.getAmtCurrency();
-
                 }
             }
             dpstPartWdrw = dpstPartWdrw + ")";
@@ -160,7 +171,7 @@ public class WhiteListService {
 
 
         return """
-        [예금상품 정보]
+        [플로뱅크 예금상품 정보]
         예금 이름 : %s
         예금 개요 : %s
         예금 타입 : %s
@@ -191,5 +202,5 @@ public class WhiteListService {
         );
     }
 
- */
+
 }
