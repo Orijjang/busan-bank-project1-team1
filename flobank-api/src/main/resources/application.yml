@@ -8,7 +8,6 @@ app-version: @version@
 spring:
   application:
     name: flobank_api
-
   datasource:
     url: jdbc:oracle:thin:@34.64.225.88:1521/XEPDB1
     username: flobank
@@ -29,6 +28,12 @@ spring:
             enable: true
           ssl:
             trust: smtp.gmail.com
+  data:
+    redis:
+      host: 34.64.225.88
+      port: 6379
+
+
 
 flobank:
   ap:
@@ -71,3 +76,7 @@ pinecone:
 file:
   upload:
     pdf-ai-path: /home/mjgemini987_gmail_com/uploads/pdf_ai
+    
+deepl:
+  api:
+    key: 3df6a572-c72c-4544-8cd2-c5bfd6a27b53:fx

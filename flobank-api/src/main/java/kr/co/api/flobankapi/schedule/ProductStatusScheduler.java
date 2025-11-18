@@ -25,15 +25,3 @@ public class ProductStatusScheduler {
         log.info("상품 업데이트 완료!");
     }
 }
-
-    // 테스트용 1분짜리
-//    @Scheduled(cron = "0 */1 * * * *", zone = "Asia/Seoul")
-//    public void updateProductStatusByOpenDate() {
-//
-//        log.info("상품 업데이트 시작");
-//
-//        productService.updateOpenedProducts();
-//
-//        log.info("상품 업데이트 완료!");
-//    }
-//}
