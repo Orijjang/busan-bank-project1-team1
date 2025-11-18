@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.api.flobankapi.mapper.ChatbotSessionMapper" >
+<mapper namespace="kr.co.api.flobankapi.mapper.WhiteListMapper" >
 
     <resultMap id="DpstResultMap" type="kr.co.api.flobankapi.dto.ProductDTO">
         <id     property="dpstId"        column="DPST_ID"/>
@@ -82,7 +82,20 @@
                  LEFT JOIN TB_DPST_PROD_PERIOD         P  ON A.DPST_ID = P.PERIOD_DPST_ID
                  LEFT JOIN TB_DPST_AMT_LMT       L  ON A.DPST_ID = L.LMT_DPST_ID
         WHERE A.DPST_STATUS = 3
-          AND A.DPST_ID = #{dpstId};
+          AND A.DPST_ID = #{dpstId}
+    </select>
+
+
+
+
+    <resultMap id="InterestResultMap" type="kr.co.api.flobankapi.dto.InterestInfoDTO">
+        <id     property="interestCurrency"        column="INTEREST_CURRENCY"/>
+        <result property="interestMonth"     column="INTEREST_MONTH"/>
+        <result property="interestRate"            column="INTEREST_RATE"/>
+    </resultMap>
+
+    <select id="interestInfo" resultMap="InterestResultMap">
+        select * from TB_INTEREST_INFO
     </select>
 
 

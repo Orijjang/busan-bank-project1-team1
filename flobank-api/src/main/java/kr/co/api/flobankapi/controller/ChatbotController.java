@@ -29,6 +29,7 @@ public class ChatbotController {
     private final ChatGPTService chatGPTService;
     private final ChatbotSessionService chatbotSessionService;
     private final ChatbotHistService chatbotHistService;
+    private final WhiteListService whiteListService;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @GetMapping("/mypage/chatbot")
@@ -41,6 +42,7 @@ public class ChatbotController {
         sessDTO.setSessStartDt(LocalDateTime.now().format(formatter));
 
         sessDTO = chatbotSessionService.insertSess(sessDTO);
+        System.out.println("=== 세션 아이디 : " + sessDTO.getSessId());
         model.addAttribute("sessId", sessDTO.getSessId());
 
         return "mypage/chatbot";
@@ -83,11 +85,27 @@ public class ChatbotController {
                     contextBuilder.append(meta.get("content")).append("\n\n");
                 }
             }
+
+            String query = typeClassifier.detectQueryByGPT(q);
+            System.out.println("=== 실행될 QUERY = " + query);
+            String queryResult = "";
+            if (query != null && !query.equals("null")) {
+                queryResult = whiteListService.queryAndFormat(query);
+                contextBuilder.append("\n\n").append(queryResult);
+            }
+            //System.out.println("=== 쿼리 실행 결과 = " + queryResult);
+
+
             String context = contextBuilder.toString();
             log.info("=== 최종 context ===\n" + context);
 
             // GPT 호출 (문맥 + 질문)
             String response = chatGPTService.ask(q, context);
+
+            response = response.replace("\r\n", "\n");
+            response = response.replace("\n", "<br/>");
+            response = response.replace("<br>", "<br/>");
+
 
             ChatbotHistDTO aHistDTO = new ChatbotHistDTO();
             aHistDTO.setBotType(2);
@@ -98,12 +116,12 @@ public class ChatbotController {
             List<ChatbotHistDTO> dtoList = chatbotHistService.selectHist(sessId);
 
             model.addAttribute("dtoList", dtoList);
-            model.addAttribute("response", response);
             model.addAttribute("sessId", sessId);
 
             return "mypage/chatbot";
 
         } catch (Exception e) {
+            e.printStackTrace();
             model.addAttribute("error", e.getMessage());
             return "mypage/chatbot";
         }
