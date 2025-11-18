@@ -198,12 +198,4 @@ public class TermsDbService {
         return list;
     }
 
-
-
-    public List<TermsHistDTO> getTermsByLocation(int termCate) {
-        log.info("[고객 약관 조회] cate={}", termCate);
-        List<TermsHistDTO> list = mapper.selectTermsByCate(termCate);
-        log.info("[고객 약관 조회] 총 {}건", list.size());
-        return list;
-    }
 }
