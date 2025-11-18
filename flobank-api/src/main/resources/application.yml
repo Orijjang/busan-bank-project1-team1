@@ -8,7 +8,9 @@ app-version: @version@
 spring:
   application:
     name: flobank_api
-
+  redis:
+    host: 10.178.0.2
+    port: 6379
   datasource:
     url: jdbc:oracle:thin:@34.64.225.88:1521/XEPDB1
     username: flobank
@@ -30,9 +32,6 @@ spring:
           ssl:
             trust: smtp.gmail.com
 
-  redis:
-    host: redis
-    port: 6379
 
 
 flobank:
