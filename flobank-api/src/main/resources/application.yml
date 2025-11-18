@@ -75,7 +75,8 @@ pinecone:
 
 file:
   upload:
-    pdf-ai-path: /home/mjgemini987_gmail_com/uploads/pdf_ai
+    pdf-ai-path: /app/uploads/pdf_ai
+    pdf-products-path: /app/uploads/pdf_products
     
 deepl:
   api:
