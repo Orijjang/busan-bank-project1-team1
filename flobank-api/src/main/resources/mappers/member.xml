@@ -22,7 +22,7 @@
     <update id="insertLastLogin">
         UPDATE TB_CUST_INFO
         SET CUST_LAST_LOGIN_DT = sysdate
-        WHERE CUST_ID = #{custId};
+        WHERE CUST_ID = #{custId}
     </update>
 
 </mapper>
