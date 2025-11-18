@@ -9,6 +9,8 @@ import java.util.List;
 @Mapper
 public interface TermsDbMapper {
 
+    List<TermsHistDTO> selectTermsByCate(@Param("cate") int cate);
+
     int insertTermsMaster(TermsMasterDTO dto);
 
     Integer selectMaxOrderByCate(@Param("cate") int cate);

@@ -3,6 +3,7 @@ package kr.co.api.flobankapi.controller;
 import kr.co.api.flobankapi.dto.CustAcctDTO;
 
 import kr.co.api.flobankapi.dto.SearchResDTO;
+import kr.co.api.flobankapi.dto.TermsHistDTO;
 import kr.co.api.flobankapi.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,13 +51,15 @@ public class MypageController {
 
     @GetMapping("/ko_account_open_1")
     public String openAccountTerms(Model model) {
+        int termLocation = 5; // 5번: 원화통장개설 페이지
 
-//        model.addAttribute("termsType1", termsService.getTermsByType(1));
-//        model.addAttribute("termsType2", termsService.getTermsByType(2));
-//        model.addAttribute("termsType3", termsService.getTermsByType(3));
-//        model.addAttribute("termsType4", termsService.getTermsByType(4));
+        List<TermsHistDTO> termsList = termsService.getTermsByLocation(termLocation);
 
-        return "mypage/ko_account_open_1";  // Thymeleaf 템플릿 경로
+        System.out.println("### termsList size = " + termsList.size());
+
+        model.addAttribute("termsList", termsList);
+
+        return "mypage/ko_account_open_1";
     }
 
     @GetMapping("/ko_account_open_2")

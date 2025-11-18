@@ -109,4 +109,29 @@
                 )
     </insert>
 
+    <!-- 고객 약관 조회: 카테고리별 최신 버전 약관 리스트 -->
+    <select id="selectTermsByCate"
+            parameterType="int"
+            resultType="kr.co.api.flobankapi.dto.TermsDTO">
+
+        SELECT
+            m.term_cate      AS termCate,
+            m.term_order     AS termOrder,
+            m.term_title     AS termTitle,
+            h.thist_content  AS termContent
+        FROM TB_TERMS_MASTER m
+                 JOIN TB_TERMS_HIST h
+                      ON h.thist_term_cate  = m.term_cate
+                          AND h.thist_term_order = m.term_order
+        WHERE m.term_cate = #{cate}
+          AND h.thist_version = (
+            SELECT MAX(h2.thist_version)
+            FROM TB_TERMS_HIST h2
+            WHERE h2.thist_term_cate  = m.term_cate
+              AND h2.thist_term_order = m.term_order
+        )
+        ORDER BY m.term_order
+
+    </select>
+
 </mapper>
