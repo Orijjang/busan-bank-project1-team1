@@ -22,7 +22,6 @@
         INSERT INTO TB_TERMS_HIST(
             thist_term_cate,
             thist_term_order,
-            thist_file,
             thist_content,
             thist_version,
             thist_ver_memo,
@@ -32,7 +31,6 @@
         VALUES(
                   #{thistTermCate},
                   #{thistTermOrder},
-                  #{thistFile},
                   #{thistContent},
                   #{thistVersion},
                   #{thistVerMemo},

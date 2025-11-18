@@ -4,63 +4,71 @@
 
 <th:block th:fragment="content">
 
-            <!-- ===================================================== -->
-            <!-- 1) 약관 등록 -->
-            <!-- ===================================================== -->
-            <section class="terms-section">
-                <h2 class="product-title">약관 등록</h2>
+    <!-- ===================================================== -->
+    <!-- 1) 약관 등록 -->
+    <!-- ===================================================== -->
+    <section class="terms-section">
+        <h2 class="product-title">약관 등록</h2>
 
-                <form class="terms-form">
+        <form class="terms-form"
+              method="post"
+              th:action="@{/admin/termsdb/register}">
 
-                    <!-- 카테고리 선택 -->
-                    <div class="form-section">
-                        <h3>약관 카테고리</h3>
-                        <div class="form-group">
-                            <label>카테고리 선택</label>
-                            <select name="termsCategory" class="terms-select">
-                                <option value="">선택하세요</option>
-                                <option value="회원가입">회원가입</option>
-                                <option value="외화송금">외화송금</option>
-                                <option value="외환예금">외환예금</option>
-                                <option value="원화송금">환전하기</option>
-                                <option value="원화송금">원화통장개설</option>
-                                <option value="원화송금">외화통장개설</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- 약관 제목 -->
-                    <div class="form-section">
-                        <h3>약관 제목</h3>
-                        <div class="form-group">
-                            <input type="text" class="terms-title-input"
-                                   placeholder="약관 제목을 입력하세요" />
-                        </div>
-                    </div>
-
-                    <!-- 약관 내용 -->
-                    <div class="form-section">
-                        <h3>약관 내용</h3>
-                        <div class="form-group">
-                            <textarea class="terms-textarea" rows="8"
-                                      placeholder="약관 내용을 입력하세요"></textarea>
-                        </div>
-
-
-
-                    <div class="terms-modal-group">
-                        <h3>약관 파일 첨부</h3>
-                        <input type="file" id="modalFile" class="terms-input" accept=".pdf,.doc,.docx">
-                    </div>
-
+            <!-- 카테고리 선택 -->
+            <div class="form-section">
+                <h3>약관 카테고리</h3>
+                <div class="form-group">
+                    <label>카테고리 선택</label>
+                    <select name="cate" class="terms-select" required>
+                        <option value="">선택하세요</option>
+                        <option value="1">회원가입</option>
+                        <option value="2">원화송금</option>
+                        <option value="3">외화송금</option>
+                        <option value="4">외환예금</option>
+                        <option value="5">원화통장개설</option>
+                        <option value="6">외화통장개설</option>
+                    </select>
                 </div>
+            </div>
 
-                    <!-- 등록 버튼 -->
-                    <div class="form-submit">
-                        <button type="submit" class="btn-submit terms-submit">등록하기</button>
-                    </div>
-                </form>
-            </section>
+            <!-- 제목 -->
+            <div class="form-section">
+                <h3>약관 제목</h3>
+                <div class="form-group">
+                    <input type="text" class="terms-title-input"
+                           name="title"
+                           placeholder="약관 제목을 입력하세요"
+                           required />
+                </div>
+            </div>
+
+            <!-- 내용 -->
+            <div class="form-section">
+                <h3>약관 내용</h3>
+                <div class="form-group">
+                <textarea class="terms-textarea" rows="8"
+                          name="content"
+                          placeholder="약관 내용을 입력하세요" required></textarea>
+                </div>
+            </div>
+
+            <!-- 파일 첨부 (DB 버전 관리라 파일은 선택) -->
+            <div class="terms-modal-group">
+                <h3>약관 파일 첨부 (선택)</h3>
+                <input type="file"
+                       id="modalFile"
+                       class="terms-input"
+                       accept=".pdf,.doc,.docx">
+            </div>
+
+            <!-- 전송 -->
+            <div class="form-submit">
+                <button type="submit" class="btn-submit terms-submit">등록하기</button>
+            </div>
+
+        </form>
+    </section>
+
 
             <!-- ===================================================== -->
             <!-- 2) 약관 현황 -->
@@ -208,3 +216,9 @@
     <script src="/static/js/terms.js"></script>
 </th:block>
 </html>
+
+<script th:if="${msg != null}">
+    alert([[${msg}]]);
+</script>
+
+

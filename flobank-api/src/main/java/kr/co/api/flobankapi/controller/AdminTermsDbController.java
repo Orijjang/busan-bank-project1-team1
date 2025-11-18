@@ -1,7 +1,5 @@
 package kr.co.api.flobankapi.controller;
 
-
-
 import kr.co.api.flobankapi.dto.*;
 import kr.co.api.flobankapi.service.TermsDbService;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +20,13 @@ public class AdminTermsDbController {
     public String list(Model model) {
         model.addAttribute("termsList", service.getAllTerms());
         model.addAttribute("activeItem", "terms");
-        return "admin/termsdb/terms_list";
+        return "test/terms_list";   // 테스트 페이지로 연결
     }
 
-    /** 등록 페이지 */
+    /** 등록 페이지 → 테스트는 필요없어서 목록만 보여줌 */
     @GetMapping("/register")
     public String registerPage() {
-        return "admin/termsdb/terms_register";
+        return "redirect:/admin/termsdb";
     }
 
     /** 등록 처리 */
@@ -44,19 +42,16 @@ public class AdminTermsDbController {
         return "redirect:/admin/termsdb";
     }
 
-    /** 수정 페이지 */
+    /** 수정 페이지 → 테스트는 단일 페이지에서 처리 */
     @GetMapping("/edit")
     public String edit(@RequestParam int cate,
                        @RequestParam int order,
-                       Model model) {
+                       RedirectAttributes ra) {
 
-        TermsHistDTO latest = service.getLatestHist(cate, order);
+        ra.addFlashAttribute("editCate", cate);
+        ra.addFlashAttribute("editOrder", order);
 
-        model.addAttribute("latest", latest);
-        model.addAttribute("cate", cate);
-        model.addAttribute("order", order);
-
-        return "admin/termsdb/terms_edit";
+        return "redirect:/admin/termsdb";
     }
 
     /** 수정 처리 */
