@@ -96,7 +96,7 @@ public class MemberController {
 
         if (custInfoDTO != null) {
             // 2. 토큰 생성
-            String token = jwtTokenProvider.createToken(custInfoDTO.getCustId(), "USER", custInfoDTO.getCustName());
+            String token = jwtTokenProvider.createToken(custInfoDTO.getCustCode(), "USER", custInfoDTO.getCustName());
 
             // 3. 쿠키 생성 및 설정
             Cookie cookie = new Cookie("accessToken", token);
