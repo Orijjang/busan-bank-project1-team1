@@ -22,12 +22,12 @@
                     <label>카테고리 선택</label>
                     <select name="cate" class="terms-select" required>
                         <option value="">선택하세요</option>
-                        <option value="1">회원가입</option>
-                        <option value="2">환전하기</option>
-                        <option value="3">외화송금</option>
-                        <option value="4">외환예금</option>
-                        <option value="5">원화통장개설</option>
-                        <option value="6">외화통장개설</option>
+                        <option value="1">1.회원가입</option>
+                        <option value="2">2.환전하기</option>
+                        <option value="3">3.외화송금</option>
+                        <option value="4">4.외환예금</option>
+                        <option value="5">5.원화통장개설</option>
+                        <option value="6">6.외화통장개설</option>
                     </select>
                 </div>
             </div>
@@ -72,6 +72,47 @@
 
 
 
+                <!-- 테이블 -->
+                <!-- 테이블 -->
+                <div class="product-table-wrap">
+                    <table class="product-table terms-table">
+                        <thead>
+                        <tr>
+                            <th>약관 카테고리</th>   <!-- row.children[0] -->
+                            <th>약관 제목</th>       <!-- row.children[1] -->
+                            <th>버전</th>            <!-- row.children[2] -->
+                            <th>등록일</th>          <!-- row.children[3] -->
+                            <th>수정일</th>          <!-- row.children[4] -->
+                            <th>관리</th>            <!-- row.children[5] -->
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="t : ${termsList}">
+                            <td th:text="${t.termCate} == 1 ? '회원가입' :
+                         ${t.termCate} == 2 ? '환전하기' :
+                         ${t.termCate} == 3 ? '외화송금' : '외환예금'"></td>
+
+                            <td th:text="${t.termTitle}"></td>
+
+                            <td th:text="'v' + ${t.latestVersion}"></td>
+
+                            <td th:text="${t.termRegDy}"></td>
+                            <td th:text="${t.latestRegDy}"></td>
+
+                            <td class="terms-actions">
+                                <button class="terms-edit-btn">수정</button>
+
+                                <button class="terms-delete-btn"
+                                        th:attr="data-cate=${t.termCate}, data-order=${t.termOrder}">
+                                    삭제
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
     <!-- ===================================================== -->
     <!-- 2) 약관 현황 -->
     <!-- ===================================================== -->

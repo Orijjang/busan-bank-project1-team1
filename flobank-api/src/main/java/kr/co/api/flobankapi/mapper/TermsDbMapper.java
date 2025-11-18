@@ -9,8 +9,9 @@ import java.util.List;
 @Mapper
 public interface TermsDbMapper {
 
-    // MASTER INSERT
-    void insertTermsMaster(TermsMasterDTO dto);
+    List<TermsHistDTO> selectTermsByCate(@Param("cate") int cate);
+
+    int insertTermsMaster(TermsMasterDTO dto);
 
     // 최신 order 조회
     Integer selectMaxOrderByCate(@Param("cate") int cate);
