@@ -215,6 +215,68 @@
                 </div>
             </div>
 
+            <!-- 상품설명서 AI 분석 UI -->
+            <div class="form-section">
+                <h3>상품설명서 AI 분석 준비</h3>
+
+                <div class="form-group">
+                    <label for="dpstInfoPdfUpload">PDF 파일 선택</label>
+                    <div class="pdf-upload-controls">
+                        <input type="file" id="dpstInfoPdfUpload" accept=".pdf" />
+                        <button type="button" class="btn-secondary">업로드</button>
+                    </div>
+                    <small class="helper-text">업로드 후 AI 분석 결과를 기다려 주세요.</small>
+                </div>
+
+                <div class="pdf-list">
+                    <div class="pdf-list-header">
+                        <span>업로드된 PDF 목록</span>
+                        <span class="status-legend">상태: wait / done / used</span>
+                    </div>
+                    <div class="pdf-list-body">
+                        <div class="pdf-list-item">
+                            <div>
+                                <strong>상품설명서_샘플1.pdf</strong>
+                                <div class="pdf-meta">2024-02-01 업로드</div>
+                            </div>
+                            <span class="status-chip status-wait">wait</span>
+                        </div>
+                        <div class="pdf-list-item">
+                            <div>
+                                <strong>상품설명서_완료본.pdf</strong>
+                                <div class="pdf-meta">2024-02-10 업로드</div>
+                            </div>
+                            <span class="status-chip status-done">done</span>
+                        </div>
+                        <div class="pdf-list-item">
+                            <div>
+                                <strong>상품설명서_사용됨.pdf</strong>
+                                <div class="pdf-meta">2024-02-05 업로드</div>
+                            </div>
+                            <span class="status-chip status-used">used</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="pdfSelector">AI 분석 완료 PDF 선택 (done만 선택 가능)</label>
+                    <select id="pdfSelector" name="donePdf" class="pdf-select">
+                        <option value="">선택하세요</option>
+                        <option value="sample-done">상품설명서_완료본.pdf (done)</option>
+                        <option value="sample-wait" disabled>상품설명서_샘플1.pdf (wait)</option>
+                        <option value="sample-used" disabled>상품설명서_사용됨.pdf (used)</option>
+                    </select>
+                </div>
+
+                <div class="ai-comment-box">
+                    <div class="ai-comment-header">
+                        <h4>AI 분석 코멘트</h4>
+                        <span class="ai-comment-status">AI 분석 코멘트 표시 예정</span>
+                    </div>
+                    <p class="ai-comment-placeholder">AI 분석이 완료되면 생성된 코멘트가 이 영역에 표시됩니다.</p>
+                </div>
+            </div>
+
             <!-- 상품 개시일자 선택 -->
             <div class="form-section">
                 <h3>상품 개시일자</h3>

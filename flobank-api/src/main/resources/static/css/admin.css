@@ -1621,6 +1621,150 @@ input[type="file"] {
   cursor: not-allowed;
 }
 
+.btn-secondary {
+  background-color: #eef2fb;
+  color: #2c5de5;
+  border: 1px solid #d8e1ff;
+  padding: 9px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #dfe7ff;
+}
+
+.pdf-upload-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.helper-text {
+  color: #6b7280;
+  margin-top: 6px;
+  display: block;
+}
+
+.pdf-list {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f9fafc;
+  margin: 18px 0;
+}
+
+.pdf-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-bottom: 1px solid #e5e7eb;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.status-legend {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.pdf-list-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+}
+
+.pdf-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.pdf-meta {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status-wait {
+  background: #fff5e6;
+  color: #f59e0b;
+  border: 1px solid #fcd34d;
+}
+
+.status-done {
+  background: #e0f2fe;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+
+.status-used {
+  background: #f1f5f9;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
+}
+
+.pdf-select {
+  max-width: 360px;
+}
+
+.ai-comment-box {
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+  background: #f8fafc;
+  padding: 14px 16px;
+  margin-top: 12px;
+}
+
+.ai-comment-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.ai-comment-header h4 {
+  margin: 0;
+  font-size: 15px;
+  color: #1f2937;
+}
+
+.ai-comment-status {
+  font-size: 12px;
+  color: #6b7280;
+  background: #e5e7eb;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.ai-comment-placeholder {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
 .status-sale {
   background: #d4f7d4;
   color: #2d9d2d;
