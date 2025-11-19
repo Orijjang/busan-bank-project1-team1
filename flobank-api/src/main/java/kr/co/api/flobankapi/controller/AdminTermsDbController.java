@@ -1,5 +1,6 @@
 package kr.co.api.flobankapi.controller;
 
+import kr.co.api.flobankapi.dto.TermsHistDTO;
 import kr.co.api.flobankapi.service.TermsDbService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -87,15 +89,4 @@ public class AdminTermsDbController {
     }
 
 
-    /** 삭제 처리 */
-    @GetMapping("/delete")
-    public String delete(@RequestParam int cate,
-                         @RequestParam int order,
-                         RedirectAttributes ra) {
-
-        service.deleteTerms(cate, order);
-        ra.addFlashAttribute("msg", "약관이 삭제되었습니다.");
-
-        return "redirect:/admin/terms";
-    }
 }

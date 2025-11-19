@@ -109,20 +109,6 @@ public class TermsDbService {
         log.info("=== [약관 수정 종료] ===");
     }
 
-    /** 삭제 (MASTER + HIST 전체 삭제) */
-    @Transactional
-    public void deleteTerms(int cate, int order) {
-
-        log.warn("=== [약관 삭제 시작] cate={}, order={} ===", cate, order);
-
-        mapper.deleteTermsHist(cate, order);
-        log.warn("[HIST 삭제 완료]");
-
-        mapper.deleteTerms(cate, order);
-        log.warn("[MASTER 삭제 완료]");
-
-        log.warn("=== [약관 삭제 종료] ===");
-    }
 
     /** 고객 약관 동의 기록 */
     public void saveAgree(String custCode, int cate, int order) {
@@ -175,21 +161,46 @@ public class TermsDbService {
         return result;
     }
 
-
     public Map<String, Object> getTermsDetail(int cate, int order) {
+
+        Map<String, Object> result = new HashMap<>();
 
         TermsMasterDTO master = mapper.selectMaster(cate, order);
         TermsHistDTO latest = mapper.selectLatestHist(cate, order);
 
-        Map<String, Object> result = new HashMap<>();
+        if (master == null) {
+            // MASTER 자체가 없는 경우 → JS가 오류 안 뜨게 기본값 제공
+            result.put("title", "제목 없음");
+            result.put("version", 0);
+            result.put("regDy", "-");
+            result.put("adminId", "-");
+            result.put("content", "");
+            result.put("verMemo", "-");
+            return result;
+        }
+
         result.put("title", master.getTermTitle());
-        result.put("version", latest.getThistVersion());
-        result.put("regDy", latest.getThistRegDy());
-        result.put("adminId", latest.getThistAdminId());
-        result.put("content", latest.getThistContent());
+
+        if (latest == null) {
+            // HIST가 없을 때 기본값
+            result.put("version", 1);
+            result.put("regDy", master.getTermRegDy());
+            result.put("adminId", "관리자");
+            result.put("content", "");
+            result.put("verMemo", "-");
+        } else {
+            result.put("version", latest.getThistVersion());
+            result.put("regDy", latest.getThistRegDy());
+            result.put("adminId", latest.getThistAdminId());
+            result.put("content", latest.getThistContent());
+            result.put("verMemo", latest.getThistVerMemo());
+        }
 
         return result;
     }
+
+
+
 
     public List<TermsHistDTO> getTermsByLocation(int termCate) {
         log.info("[고객 약관 조회] cate={}", termCate);
