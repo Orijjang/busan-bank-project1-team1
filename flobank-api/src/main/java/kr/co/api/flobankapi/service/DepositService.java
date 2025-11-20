@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -97,6 +98,13 @@ public class DepositService {
     public int getActiveProductCount() {
         return depositMapper.countActiveProducts();
     }
+
+
+    public List<DepositRateDTO> getRatesByBaseDate(Date baseDate) {
+        log.info("기준일({})의 금리 조회 요청", baseDate);
+        return depositMapper.findRatesByBaseDate(baseDate);
+    }
+
 }
 
 

@@ -2,7 +2,9 @@ package kr.co.api.flobankapi.mapper;
 
 import kr.co.api.flobankapi.dto.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -27,4 +29,5 @@ public interface DepositMapper {
     public List<FrgnAcctBalanceDTO> getFrgnAcctBalList(String balFrgnAcctNo);
     public List<CurrencyInfoDTO> getAllCurrencies();
     public CurrencyInfoDTO getCurrency(String curCode);
+    List<DepositRateDTO> findRatesByBaseDate(@Param("baseDate") Date baseDate);
 }

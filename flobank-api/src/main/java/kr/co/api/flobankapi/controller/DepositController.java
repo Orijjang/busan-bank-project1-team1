@@ -5,13 +5,16 @@ import kr.co.api.flobankapi.jwt.CustomUserDetails;
 import kr.co.api.flobankapi.service.DepositService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -107,6 +110,16 @@ public class DepositController {
         model.addAttribute("termsFilePath", termsFilePath);
 
         return "deposit/view";
+    }
+
+    @GetMapping("/rates")
+    @ResponseBody
+    public List<DepositRateDTO> getExchangeRates(
+            @RequestParam("baseDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date baseDate) {
+
+        List<DepositRateDTO> rates = depositService.getRatesByBaseDate(baseDate);
+
+        return rates;
     }
 
 }
