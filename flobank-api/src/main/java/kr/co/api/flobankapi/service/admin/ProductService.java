@@ -184,6 +184,13 @@ public class ProductService {
 
 
 
+    // 상품 약관 받기
+    public String getTermsFileByName(String productName) {
+        return productMapper.getTermsFileByTitle(productName);
+    }
+
+
+
 
 
 }
