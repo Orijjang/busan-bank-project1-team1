@@ -14,6 +14,7 @@ public interface DepositMapper {
 
     ProductDTO findProductById(String dpstId);
 
+    String findTermsFileByTitle(String productName);
 
     public ProductDTO selectDpstProduct(String dpstId);
     public List<ProductLimitDTO> limitOfDpst(String dpstId);

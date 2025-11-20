@@ -83,8 +83,13 @@ public class DepositService {
         return depositMapper.getFrgnAcct(frgnAcctCustCode);
     }
 
+
+    public String getTermsFileByTitle(String productName) {
+        return depositMapper.findTermsFileByTitle(productName);
+
     public List<FrgnAcctBalanceDTO> getFrgnAcctBalList(String balFrgnAcctNo) {
         return depositMapper.getFrgnAcctBalList(balFrgnAcctNo);
+
     }
 
     public int getActiveProductCount() {
