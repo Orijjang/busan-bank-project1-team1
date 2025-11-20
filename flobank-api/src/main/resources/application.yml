@@ -82,7 +82,7 @@ file:
     pdf-ai-path: /app/uploads/pdf_ai
     pdf-products-path: /app/uploads/pdf_products
     pdf-terms-path: /app/uploads/terms
-    
+
 deepl:
   api:
     key: 3df6a572-c72c-4544-8cd2-c5bfd6a27b53:fx
