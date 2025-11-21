@@ -61,12 +61,129 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchForm = searchModal?.querySelector(".search-top-sheet__form");
     const searchInput = document.getElementById("globalSearch");
 
+    // DYNAMIC CONTENT ELEMENTS
+    const recentList = searchModal?.querySelector('.search-section:nth-child(1) .search-list');
+    const popularList = searchModal?.querySelector('.search-section:nth-child(2) .search-list.rank');
+
+
+    // ----------------------------------------------------
+    // 🔍 API 및 렌더링 함수 (추가된 기능)
+    // ----------------------------------------------------
+
+    async function fetchData(url) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                // 로그인 필요 시 (401), 혹은 서버 에러 발생 시 처리
+                // 최근 검색어의 경우 비로그인 사용자면 빈 배열이 반환될 수 있음
+                console.warn(`API Error on ${url}. Status: ${response.status}`);
+                return [];
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            return [];
+        }
+    }
+
+    function handleKeywordClick(event) {
+        const keyword = event.target.getAttribute('data-keyword');
+        if (keyword) {
+            searchInput.value = keyword;
+            handleSearchSubmit(new Event('submit'));
+        }
+    }
+
+    function renderRecentKeywords(keywords) {
+        if (!recentList) return;
+        recentList.innerHTML = '';
+
+        if (!keywords || keywords.length === 0) {
+            recentList.innerHTML = '<li class="empty">최근 검색 내역이 없습니다.</li>';
+            return;
+        }
+
+        keywords.forEach(item => {
+            const li = document.createElement('li');
+            const button = document.createElement('button');
+            button.textContent = item.searchTxt;
+            button.setAttribute('data-keyword', item.searchTxt);
+            button.addEventListener('click', handleKeywordClick);
+
+            li.appendChild(button);
+            recentList.appendChild(li);
+        });
+    }
+
+    function renderPopularKeywords(keywords) {
+        if (!popularList) return;
+        popularList.innerHTML = '';
+
+        if (!keywords || keywords.length === 0) {
+            return;
+        }
+
+        keywords.forEach((item, index) => {
+            const li = document.createElement('li');
+            const button = document.createElement('button');
+            button.textContent = item.searchTxt;
+            button.setAttribute('data-keyword', item.searchTxt);
+            button.addEventListener('click', handleKeywordClick);
+
+            li.appendChild(button);
+            popularList.appendChild(li);
+        });
+    }
+
+    async function loadSearchKeywords() {
+        // 비동기적으로 두 목록을 동시에 로드
+        const [recentKeywords, popularKeywords] = await Promise.all([
+            fetchData('/api/search/keywords/recent'),
+            fetchData('/api/search/keywords/popular')
+        ]);
+
+        renderRecentKeywords(recentKeywords);
+        renderPopularKeywords(popularKeywords);
+    }
+
+    // ----------------------------------------------------
+    // 🚀 모달 제어 및 검색 실행 로직 (수정됨)
+    // ----------------------------------------------------
+
+    const handleSearchSubmit = (event) => {
+        event.preventDefault();
+
+        const keyword = searchInput.value.trim();
+        if (!keyword) {
+            alert('검색어를 입력해주세요.');
+            return;
+        }
+
+        // 1. 통합 검색 API 호출 (서버에서 이 API 호출 시 자동으로 TB_SEARCH_LOG에 기록됨)
+        const integratedSearchUrl = `/api/search/integrated?keyword=${encodeURIComponent(keyword)}`;
+
+        // 2. 검색 실행 후 모달 닫기
+        closeModal();
+
+        // 3. 실제 통합 검색 결과 페이지로 이동 (예시)
+        window.location.href = `/search/result?keyword=${encodeURIComponent(keyword)}`;
+
+        // (선택) API 응답을 기다릴 필요 없이 즉시 페이지 이동
+        // fetch(integratedSearchUrl) // 결과를 기다리지 않고 기록만 수행
+        // .then(() => {
+        //     window.location.href = `/search/result?keyword=${encodeURIComponent(keyword)}`;
+        // });
+    };
+
+
     if (searchTrigger && searchModal) {
         const openModal = () => {
             searchModal.classList.add("open");
             searchModal.setAttribute("aria-hidden", "false");
             document.body.classList.add("modal-open");
             setTimeout(() => searchInput?.focus(), 150);
+
+            loadSearchKeywords(); // <<< 모달 열릴 때 키워드 로드 >>>
         };
 
         const closeModal = () => {
@@ -82,7 +199,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         closeButton?.addEventListener("click", closeModal);
-        searchForm?.addEventListener("submit", (e) => e.preventDefault());
+        searchForm?.addEventListener("submit", handleSearchSubmit); // <<< 검색 실행 함수 연결 >>>
+
         searchModal.addEventListener("click", (e) => {
             if (e.target === searchModal) closeModal();
         });
