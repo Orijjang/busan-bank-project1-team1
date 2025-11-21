@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.api.flobankapi.mapper.SearchMapper">
+
+    <!-- insertSearchLog와 selectRecentSearches는 경로가 이미 잘 되어 있습니다. -->
+    <insert id="insertSearchLog" parameterType="kr.co.api.flobankapi.dto.search.SearchLogDTO">
+        INSERT INTO TB_SEARCH_LOG (
+        search_txt,
+        search_cust_code
+        ) VALUES (
+        #{searchTxt},
+        #{searchCustCode}
+        )
+    </insert>
+
+
+    <select id="selectRecentSearches" parameterType="String" resultType="kr.co.api.flobankapi.dto.search.SearchLogDTO">
+        SELECT
+        search_no,
+        search_txt
+        FROM
+        TB_SEARCH_LOG
+        WHERE
+        search_cust_code = #{custCode}
+        ORDER BY
+        search_no DESC      LIMIT 10
+    </select>
+
+
+    <select id="selectPopularSearches" resultType="kr.co.api.flobankapi.dto.search.SearchTokenDTO">
+        SELECT *
+        FROM (
+        SELECT
+        TOK_TXT AS tokTxt,
+        COUNT(TOK_TXT) AS searchCount
+        FROM
+        TB_SEARCH_TOKEN
+        GROUP BY
+        TOK_TXT
+        ORDER BY
+        searchCount DESC
+        )
+        WHERE ROWNUM &lt;= 10
+    </select>
+
+
+</mapper>
