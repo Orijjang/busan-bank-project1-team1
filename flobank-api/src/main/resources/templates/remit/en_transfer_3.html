@@ -53,34 +53,51 @@
     </section>
 
     <!-- ✅ 송금정보 요약 -->
-    <section class="transfer3-section">
-      <h3 class="transfer3-subtitle">송금 정보 요약</h3>
+      <section class="transfer3-section">
+          <h3 class="transfer3-subtitle">송금 정보 요약</h3>
 
-      <table class="transfer3-table">
-        <tbody>
-          <tr>
-            <th>출금계좌</th>
-            <td th:text="|${custFrgnAcctDTO.frgnAcctName} ${custFrgnAcctDTO.frgnAcctNo}|">플로뱅크 외화종합계좌 112-2188-1931-00</td>
-          </tr>
-          <tr>
-            <th>송금통화</th>
-            <td th:text="|${frgnRemtTranDTO.remtCurrency} ${currency}|">USD (미국 달러)</td>
-          </tr>
-          <tr>
-            <th>송금금액</th>
-              <td th:text="|${currencySymbol}${#numbers.formatInteger(frgnRemtTranDTO.remtAmount, 0, 'COMMA')}|">$1,000</td>
-          </tr>
-          <tr>
-            <th>수수료</th>
-            <td th:text="|${currencySymbol}${frgnRemtTranDTO.remtFee} (중계은행 수수료 포함)|">$10.00 (중계은행 수수료 포함)</td>
-          </tr>
-          <tr>
-            <th>신청일시</th>
-            <td th:text="${frgnRemtTranDTO.remtDt}">2025-11-09 15:42:17</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+          <table class="transfer3-table">
+              <tbody>
+              <tr>
+                  <th>출금계좌</th>
+                  <td th:text="|${custFrgnAcctDTO.frgnAcctName} ${custFrgnAcctDTO.frgnAcctNo}|">계좌번호</td>
+              </tr>
+              <tr>
+                  <th>송금통화</th>
+                  <td th:text="|${frgnRemtTranDTO.remtCurrency} ${targetCurrencyName}|">USD (미국 달러)</td>
+              </tr>
+              <tr>
+                  <th>송금금액 (받는 분)</th>
+                  <td th:text="|${targetCurrencySymbol}${#numbers.formatInteger(frgnRemtTranDTO.remtAmount, 0, 'COMMA')}|">$1,000</td>
+              </tr>
+              <tr>
+                  <th>적용환율</th>
+                  <td th:text="|${#numbers.formatDecimal(frgnRemtTranDTO.remtAppliedRate, 1, 2)} KRW/${frgnRemtTranDTO.remtCurrency}|">1,400.00 KRW/USD</td>
+              </tr>
+              <tr>
+                  <th>출금금액 (보내는 분)</th>
+                  <td th:if="${isKrwAccount}" th:text="|${feeCurrencySymbol}${#numbers.formatInteger(withdrawalAmount, 0, 'COMMA')}|">₩1,400,000</td>
+                  <td th:unless="${isKrwAccount}" th:text="|${targetCurrencySymbol}${#numbers.formatInteger(withdrawalAmount, 0, 'COMMA')}|">$1,000</td>
+              </tr>
+              <tr>
+                  <th>수수료</th>
+                  <td th:if="${isKrwAccount}" th:text="|${feeCurrencySymbol}${#numbers.formatInteger(frgnRemtTranDTO.remtFee, 0, 'COMMA')}|">₩4,900</td>
+                  <td th:unless="${isKrwAccount}" th:text="|${feeCurrencySymbol}${frgnRemtTranDTO.remtFee}|">$3.34</td>
+              </tr>
+
+              <tr th:if="${isKrwAccount}" style="background-color: #f9f9f9;">
+                  <th>총 출금 예상액</th>
+                  <td style="color: #E53935; font-weight: bold;"
+                      th:text="|${feeCurrencySymbol}${#numbers.formatInteger(totalWithdrawalAmount, 0, 'COMMA')}|">₩1,404,900</td>
+              </tr>
+
+              <tr>
+                  <th>신청일시</th>
+                  <td th:text="${frgnRemtTranDTO.remtDt}">2025-11-09 15:42:17</td>
+              </tr>
+              </tbody>
+          </table>
+      </section>
 
     <!-- ✅ 수취인 정보 요약 -->
     <section class="transfer3-section">
@@ -119,12 +136,15 @@
         <form th:action="@{/remit/en_transfer_4}" method="post" th:object="${frgnRemtTranDTO}" style="display:inline;">
 
             <input type="hidden" th:field="*{remtAcctNo}">      <input type="hidden" th:field="*{remtCurrency}">    <input type="hidden" th:field="*{remtAmount}">      <input type="hidden" th:field="*{remtFee}">         <input type="hidden" th:field="*{remtDt}">          <input type="hidden" th:field="*{remtCountry}">
+            <input type="hidden" th:field="*{remtCustName}">
             <input type="hidden" th:field="*{remtRecName}">
             <input type="hidden" th:field="*{remtAddr}">
             <input type="hidden" th:field="*{remtCity}">
             <input type="hidden" th:field="*{remtState}">
             <input type="hidden" th:field="*{remtRecBkCode}">
             <input type="hidden" th:field="*{remtRecAccNo}">
+            <input type="hidden" th:value="${acctName}" name="acctName">
+            <input type="hidden" th:value="${acctNo}" name="acctNo">
 
             <button type="submit" class="transfer2-btn-main">이체실행</button>
         </form>
