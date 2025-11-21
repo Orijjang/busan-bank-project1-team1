@@ -101,4 +101,5 @@
         SELECT * FROM TB_FRGN_ACCT_BALANCE
         WHERE BAL_FRGN_ACCT_NO = #{frgnAcctNo}
     </select>
+
 </mapper>
