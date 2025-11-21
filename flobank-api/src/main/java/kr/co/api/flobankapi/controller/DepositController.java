@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import java.util.HashMap;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -63,6 +68,24 @@ public class DepositController {
 
         return "deposit/deposit_step2";
     }
+
+    @PostMapping("/calc")
+    @ResponseBody
+    public DepositExchangeDTO calc(@RequestBody Map<String, String> req) {
+        System.out.println("⚡ POST /deposit/calc 호출됨!");
+
+        String currency = req.get("currency");
+        DepositExchangeDTO exDTO = depositService.exchangeCalc(currency);
+        BigDecimal bdAmt = new BigDecimal(req.get("amount"));
+        BigDecimal krwAmt = bdAmt.multiply(exDTO.getAppliedRate())
+                .setScale(0, RoundingMode.FLOOR);
+
+        exDTO.setKrwAmount(krwAmt);
+
+
+        return exDTO;
+    }
+
     @GetMapping("/deposit_step3")
     public String deposit_step3(Model model, @RequestParam String dpstId){
         model.addAttribute("activeItem","product");
