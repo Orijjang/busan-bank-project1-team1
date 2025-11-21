@@ -29,7 +29,7 @@ public interface MypageMapper {
     // 외화 계좌명 수정
     void updateFrgnAcctName(String acctName, String acctNo);
 
-    // 계좌 조회
+    // 원화 계좌 조회
     CustAcctDTO selectCustAcct(String acctNo);
 
     // 계좌 이체 성공시 삽입

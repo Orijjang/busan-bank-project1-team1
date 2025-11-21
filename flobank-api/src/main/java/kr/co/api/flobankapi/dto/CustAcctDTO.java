@@ -13,4 +13,7 @@ public class CustAcctDTO {
     private String acctFundSource;
     private String acctPurpose;
     private String acctName;
+
+    // 추가필드
+    private String custName;
 }

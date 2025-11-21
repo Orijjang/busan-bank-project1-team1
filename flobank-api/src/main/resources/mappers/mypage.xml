@@ -57,9 +57,13 @@
         WHERE FRGN_ACCT_NO = #{acctNo}
     </update>
 
-    <select id="selectCustAcct">
-        SELECT * FROM TB_CUST_ACCT
-        WHERE ACCT_NO = #{acctNo}
+    <select id="selectCustAcct" resultType="kr.co.api.flobankapi.dto.CustAcctDTO">
+        SELECT
+        ca.*,
+        ci.CUST_NAME
+        FROM TB_CUST_ACCT ca
+        JOIN TB_CUST_INFO ci ON ca.ACCT_CUST_CODE = ci.CUST_CODE
+        WHERE ca.ACCT_NO = #{acctNo}
     </select>
     
     <insert id="insertTranHist" parameterType="kr.co.api.flobankapi.dto.CustTranHistDTO">
