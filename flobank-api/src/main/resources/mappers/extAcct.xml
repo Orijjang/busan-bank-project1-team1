@@ -8,4 +8,5 @@
         SELECT * FROM TB_EXT_ACCT
         WHERE EXT_NO = #{acctNo} AND EXT_BK_CODE = #{bkCode}
     </select>
+
 </mapper>

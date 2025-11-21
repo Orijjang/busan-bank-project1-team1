@@ -309,7 +309,7 @@ public class MypageController {
                     throw new Exception("존재하지 않는 플로은행 계좌입니다.");
                 }
 
-                realOwnerName = acct.getAcctName();
+                realOwnerName = acct.getCustName();
 
             } else { // 타행
                 // [외부은행] 타행 계좌 조회 (TB_EXT_ACCT)
@@ -364,8 +364,8 @@ public class MypageController {
             CustAcctDTO acct = mypageService.findCustAcct(acctNo);
             if (acct != null) {
                 exists = true;
-                // 예금주명 가져오기 (DTO 필드명 확인 필요, 여기선 예시)
-                ownerName = acct.getAcctName();
+                // 예금주명 가져오기
+                ownerName = acct.getCustName();
             }
         }
         // 2. 타행인 경우 (TB_EXT_ACCT 조회)
