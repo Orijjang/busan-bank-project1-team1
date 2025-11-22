@@ -21,6 +21,9 @@ public class CustTranHistDTO {
     String tranApproveNo;
     String tranEsignYn; // 전자서명 y / n
     String tranEsignDt; // 전자서명 받은 날짜
+    String tranCurrency;
+
 
     private Integer tranBalance;
+
 }
