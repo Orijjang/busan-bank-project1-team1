@@ -2,10 +2,12 @@ package kr.co.api.flobankapi.document;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -21,6 +23,6 @@ public class NoticeDocument {
     @Field(type = FieldType.Text)
     private String boardContent; // 게시글 내용 (mapToSearchResultItem에서 사용)
 
-    @Field(type = FieldType.Date)
-    private LocalDateTime boardRegDt; // 등록일 (mapToSearchResultItem에서 사용)
+    @Field(type = FieldType.Date, format = DateFormat.date)
+    private LocalDate boardRegDt;
 }

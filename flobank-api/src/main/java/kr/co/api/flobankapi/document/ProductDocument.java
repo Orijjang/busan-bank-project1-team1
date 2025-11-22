@@ -13,11 +13,11 @@ public class ProductDocument {
     @Id
     private String dpstId; // 상품 ID (Primary Key 역할)
 
-    @Field(type = FieldType.Text)
-    private String dpstName; // 상품명 (mapToSearchResultItem에서 사용)
+    @Field(type = FieldType.Text, analyzer = "nori") // "외화예금" -> "외화", "예금"으로 쪼개서 저장함
+    private String dpstName;
 
-    @Field(type = FieldType.Text)
-    private String dpstInfo; // 상품 정보/요약 (mapToSearchResultItem에서 사용)
+    @Field(type = FieldType.Text, analyzer = "nori")
+    private String dpstInfo;
 
     @Field(type = FieldType.Text)
     private String dpstDescript; // 상품 상세 설명 (검색 필드로 사용)

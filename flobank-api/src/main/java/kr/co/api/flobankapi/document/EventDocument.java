@@ -2,11 +2,13 @@ package kr.co.api.flobankapi.document;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 @Data
 @Document(indexName = "event")
@@ -24,6 +26,6 @@ public class EventDocument {
     @Field(type = FieldType.Text)
     private String eventBenefit; // 이벤트 혜택 (검색 필드로 사용)
 
-    @Field(type = FieldType.Date)
-    private LocalDateTime boardRegDt; // 등록일 (mapToSearchResultItem에서 사용)
+    @Field(type = FieldType.Date, format = DateFormat.date)
+    private LocalDate boardRegDt;
 }

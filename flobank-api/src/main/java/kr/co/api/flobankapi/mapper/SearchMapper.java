@@ -1,21 +1,26 @@
 package kr.co.api.flobankapi.mapper;
 
 import kr.co.api.flobankapi.dto.search.SearchLogDTO;
-import kr.co.api.flobankapi.dto.search.SearchKeywordDTO;
-import kr.co.api.flobankapi.dto.search.SearchTokenDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 @Mapper
 public interface SearchMapper {
 
-    // 1. 검색어 기록 저장
-    void insertSearchLog(SearchLogDTO log);
+    // 1. 인기 검색어용 토큰 저장
+    void insertSearchToken(@Param("keyword") String keyword);
 
-    // 2. 사용자별 최근 검색어 10개 조회
-    List<SearchLogDTO> selectRecentSearches(String custCode);
+    // 2. 내 검색 기록 저장(로그인한 이용자만)
+    void insertSearchLog(@Param("keyword") String keyword, @Param("custCode") String custCode);
 
+    // 3. 인기 검색어 조회
+    List<SearchLogDTO> selectPopularKeywords();
 
-    // 3. 전체 검색 토큰 기준 인기 검색어 10개 조회
-    List<SearchTokenDTO> selectPopularSearches();
+    // 4. 최근 검색어 조회
+    List<SearchLogDTO> selectRecentKeywords(String custCode);
+
+    // 5. 최근 검색어 삭제
+    void deleteSearchLog(@Param("keyword") String keyword, @Param("custCode") String custCode);
 }
