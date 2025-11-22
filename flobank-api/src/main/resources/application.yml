@@ -13,7 +13,7 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
   datasource:
-    url: jdbc:oracle:thin:@34.64.225.88:1521/XEPDB1
+    jdbc-url: jdbc:oracle:thin:@34.64.225.88:1521/XEPDB1
     username: flobank
     password: 1234
     driver-class-name: oracle.jdbc.OracleDriver
