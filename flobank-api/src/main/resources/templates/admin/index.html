@@ -104,16 +104,16 @@
                     <span th:text="|(${#temporals.format(baseTime, 'yyyy.MM.dd HH:mm:ss')} 기준)|"></span>
                 </h3>
                 <div class="admin-graph-box">
-                    <img th:src="@{/images/ex.png}" alt="연령대별 분포 그래프" />
+                    <canvas id="ageChart"></canvas>
                 </div>
             </article>
 
             <article class="admin-stat-card admin-graph-card">
-                <h3>성별 분포
+                <h3>성별 비율
                     <span th:text="|(${#temporals.format(baseTime, 'yyyy.MM.dd HH:mm:ss')} 기준)|"></span>
                 </h3>
                 <div class="admin-graph-box">
-                    <img th:src="@{/images/ex.png}" alt="성별 분포 그래프" />
+                    <canvas id="genderChart" style="width: 100%; height: 260px;"></canvas>
                 </div>
             </article>
         </div>
@@ -142,12 +142,12 @@
         ],
 
             // 🔹 최근 7일 (null 안전하게 처리)
-            last7Days: [
-            /*[# th:if="${stats != null && stats.last7Days != null}"]*/
-            /*[# th:each="d, iter : ${stats.last7Days}"]*/
-            {
-                date: '[[${d != null && d.baseDate != null ? #temporals.format(d.baseDate, "MM/dd") : ""}]]',
-                count: [[${d != null ? d.count : 0}]],
+        last7Days: [
+        /*[# th:if="${stats != null && stats.last7Days != null}"]*/
+        /*[# th:each="d, iter : ${stats.last7Days}"]*/
+        {
+            date: '[[${d != null && d.baseDate != null ? #temporals.format(d.baseDate, "MM/dd") : ""}]]',
+            count: [[${d != null ? d.count : 0}]],
         amount: [[${d != null ? d.amount : 0}]]
         }/*[# th:if="${!iter.last}"]*/,/*[/]*/
         /*[/]*/
@@ -185,7 +185,29 @@
         }/*[# th:if="${!iter.last}"]*/,/*[/]*/
         /*[/]*/
         /*[/]*/
+        ],
+        ageStats: [
+            /*[# th:if="${stats != null and stats.ageStats != null}"]*/
+            /*[# th:each="a, iter : ${stats.ageStats}"]*/
+            {
+                ageBand: '[[${a != null ? a.ageStats : ""}]]',
+                count:   [[${a != null ? a.count   : 0}]]
+        }/*[# th:if="${!iter.last}"]*/,/*[/]*/
+        /*[/]*/
+        /*[/]*/
+        ],
+        genderStats: [
+            /*[# th:if="${stats != null and stats.genderStats != null}"]*/
+            /*[# th:each="g, iter : ${stats.genderStats}"]*/
+            {
+                gender: '[[${g != null ? g.gender : ""}]]',
+                count: [[${g != null ? g.count : 0}]]
+        }/*[# th:if="${!iter.last}"]*/,/*[/]*/
+        /*[/]*/
+        /*[/]*/
         ]
+
+
 
         };
         /*]]>*/

@@ -129,16 +129,19 @@
     </select>
 
     <!-- 연령대 분포 -->
-    <select id="selectAgeDist"
-            resultType="kr.co.api.flobankapi.dto.admin.dashboard.AgeBandDTO">
-        SELECT age_band AS ageBand,
+    <select id="selectAgeStats"
+            resultType="kr.co.api.flobankapi.dto.admin.dashboard.AgeStatDTO">
+        SELECT age_band AS ageStats,
                COUNT(*)  AS count
         FROM (
             SELECT CASE
+            WHEN age BETWEEN 0 AND 09 THEN '10대 미만'
             WHEN age BETWEEN 10 AND 19 THEN '10대'
             WHEN age BETWEEN 20 AND 29 THEN '20대'
             WHEN age BETWEEN 30 AND 39 THEN '30대'
             WHEN age BETWEEN 40 AND 49 THEN '40대'
+            WHEN age BETWEEN 50 AND 59 THEN '50대'
+            WHEN age >= 60 THEN '60대+'
             ELSE '기타'
             END AS age_band
             FROM (
@@ -152,13 +155,14 @@
     </select>
 
     <!-- 성별 분포 -->
-    <select id="selectGenderDist"
+    <select id="selectgenderStats"
             resultType="kr.co.api.flobankapi.dto.admin.dashboard.GenderStatsDTO">
-        SELECT cust_gen AS gender,
-               COUNT(*)  AS count
+        SELECT DECODE(cust_gen, 'M', '남성', 'F', '여성', '기타') AS gender,
+               COUNT(*) AS count
         FROM TB_CUST_INFO
         WHERE cust_gen IS NOT NULL
         GROUP BY cust_gen
+        ORDER BY cust_gen DESC
     </select>
 
 </mapper>

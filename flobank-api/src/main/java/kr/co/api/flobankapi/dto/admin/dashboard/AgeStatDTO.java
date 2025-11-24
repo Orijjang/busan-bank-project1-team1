@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AgeBandDTO {
+public class AgeStatDTO {
     //나이
-    private String ageBand;
+    private String ageStats;
     private long count;
 }
