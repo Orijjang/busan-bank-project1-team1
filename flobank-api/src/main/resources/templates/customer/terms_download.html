@@ -30,7 +30,6 @@
             <div class="terms-section__header">
                 <div>
                     <p class="terms-section__title" th:text="${entry.value}">카테고리명</p>
-                    <p class="terms-section__subtitle" th:text="|카테고리 ${entry.key} 최신 약관|">카테고리 설명</p>
                 </div>
                 <span class="terms-section__count"
                       th:text="|총 ${#lists.size(termsByCate[entry.key])}건|">총 0건</span>
@@ -70,7 +69,9 @@
             </div>
         </div>
     </section>
+
 </main>
+
 
 <div th:replace="~{_template/_footer.html}"></div>
 
