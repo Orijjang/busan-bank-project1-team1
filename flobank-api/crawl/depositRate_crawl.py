@@ -7,7 +7,7 @@ import time
 from datetime import date, timedelta
 import oracledb  
 # ==========================================
-# 🔴 [설정] 오라클 접속 정보 입력
+# 오라클 접속 정보 입력
 # ==========================================
 DB_USER = "flobank"       # 유저명 (보통 c## 붙은 계정이거나 만든 계정)
 DB_PASSWORD = "1234"      # 비밀번호
@@ -20,7 +20,6 @@ def get_db_connection():
         # Thin 모드 (별도 클라이언트 설치 없이 동작)
         return oracledb.connect(user=DB_USER, password=DB_PASSWORD, dsn=DB_DSN)
     except Exception as e:
-        print(f"❌ DB 연결 실패: {e}")
         return None
 
 # 조회일자 입력칸 ID (이미지에서 확인한 것)
@@ -59,7 +58,7 @@ try:
         # 오라클에 DATE 타입으로 넣기 위해 date 객체 그대로 사용 가능하지만, 
         # 여기서는 문자열을 오라클 TO_DATE로 변환하는 방식을 씁니다.
         
-        print(f"\n📆 [날짜] {target_date_str} 처리 중...")
+        print(f"\n [날짜] {target_date_str} 처리 중...")
 
         for cur in target_currencies:
             try:

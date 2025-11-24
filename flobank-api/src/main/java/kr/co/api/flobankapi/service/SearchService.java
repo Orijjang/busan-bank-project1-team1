@@ -43,19 +43,19 @@ public class SearchService {
         try {
             // 1. 인기 검색어용 토큰 저장
             searchMapper.insertSearchToken(keyword.trim());
-            System.out.println("✅ [SearchService] 인기 검색어 토큰 저장 완료: " + keyword);
+//            System.out.println(" [SearchService] 인기 검색어 토큰 저장 완료: " + keyword);
 
             // 2. 내 검색 기록 저장 (조건 확인 로그)
             if (custCode != null && !custCode.equals("ANONYMOUS") && !custCode.equals("null")) {
-                System.out.println("🚀 [SearchService] 개인 기록 저장 시도 -> ID: " + custCode);
+//                System.out.println("[SearchService] 개인 기록 저장 시도 -> ID: " + custCode);
                 searchMapper.insertSearchLog(keyword.trim(), custCode);
-                System.out.println("✅ [SearchService] 개인 기록 저장 성공!");
+//                System.out.println("[SearchService] 개인 기록 저장 성공!");
             } else {
-                System.out.println("⚠️ [SearchService] 비로그인 상태이므로 개인 기록 저장 안 함. (ID: " + custCode + ")");
+//                System.out.println(" [SearchService] 비로그인 상태이므로 개인 기록 저장 안 함. (ID: " + custCode + ")");
             }
         } catch (Exception e) {
             //  에러 발생 시 콘솔에 빨갛게 출력
-            System.err.println(" [SearchService] 검색어 저장 중 에러 발생!");
+//            System.err.println(" [SearchService] 검색어 저장 중 에러 발생!");
             e.printStackTrace();
         }
     }
