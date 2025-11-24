@@ -54,7 +54,7 @@
       <li>
         <label>
           <input type="checkbox" class="step1-checkbox">
-          <a th:href="@{${product.dpstInfoPdf}}" target="_blank">
+          <a th:href="@{'/deposit/info/download'(dpstId=${dpstId})}" target="_blank">
             <span>[필수] 상품설명서</span>
             <i class="fa-solid fa-angle-right"></i>
           </a>

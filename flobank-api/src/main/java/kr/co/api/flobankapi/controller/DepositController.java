@@ -97,6 +97,40 @@ public class DepositController {
 
     }
 
+    @Value("${file.upload.pdf-products-path}")
+    private String productsUploadPath;
+
+    @GetMapping("/info/download")
+    public void downloadDepositInfo(@RequestParam String dpstId, HttpServletResponse response) throws IOException {
+
+
+        String termPath = depositService.getProduct(dpstId).getDpstInfoPdf();
+        String fileName = Paths.get(termPath).getFileName().toString();
+        String fullPath = productsUploadPath + "/" + fileName;
+
+
+        Path path = Paths.get(fullPath);
+
+        if (!Files.exists(path)) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "파일을 찾을 수 없습니다.");
+            return;
+        }
+
+        response.setContentType("application/pdf");
+        response.setHeader(
+                "Content-Disposition",
+                "attachment; filename=\"" + fileName + "\"; filename*=UTF-8''" + fileName
+        );
+        response.setHeader("Content-Length", String.valueOf(Files.size(path)));
+
+        // 4) 파일을 스트림으로 직접 내려보냄
+        try (OutputStream os = response.getOutputStream()) {
+            Files.copy(path, os);
+            os.flush();
+        }
+
+    }
+
     @GetMapping("/deposit_step2")
     public String deposit_step2(Model model, @RequestParam String dpstId, @AuthenticationPrincipal CustomUserDetails user){
         model.addAttribute("activeItem","product");
