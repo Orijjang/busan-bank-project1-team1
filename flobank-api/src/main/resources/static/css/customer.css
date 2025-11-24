@@ -1297,3 +1297,20 @@ border: 1px solid #ccc;
     background: #d9dee4;
     transform: translateY(-2px);
 }
+
+/* ===============================
+   이벤트 상세 · 공지 상세 — 박스 제거
+   =============================== */
+/* 이벤트 상세: 헤더 회색 제거 */
+.event-view .view-header {
+    background: none !important;
+    border-bottom: none !important;
+    padding: 0 !important;
+}
+
+/* 공지 상세: 헤더 회색 제거 */
+.notice-view .view-header {
+    background: none !important;
+    border-bottom: none !important;
+    padding: 0 !important;
+}
