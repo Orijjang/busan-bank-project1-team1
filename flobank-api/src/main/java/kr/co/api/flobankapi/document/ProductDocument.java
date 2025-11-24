@@ -19,6 +19,6 @@ public class ProductDocument {
     @Field(type = FieldType.Text, analyzer = "nori")
     private String dpstInfo;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, analyzer = "nori")
     private String dpstDescript; // 상품 상세 설명 (검색 필드로 사용)
 }

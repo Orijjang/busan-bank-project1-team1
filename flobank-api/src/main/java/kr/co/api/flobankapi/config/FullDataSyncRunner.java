@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * 서버 시작 시 오라클 DB의 데이터를 조회하여 엘라스틱서치 인덱스로 저장하는 초기화 클래스
- */
+
+// 서버 시작 시 오라클 DB의 데이터를 조회하여 엘라스틱서치 인덱스로 저장하는 초기화 클래스
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -26,9 +26,6 @@ public class FullDataSyncRunner implements ApplicationRunner {
     @Override
     @Transactional(readOnly = true) // DB 조회 시 읽기 전용 트랜잭션 유지
     public void run(ApplicationArguments args) throws Exception {
-        log.info("=======================================================");
-        log.info("[Elasticsearch Data Sync] 오라클 DB -> ES 데이터 동기화 시작");
-        log.info("=======================================================");
 
         try {
             // 1. 상품 (TB_DPST_PROD_INFO)
@@ -46,11 +43,9 @@ public class FullDataSyncRunner implements ApplicationRunner {
             // 5. 이벤트 (TB_BOARD_HDR type=2)
             syncEvents();
 
-            log.info("[Sync Complete] 모든 데이터가 엘라스틱서치에 성공적으로 적재되었습니다.");
+            log.info("모든 데이터가 엘라스틱서치에 성공적으로 적재");
 
         } catch (Exception e) {
-            log.error("데이터 동기화 중 오류가 발생했습니다: ", e);
-            // 동기화 실패가 서버 부팅 자체를 막지 않도록 예외를 로그만 찍고 넘어갑니다.
         }
     }
 
@@ -61,9 +56,7 @@ public class FullDataSyncRunner implements ApplicationRunner {
         List<ProductDocument> list = searchDataMapper.selectAllProducts();
         if (list != null && !list.isEmpty()) {
             elasticsearchOperations.save(list); // 대량 저장 (Bulk Insert)
-            log.info("[Product] 상품 데이터 {}건 저장 완료", list.size());
         } else {
-            log.info("[Product] 저장할 상품 데이터가 없습니다.");
         }
     }
 
@@ -74,9 +67,7 @@ public class FullDataSyncRunner implements ApplicationRunner {
         List<FaqDocument> list = searchDataMapper.selectAllFaqs();
         if (list != null && !list.isEmpty()) {
             elasticsearchOperations.save(list);
-            log.info("[FAQ] FAQ 데이터 {}건 저장 완료", list.size());
         } else {
-            log.info("[FAQ] 저장할 FAQ 데이터가 없습니다.");
         }
     }
 
@@ -97,9 +88,7 @@ public class FullDataSyncRunner implements ApplicationRunner {
             }
 
             elasticsearchOperations.save(list);
-            log.info("[Terms] 약관 데이터 {}건 저장 완료 (제목+내용 포함)", list.size());
         } else {
-            log.info("[Terms] 저장할 약관 데이터가 없습니다.");
         }
     }
 
@@ -115,9 +104,7 @@ public class FullDataSyncRunner implements ApplicationRunner {
             });
 
             elasticsearchOperations.save(list);
-            log.info("[Notice] 공지사항 데이터 {}건 저장 완료", list.size());
         } else {
-            log.info("[Notice] 저장할 공지사항 데이터가 없습니다.");
         }
     }
 
@@ -134,9 +121,7 @@ public class FullDataSyncRunner implements ApplicationRunner {
             });
 
             elasticsearchOperations.save(list);
-            log.info("[Event] 이벤트 데이터 {}건 저장 완료", list.size());
         } else {
-            log.info("[Event] 저장할 이벤트 데이터가 없습니다.");
         }
     }
 }
