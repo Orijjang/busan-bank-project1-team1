@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -67,8 +66,8 @@ public class DashboardService {
         }
 
         // 3) 연령/성별
-        List<AgeBandDTO> ageDist   = dashboardMapper.selectAgeDist();
-        List<GenderStatsDTO> genderDist = dashboardMapper.selectGenderDist();
+        List<AgeStatDTO> ageStats   = dashboardMapper.selectAgeStats();
+        List<GenderStatsDTO> genderStats = dashboardMapper.selectgenderStats();
 
         this.lastUpdatedAt = LocalDateTime.now();
 
@@ -85,8 +84,10 @@ public class DashboardService {
                 .dailyJoinStats(dailyJoin)
                 .weeklyJoinStats(weeklyJoin)
                 .monthlyJoinStats(monthlyJoin)
-                .ageDist(ageDist)
-                .genderDist(genderDist)
+
+                .ageStats(ageStats)
+
+                .genderStats(genderStats)
 
                 .lastUpdatedAt(this.lastUpdatedAt)
                 .build();
