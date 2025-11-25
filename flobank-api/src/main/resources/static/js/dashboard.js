@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         tension: 0.4,
                         fill: true,
                         pointRadius: 0,
-                        hoverRadius: 0,
+                        hoverRadius: 1,
                         pointHitRadius: 15
                     }
                 ]
@@ -235,9 +235,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     {
                         label: '오늘 외화 거래 건수',
                         data: counts,
-                        backgroundColor: 'rgba(32, 43, 68, 0.7)',
-                        barPercentage: 0.2,
-                        categoryPercentage: 0.6,
+                        borderColor: '#2196f3',
+                        backgroundColor: 'rgba(33,150,243,0.2)',
+                        barPercentage: 0.6,
+                        categoryPercentage: 0.5,
                     }
                 ]
             },
@@ -257,6 +258,22 @@ document.addEventListener('DOMContentLoaded', function () {
                         ticks: {
                             precision: 0
                         }
+                    }
+                },
+                onClick: (event, activeElements) => {
+                    if (!activeElements || activeElements.length === 0) return;
+
+                    const chart = activeElements[0].element.$context.chart;
+                    const index = activeElements[0].index;
+                    const label = chart.data.labels[index];
+
+                    // 라벨별 이동 URL 매핑
+                    let url = null;
+                    if (label === '환전') {
+                        url = '/flobank/admin/exchange';
+                    }
+                    if (url) {
+                        window.location.href = url;
                     }
                 }
             }
@@ -381,11 +398,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     datasets: [{
                         label: '주별 가입자 수',
                         data: data,
-                        borderColor: '#2196F3',
-                        backgroundColor: 'rgba(33, 150, 243, 0.2)',
+                        borderColor: '#2196f3',
+                        backgroundColor: 'rgba(33,150,243,0.2)',
                         fill: true,
                         tension: 0.4,
-                        pointRadius: 3
+                        pointRadius: 1
                     }]
                 },
                 options: {
