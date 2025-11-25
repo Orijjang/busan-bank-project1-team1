@@ -8,17 +8,32 @@
         <section class="admin-exchange-stats-row">
             <article class="admin-exchange-card admin-exchange-graph-card">
                 <h3>일자별 통화 환전금액
-                    <span th:text="|(${baseTime != null ? #temporals.format(baseTime,'yyyy.MM.dd HH:mm:ss') : '-'} 기준)|"></span>
+                    <span class="exchange-base-time"
+                          th:text="|(${baseTime != null ? #temporals.format(baseTime,'MM.dd HH:mm:ss') : '-'} 기준)|">
+    </span>
                 </h3>
+
+                <!-- 🔽 날짜 선택 UI 추가 -->
+                <div class="admin-exchange-date-picker" style="margin-bottom:10px;">
+                    <input type="date" id="exchangeDatePicker" />
+                </div>
+
+                <!-- 🔽 통화 필터 -->
+                <div class="admin-exchange-filter" id="currencyFilter"></div>
+
+                <!-- 🔽 통화별 환전 그래프 -->
                 <div class="admin-exchange-graph-box">
                     <canvas id="currencyDailyChart"></canvas>
                 </div>
+
+
+
+
             </article>
 
             <article class="admin-exchange-card admin-exchange-graph-card">
                 <h3>일자별 환전액
-                    <span th:text="|(${baseTime != null ? #temporals.format(baseTime,'yyyy.MM.dd HH:mm:ss') : '-'} 기준)|"></span>
-                </h3>
+                    <span class="exchange-base-time" th:text="|(${baseTime != null ? #temporals.format(baseTime,'MM.dd HH:mm:ss') : '-'} 기준)|"></span>                </h3>
                 <div class="admin-exchange-graph-box">
                     <canvas id="dailyTotalChart"></canvas>
                 </div>
@@ -37,8 +52,7 @@
 
                 </select>
 
-                <input type="text" id="exchangeSearchInput" name="keyword" placeholder="검색어를 입력하세요" th:value="${keyword}" />
-                <input type="hidden" name="couponPage" th:value="${couponPage}" />
+                <input type="text" id="exchangeSearchInput" name="keyword" placeholder="검색어를 입력하세요" th:value="${keyword != null && keyword != 'null' ? keyword : ''}" />                <input type="hidden" name="couponPage" th:value="${couponPage}" />
                 <button id="exchangeSearchBtn" type="submit">검색</button>
             </form>
 
@@ -176,7 +190,7 @@
                 /*[# th:if="${stats != null && stats.currencyDailyAmounts != null}"]*/
                 /*[# th:each="row, iter : ${stats.currencyDailyAmounts}"]*/
                 {
-                    date: '[[${row.baseDate}]]',
+                    date: /*[[${row.baseDate}]]*/ '',
                     currency: '[[${row.currency}]]',
                     amount: [[${row.amountKrw}]]
                 }/*[# th:if="${!iter.last}"]*/,/*[/]*/
@@ -187,12 +201,13 @@
                 /*[# th:if="${stats != null && stats.dailyTotals != null}"]*/
                 /*[# th:each="row, iter : ${stats.dailyTotals}"]*/
                 {
-                    date: '[[${row.baseDate}]]',
+                    date: /*[[${row.baseDate}]]*/ '',
                     amount: [[${row.amountKrw}]]
                 }/*[# th:if="${!iter.last}"]*/,/*[/]*/
                 /*[/]*/
                 /*[/]*/
-            ]
+            ],
+            lastUpdatedAt: '[[${stats != null ? stats.lastUpdatedAt : ''}]]'
         };
         /*]]>*/
     </script>
