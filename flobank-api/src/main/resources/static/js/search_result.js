@@ -17,12 +17,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const more = section.querySelector(".more");
 
       if (tabName === "all") {
-        // ✅ 통합검색 모드: 전부 2개씩 + 더보기 표시
         section.style.display = "block";
         section.querySelectorAll(".hidden").forEach(el => (el.style.display = "none"));
         if (more) more.style.display = "inline"; // 더보기 보이기
       } else if (section.dataset.tab === tabName) {
-        // ✅ 특정 탭 클릭 시: 해당 섹션만 전체 표시 + 더보기 숨김
         section.style.display = "block";
         section.querySelectorAll(".hidden").forEach(el => (el.style.display = "list-item"));
         if (more) more.style.display = "none"; // 더보기 숨기기
