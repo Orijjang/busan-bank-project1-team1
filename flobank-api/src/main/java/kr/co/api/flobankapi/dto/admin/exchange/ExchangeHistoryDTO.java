@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.Date;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -18,5 +18,5 @@ public class ExchangeHistoryDTO {
     private String exchFromCurrency;
     private String exchToCurrency;
     private BigDecimal exchAppliedRate;
-    private LocalDateTime lastUpdatedAt;
+    private Date exchReqDt;
 }

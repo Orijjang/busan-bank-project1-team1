@@ -84,8 +84,7 @@
                         <td th:text="${row.exchFromCurrency}">KRW</td>
                         <td th:text="${row.exchToCurrency}">USD</td>
                         <td th:text="${row.exchAppliedRate != null ? #numbers.formatDecimal(row.exchAppliedRate, 0, 4) : '-'}">1,470.59</td>
-                        <td th:text="${row.lastUpdatedAt != null ? #temporals.format(row.lastUpdatedAt, 'yyyy-MM-dd HH:mm:ss') : '-'}">2025-11-11 09:13:22</td>
-
+                        <td th:text="${row.exchReqDt != null ? #dates.format(row.exchReqDt, 'yyyy-MM-dd HH:mm:ss') : '-'}">2025-11-11 09:13:22</td>
                     </tr>
 
                     </tbody>
@@ -93,35 +92,91 @@
             </div>
 
 
-
-        <!-- 페이지네이션 -->
         <div class="pagination">
 
-            <!-- Prev -->
-            <a class="page-btn"
-               th:classappend="${exchangePage <= 1} ? ' disabled'"
-               th:href="@{|/admin/exchange?page=${exchangePage - 1 < 1 ? 1 : exchangePage - 1}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
-                «
-            </a>
 
-            <!-- Page numbers -->
-            <a class="page-btn"
-               th:each="p : ${#numbers.sequence(1, exchangeTotalPage)}"
-               th:classappend="${p} == ${exchangePage} ? ' active'"
-               th:href="@{|/admin/exchange?page=${p}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}"
-               th:text="${p}">
-            </a>
 
-            <!-- Next -->
-            <a class="page-btn"
-               th:classappend="${exchangePage >= exchangeTotalPage} ? ' disabled'"
-               th:href="@{|/admin/exchange?page=${exchangePage + 1 > exchangeTotalPage ? exchangeTotalPage : exchangePage + 1}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
-                »
-            </a>
+        <!-- 페이지네이션: << 1 ... 9 10 11 ... 23 >> -->
+
+            <th:block th:with="
+        total=${exchangeTotalPage},
+        curr=${exchangePage},
+
+        prevPage=${curr == 1 ? 2 : (curr == total ? total-2 : curr-1)},
+        nextPage=${curr == total ? total-1 : (curr == 1 ? 3 : curr+1)}
+">
+
+                <!-- << Prev -->
+                <a class="page-btn"
+                   th:classappend="${curr <= 1} ? ' disabled'"
+                   th:href="@{|/admin/exchange?page=${curr-1 < 1 ? 1 : curr-1}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                    &laquo;
+                </a>
+
+                <!-- always show page 1 -->
+                <a class="page-btn"
+                   th:classappend="${curr == 1} ? ' active'"
+                   th:href="@{|/admin/exchange?page=1&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                    1
+                </a>
+
+                <!-- left ... -->
+                <span class="ellipsis"
+                      th:if="${prevPage > 2}">
+        ...
+    </span>
+
+                <!-- prevPage -->
+                <a class="page-btn"
+                   th:if="${prevPage > 1 && prevPage < total}"
+                   th:classappend="${curr == prevPage} ? ' active'"
+                   th:text="${prevPage}"
+                   th:href="@{|/admin/exchange?page=${prevPage}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                </a>
+
+                <!-- curr -->
+                <a class="page-btn active"
+                   th:text="${curr}"
+                   th:if="${curr != 1 && curr != total}"
+                   th:href="@{|/admin/exchange?page=${curr}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                </a>
+
+                <!-- nextPage -->
+                <a class="page-btn"
+                   th:if="${nextPage > 1 && nextPage < total}"
+                   th:classappend="${curr == nextPage} ? ' active'"
+                   th:text="${nextPage}"
+                   th:href="@{|/admin/exchange?page=${nextPage}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                </a>
+
+                <!-- right ... -->
+                <span class="ellipsis"
+                      th:if="${nextPage < total-1}">
+        ...
+    </span>
+
+                <!-- last page -->
+                <a class="page-btn"
+                   th:if="${total > 1}"
+                   th:classappend="${curr == total} ? ' active'"
+                   th:text="${total}"
+                   th:href="@{|/admin/exchange?page=${total}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                </a>
+
+                <!-- >> Next -->
+                <a class="page-btn"
+                   th:classappend="${curr >= total} ? ' disabled'"
+                   th:href="@{|/admin/exchange?page=${curr+1 > total ? total : curr+1}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                    &raquo;
+                </a>
+
+            </th:block>
+
+
+
+
 
         </div>
-
-
 
     </section>
 
