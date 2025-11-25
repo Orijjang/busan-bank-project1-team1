@@ -39,7 +39,7 @@ public class DashboardService {
         List<DailyTxSummaryDTO> last7Days = dashboardMapper.selectLast7DaysTotalTxSummary();
 
         int remtCount = dashboardMapper.selectTodayFrgnRemtTxCount(); // 외화송금
-        int exchCount = dashboardMapper.selectTodayExChangeTxCount(); // TODO: 환전 테이블 생기면 Mapper 추가
+        int exchCount = dashboardMapper.selectTodayExChangeTxCount(); // 환전
 
         List<TxCountDTO> todayFxTxCounts = List.of(
                 TxCountDTO.builder().type("환전").count(exchCount).build(),

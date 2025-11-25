@@ -1,0 +1,3 @@
+security:
+  remember-me:
+    seconds: 604800 #1주일

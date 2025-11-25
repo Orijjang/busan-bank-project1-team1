@@ -3,6 +3,7 @@ package kr.co.api.flobankapi.config;
 import kr.co.api.flobankapi.jwt.JwtAuthenticationFilter;
 import kr.co.api.flobankapi.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,6 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
+
+    @Value("${security.remember-me.seconds:0}")
+    private int rememberMeSeconds;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -39,6 +43,7 @@ public class SecurityConfig {
                                         "/mypage/chatbot",
                                         "/remit/info"
                         ).permitAll()
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/mypage/**").authenticated() // 마이페이지는 로그인 필요
                         .requestMatchers("/remit/**").authenticated()
                         .requestMatchers("/exchange/step1").authenticated()
@@ -52,6 +57,10 @@ public class SecurityConfig {
                         .requestMatchers("/customer/qna_edit").authenticated()
                         .requestMatchers("/uploads/**").permitAll()
                         .anyRequest().permitAll() // 일단 나머지는 다 허용 (개발 편의상)
+                )
+                .rememberMe(remember -> remember
+                        .key("flobank-remember-me-key")
+                        .tokenValiditySeconds(rememberMeSeconds)
                 )
                 // 우리가 만든 필터를 UsernamePasswordAuthenticationFilter 앞에 끼워넣기
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
