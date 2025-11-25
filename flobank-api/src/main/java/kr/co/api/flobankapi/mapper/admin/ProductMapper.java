@@ -53,7 +53,7 @@ public interface ProductMapper {
     void updateStatusToOpened();
 
     // 상품명으로 최신 약관 파일 경로 가져오기
-    String getTermsFileByTitle(String productName);
+    String findTermsFileByTitle(@Param("productName") String productName);
 
 
 

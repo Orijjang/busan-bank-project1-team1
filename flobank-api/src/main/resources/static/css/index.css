@@ -31,7 +31,7 @@
 /*=====================================*/
 
 .foreign-section {
-  background: #f8f8f8; /* 회색 톤 배경 */
+  background: #fafbfc; /* 회색 톤 배경 */
   padding: 60px 0;     /* 위아래 여백 확장 */
 }
 
@@ -83,7 +83,7 @@
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 25px 30px;
-  box-shadow: none; /* ✅ 추가 */
+  box-shadow: none;
 }
 
 .board-box h3 {

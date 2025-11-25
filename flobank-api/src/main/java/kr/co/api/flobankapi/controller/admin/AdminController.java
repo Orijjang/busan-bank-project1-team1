@@ -1,5 +1,6 @@
 package kr.co.api.flobankapi.controller.admin;
 
+import kr.co.api.flobankapi.dto.AdminInfoDTO;
 import kr.co.api.flobankapi.dto.BoardDTO;
 import kr.co.api.flobankapi.dto.FaqDTO;
 import kr.co.api.flobankapi.service.BoardService;
@@ -201,6 +202,13 @@ public class AdminController {
         ra.addFlashAttribute("msg", "FAQ가 수정되었습니다!");
 
         return "redirect:/admin/member?faqPage=" + faqPage + "#faq-list";
+    }
+
+
+
+    @GetMapping("/login")
+    public String adminLogin() {
+        return "admin/login";
     }
 
 

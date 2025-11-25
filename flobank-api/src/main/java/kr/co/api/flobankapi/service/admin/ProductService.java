@@ -152,6 +152,6 @@ public class ProductService {
 
     // 관리자용 약관 파일 확인 메서드
     public String getTermsFileByName(String productName) {
-        return productMapper.getTermsFileByTitle(productName);
+        return productMapper.findTermsFileByTitle(productName);
     }
 }
