@@ -11,7 +11,7 @@ import java.util.List;
 public interface SearchDataMapper {
 
     // 1. 상품 (TB_DPST_PROD_INFO)
-    // 이미지 기준: dpst_id, dpst_name, dpst_info, dpst_descript, dpst_reg_dt
+    // dpst_id, dpst_name, dpst_info, dpst_descript, dpst_reg_dt
     @Select("""
     SELECT 
         dpst_id AS dpstId,
@@ -24,39 +24,40 @@ public interface SearchDataMapper {
     List<ProductDocument> selectAllProducts();
 
     // 2. FAQ (TB_FAQ_HDR)
-    // 이미지 기준: faq_no, faq_question, faq_answer
+    // faq_no, faq_question, faq_answer
     @Select("SELECT faq_no as faqNo, faq_question as faqQuestion, faq_answer as faqAnswer FROM TB_FAQ_HDR")
     List<FaqDocument> selectAllFaqs();
 
     // 3. 약관 (TB_TERMS_MASTER)
-    // 이미지 기준: term_order(PK), term_title, term_reg_dy
-    // 주의: '내용(content)' 컬럼이 테이블에 없으므로 제목만 검색되도록 매핑하거나, content에는 빈 문자열을 넣습니다.
     @Select("""
-        SELECT 
-            h.thist_no        AS thistNo,
-            m.term_title      AS termTitle,
-            h.thist_content   AS thistContent,
-            h.thist_version   AS thistVersion,
-            h.thist_file      AS thistFile,
-            TO_DATE(h.thist_reg_dy, 'YYYYMMDD') AS thistRegDy
-        FROM TB_TERMS_HIST h
-        JOIN TB_TERMS_MASTER m 
-          ON h.thist_term_order = m.term_order 
-         AND h.thist_term_cate  = m.term_cate
-    """)
+    SELECT 
+        h.thist_no        AS thistNo,
+        m.term_title      AS termTitle,
+        h.thist_content   AS thistContent,
+        h.thist_version   AS thistVersion,
+        h.thist_file      AS thistFile,
+        TO_DATE(h.thist_reg_dy, 'YYYYMMDD') AS thistRegDy,
+        
+        -- [추가됨] 이력 테이블(h)에 있는 값을 가져와서 자바 객체에 매핑
+        h.thist_term_order AS thistTermOrder,
+        h.thist_term_cate  AS thistTermCate
+        
+    FROM TB_TERMS_HIST h
+    JOIN TB_TERMS_MASTER m 
+      ON h.thist_term_order = m.term_order 
+     AND h.thist_term_cate  = m.term_cate
+""")
     List<TermDocument> selectAllTerms();
 
-
     // 4. 공지사항 (TB_BOARD_HDR where board_type = 1)
-    // 이미지 기준: board_no, board_title, board_content, board_reg_dt
+    // board_no, board_title, board_content, board_reg_dt
     @Select("SELECT board_no as boardNo, board_title as boardTitle, board_content as boardContent, board_reg_dt as boardRegDt " +
             "FROM TB_BOARD_HDR " +
             "WHERE board_type = 1")
     List<NoticeDocument> selectAllNotices();
 
     // 5. 이벤트 (TB_BOARD_HDR where board_type = 2)
-    // 이미지 기준: board_no, board_title, board_content, board_reg_dt
-    // 주의: 이미지상에 '혜택(benefit)' 컬럼이 안 보입니다. 내용(content)을 혜택 필드에도 같이 넣어주거나 비워둡니다.
+    //  board_no, board_title, board_content, board_reg_dt
     @Select("SELECT board_no as boardNo, board_title as boardTitle, board_content as boardContent, board_content as eventBenefit, board_reg_dt as boardRegDt " +
             "FROM TB_BOARD_HDR " +
             "WHERE board_type = 2")

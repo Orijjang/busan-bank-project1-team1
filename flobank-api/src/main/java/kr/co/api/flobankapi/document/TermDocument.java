@@ -26,9 +26,8 @@ public class TermDocument {
     @Field(type = FieldType.Text, analyzer = "nori")
     private String thistContent;  // 약관 내용 (from HIST - CLOB)
 
-    // 버전 (검색보다는 필터/표시용이므로 Keyword 타입 추천)
-    @Field(type = FieldType.Keyword)
-    private String thistVersion;
+    @Field(type = FieldType.Integer)
+    private Integer thistVersion;
 
     @Field(type = FieldType.Date, format = DateFormat.date)
     private LocalDate thistRegDy;
@@ -36,6 +35,18 @@ public class TermDocument {
     @JsonProperty("thistFile")  // JSON에서 "thistFile"이라는 키를 강제로 매핑
     @Field(name = "thistFile", type = FieldType.Keyword) // ES 필드명도 확실하게 지정
     private String thistFile;
+
+    @Field(type = FieldType.Integer)
+    private Integer thistTermOrder;
+
+    @Field(type = FieldType.Integer)
+    private Integer thistTermCate;
+
+    // 2. 엘라스틱서치에서 그룹핑(Collapse) 할 때 쓸 키 (예: "2_4")
+    @Field(type = FieldType.Keyword)
+    private String groupKey;
+
+
 
     // 자동완성을 위한 필드
     @CompletionField(maxInputLength = 100, preserveSeparators = true)

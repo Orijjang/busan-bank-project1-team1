@@ -2,6 +2,7 @@ package kr.co.api.flobankapi.service;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Operator;
 import co.elastic.clients.elasticsearch.core.search.CompletionSuggester;
+import co.elastic.clients.elasticsearch.core.search.FieldCollapse;
 import co.elastic.clients.elasticsearch.core.search.FieldSuggester;
 import co.elastic.clients.elasticsearch.core.search.Suggester;
 import kr.co.api.flobankapi.document.*;
@@ -14,7 +15,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
+import org.springframework.data.elasticsearch.client.elc.NativeQueryBuilder;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.Query;
@@ -93,7 +96,18 @@ public class SearchService {
         tabKeys.add("faq");
 
         // 3) 약관
-        queries.add(buildNativeQuery(keyword, PREVIEW_SIZE, "termTitle^5", "thistContent"));
+        NativeQuery termsQuery = NativeQuery.builder()
+                .withQuery(q -> q.multiMatch(m -> m
+                        .query(keyword)
+                        .fields(List.of("termTitle^5", "thistContent"))
+                        .operator(Operator.And)
+                ))
+                .withMaxResults(PREVIEW_SIZE)
+                .withFieldCollapse(FieldCollapse.of(f -> f.field("groupKey")))
+                .withSort(Sort.by(Sort.Direction.DESC, "thistVersion"))
+                .build();
+
+        queries.add(termsQuery);
         classes.add(TermDocument.class);
         tabKeys.add("docs");
 
@@ -143,7 +157,16 @@ public class SearchService {
                 docClass = FaqDocument.class;
                 break;
             case "docs":
-                query = buildNativeQuery(keyword, pageable, "termTitle^3", "thistContent");
+                NativeQueryBuilder queryBuilder = NativeQuery.builder()
+                        .withQuery(q -> q.multiMatch(m -> m
+                                .query(keyword)
+                                .fields(List.of("termTitle^3", "thistContent"))
+                                .operator(Operator.And)
+                        ));
+                queryBuilder.withFieldCollapse(FieldCollapse.of(f -> f.field("groupKey")));
+                queryBuilder.withSort(Sort.by(Sort.Direction.DESC, "thistVersion"));
+                queryBuilder.withPageable(pageable);
+                query = queryBuilder.build();
                 docClass = TermDocument.class;
                 break;
             case "notice":
@@ -203,9 +226,6 @@ public class SearchService {
 
     private SearchResultItemDTO convertDocumentToDTO(Object doc, String type) {
         SearchResultItemDTO item = new SearchResultItemDTO();
-        final String BASE_URL = "http://34.64.124.33:8080/flobank";
-
-
         try {
             switch (type) {
                 case "product":
@@ -224,17 +244,21 @@ public class SearchService {
                     TermDocument t = (TermDocument) doc;
                     item.setTitle(t.getTermTitle() + " (v" + t.getThistVersion() + ")");
                     item.setSummary(safeSummary(t.getThistContent()));
+
                     String filePath = t.getThistFile();
+
+                    // [수정 2] 순수 파일 경로만 처리
                     if (filePath != null && !filePath.isBlank()) {
-                        // 1. 파일 경로가 '/'로 시작하지 않으면 붙여줌
+                        // DB에 '/uploads'로 시작하지 않는 경우를 대비해 '/'만 붙여줌
                         if (!filePath.startsWith("/")) {
-                            filePath = "/" + filePath;
+                            item.setUrl("/" + filePath);
+                        } else {
+                            item.setUrl(filePath);
                         }
-                        // 2. BASE_URL + 파일경로 결합
-                        item.setUrl(BASE_URL + filePath);
                     } else {
                         item.setUrl("#");
                     }
+
                     if (t.getThistRegDy() != null) item.setExtra(t.getThistRegDy().format(DATE_FMT));
                     break;
                 case "notice":

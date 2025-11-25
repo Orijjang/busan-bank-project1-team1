@@ -116,12 +116,12 @@ public class FullDataSyncRunner implements ApplicationRunner {
     // -----------------------------------------------------------------
     private void syncTerms() {
         List<TermDocument> list = searchDataMapper.selectAllTerms();
+
         if (list != null && !list.isEmpty()) {
             for (TermDocument term : list) {
                 if (term.getThistContent() == null) term.setThistContent("");
                 if (term.getTermTitle() == null) term.setTermTitle("제목 없음");
-
-                // 약관 제목을 기준으로 쪼개서 넣기
+                term.setGroupKey(term.getTermTitle().trim());
                 term.setSuggest(createSplitCompletion(term.getTermTitle()));
             }
             elasticsearchOperations.save(list);
