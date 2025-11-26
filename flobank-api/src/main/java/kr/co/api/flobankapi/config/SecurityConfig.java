@@ -43,7 +43,7 @@ public class SecurityConfig {
                                         "/mypage/chatbot",
                                         "/remit/info"
                         ).permitAll()
-                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                        //.requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/mypage/**").authenticated() // 마이페이지는 로그인 필요
                         .requestMatchers("/remit/**").authenticated()
                         .requestMatchers("/exchange/step1").authenticated()
