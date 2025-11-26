@@ -45,7 +45,8 @@ public class SecurityConfig {
                                         "/admin/login"
                         ).permitAll()
 
-                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                        //.requestMatchers("/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/admin/**").permitAll()
 
                         .requestMatchers("/mypage/**").authenticated() // 마이페이지는 로그인 필요
                         .requestMatchers("/remit/**").authenticated()
