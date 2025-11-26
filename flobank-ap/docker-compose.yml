@@ -18,7 +18,9 @@ services:
 
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    build:
+      context: .
+      dockerfile: elastic/Dockerfile  # 아까 생성한 Dockerfile의 위치
     container_name: flobank-elasticsearch
     environment:
       - node.name=elasticsearch
