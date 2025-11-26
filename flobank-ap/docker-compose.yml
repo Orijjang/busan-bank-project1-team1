@@ -18,7 +18,7 @@ services:
 
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    image: asia-northeast3-docker.pkg.dev/planar-oasis-477206-c8/flobank-repo/flobank-elasticsearch:latest
     container_name: flobank-elasticsearch
     environment:
       - node.name=elasticsearch
