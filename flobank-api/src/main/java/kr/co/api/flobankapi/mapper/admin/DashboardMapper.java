@@ -4,7 +4,6 @@ import kr.co.api.flobankapi.dto.admin.dashboard.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface DashboardMapper {
@@ -18,14 +17,14 @@ public interface DashboardMapper {
     int selectTodayExChangeTxCount();   //ㅎㅈ
 
 
-    // 가입자 통계
+    // 가입수 통계
     List<JoinStatsDTO> selectDailyJoinStats();
     List<JoinStatsDTO> selectWeeklyJoinStats();
     List<JoinStatsDTO> selectMonthlyJoinStats();
 
     // 연령/성별 분포
-    List<AgeBandDTO> selectAgeDist();
-    List<GenderStatsDTO> selectGenderDist();
+    List<AgeStatDTO> selectAgeStats();
+    List<GenderStatsDTO> selectgenderStats();
 
 
 

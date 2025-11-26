@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +39,7 @@ public class DashboardService {
         List<DailyTxSummaryDTO> last7Days = dashboardMapper.selectLast7DaysTotalTxSummary();
 
         int remtCount = dashboardMapper.selectTodayFrgnRemtTxCount(); // 외화송금
-        int exchCount = dashboardMapper.selectTodayExChangeTxCount(); // TODO: 환전 테이블 생기면 Mapper 추가
+        int exchCount = dashboardMapper.selectTodayExChangeTxCount(); // 환전
 
         List<TxCountDTO> todayFxTxCounts = List.of(
                 TxCountDTO.builder().type("환전").count(exchCount).build(),
@@ -67,8 +66,8 @@ public class DashboardService {
         }
 
         // 3) 연령/성별
-        List<AgeBandDTO> ageDist   = dashboardMapper.selectAgeDist();
-        List<GenderStatsDTO> genderDist = dashboardMapper.selectGenderDist();
+        List<AgeStatDTO> ageStats   = dashboardMapper.selectAgeStats();
+        List<GenderStatsDTO> genderStats = dashboardMapper.selectgenderStats();
 
         this.lastUpdatedAt = LocalDateTime.now();
 
@@ -85,8 +84,10 @@ public class DashboardService {
                 .dailyJoinStats(dailyJoin)
                 .weeklyJoinStats(weeklyJoin)
                 .monthlyJoinStats(monthlyJoin)
-                .ageDist(ageDist)
-                .genderDist(genderDist)
+
+                .ageStats(ageStats)
+
+                .genderStats(genderStats)
 
                 .lastUpdatedAt(this.lastUpdatedAt)
                 .build();

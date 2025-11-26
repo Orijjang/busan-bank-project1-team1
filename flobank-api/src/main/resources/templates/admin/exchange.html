@@ -7,33 +7,58 @@
 <!-- 환전 통계 영역 -->
         <section class="admin-exchange-stats-row">
             <article class="admin-exchange-card admin-exchange-graph-card">
-                <h3>일자별 통화 환전금액 <span>(2025.11.11 17:18:20 기준)</span></h3>
-                <div class="admin-exchange-graph-box">
-                    <img th:src="@{/images/ex.png}" alt="환전 사용자 수 그래프" />
+                <h3>일자별 통화 환전금액
+                       <span th:text="| ${#temporals.format(baseTime, 'yyyy.MM.dd HH:mm:ss')} 기준)|"></span>
+                </h3>
+
+                <!--  날짜 선택 UI 추가 -->
+                <div class="admin-exchange-date-picker" style="margin-bottom:10px;">
+                    <input type="date" id="exchangeDatePicker"
+                           th:value="${baseTime != null ? #temporals.format(baseTime,'yyyy-MM-dd') : ''}" />
                 </div>
+
+                <!-- 통화 필터 -->
+                <div class="admin-exchange-filter" id="currencyFilter"></div>
+
+                <!--  통화별 환전 그래프 -->
+                <div class="admin-exchange-graph-box">
+                    <canvas id="currencyDailyChart"></canvas>
+                </div>
+
+
+
+
             </article>
 
             <article class="admin-exchange-card admin-exchange-graph-card">
-                <h3>일자별 환전액 <span>(2025.11.11 17:18:20 기준)</span></h3>
-                <div class="admin-exchange-graph-box">
-                    <img th:src="@{/images/ex.png}" alt="환전 연령대별 그래프" />
+                <h3>일자별 환전액
+                    <span th:text="| ${#temporals.format(baseTime, 'yyyy.MM.dd HH:mm:ss')} 기준)|"></span>
+                </h3>
+                <div class="admin-exchange-graph-box admin-exchange-graph-box--compact">
+                    <canvas id="dailyTotalChart"></canvas>
                 </div>
             </article>
         </section>
 
         <!-- 환전 이력 섹션 -->
-        <section class="admin-exchange-section">
-            <h2 class="admin-exchange-section-title">환전 이력</h2>
+    <section class="admin-exchange-section" id="exchangeHistorySection">
+        <h2 class="admin-exchange-section-title">환전 이력</h2>
+
 
             <!-- 검색 -->
-            <div class="admin-exchange-search">
-                <select id="exchangeSearchType">
-                    <option value="customer">고객번호</option>
-                    <option value="exchange">환전번호</option>
+            <form class="admin-exchange-search" th:action="@{/admin/exchange}" method="get">
+                <select id="exchangeSearchType" name="searchType" th:value="${searchType}">
+                    <option value="customer" th:selected="${searchType} == 'customer'">고객번호</option>
+                    <option value="exchange" th:selected="${searchType} == 'exchange'">환전번호</option>
+
                 </select>
-                <input type="text" id="exchangeSearchInput" placeholder="검색어를 입력하세요" />
-                <button id="exchangeSearchBtn">검색</button>
-            </div>
+
+                <input type="text" id="exchangeSearchInput" name="keyword" placeholder="검색어를 입력하세요" th:value="${keyword != null && keyword != 'null' ? keyword : ''}" />                <input type="hidden" name="couponPage" th:value="${couponPage}" />
+                <button id="exchangeSearchBtn" type="submit">검색</button>
+            </form>
+
+
+
 
             <!-- 테이블 -->
             <div class="admin-exchange-table-container">
@@ -49,57 +74,116 @@
                     </tr>
                     </thead>
                     <tbody id="exchangeTableBody">
-                    <tr>
-                        <td>10001</td>
-                        <td>EX20251111001</td>
-                        <td>KRW</td>
-                        <td>USD</td>
-                        <td>1,470.59</td>
-                        <td>2025-11-11 09:13:22</td>
+                    <tr th:if="${#lists.isEmpty(exchangeList)}">
+                        <td colspan="6" class="empty-data">표시할 환전 이력이 없습니다.</td>
+
                     </tr>
-                    <tr>
-                        <td>10002</td>
-                        <td>EX20251111002</td>
-                        <td>KRW</td>
-                        <td>JPY</td>
-                        <td>9.62</td>
-                        <td>2025-11-11 10:20:05</td>
+                    <tr th:each="row : ${exchangeList}">
+                        <td th:text="${row.custCode}">10001</td>
+                        <td th:text="${row.exchNo}">EX20251111001</td>
+                        <td th:text="${row.exchFromCurrency}">KRW</td>
+                        <td th:text="${row.exchToCurrency}">USD</td>
+                        <td th:text="${row.exchAppliedRate != null ? #numbers.formatDecimal(row.exchAppliedRate, 0, 4) : '-'}">1,470.59</td>
+                        <td th:text="${row.exchReqDt != null ? #dates.format(row.exchReqDt, 'yyyy-MM-dd HH:mm:ss') : '-'}">2025-11-11 09:13:22</td>
                     </tr>
-                    <tr>
-                        <td>10003</td>
-                        <td>EX20251111003</td>
-                        <td>KRW</td>
-                        <td>EUR</td>
-                        <td>1,600.12</td>
-                        <td>2025-11-11 12:45:10</td>
-                    </tr>
-                    <tr>
-                        <td>10004</td>
-                        <td>EX20251111004</td>
-                        <td>KRW</td>
-                        <td>CNH</td>
-                        <td>203.14</td>
-                        <td>2025-11-11 14:10:33</td>
-                    </tr>
+
                     </tbody>
                 </table>
             </div>
 
-            <!-- 페이지네이션 -->
-            <div class="pagination">
-                <button class="page-btn" disabled>«</button>
-                <button class="page-btn active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn">4</button>
-                <button class="page-btn">5</button>
-                <button class="page-btn">»</button>
-            </div>
-        </section>
+
+        <div class="pagination">
+
+
+
+        <!-- 페이지네이션: << 1 ... 9 10 11 ... 23 >> -->
+
+            <th:block th:with="
+        total=${exchangeTotalPage},
+        curr=${exchangePage},
+
+        prevPage=${curr == 1 ? 2 : (curr == total ? total-2 : curr-1)},
+        nextPage=${curr == total ? total-1 : (curr == 1 ? 3 : curr+1)}
+">
+
+                <!-- << Prev -->
+                <a class="page-btn"
+                   th:classappend="${curr <= 1} ? ' disabled'"
+                   th:href="@{|/admin/exchange?page=${curr-1 < 1 ? 1 : curr-1}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                    &laquo;
+                </a>
+
+                <!-- always show page 1 -->
+                <a class="page-btn"
+                   th:classappend="${curr == 1} ? ' active'"
+                   th:href="@{|/admin/exchange?page=1&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                    1
+                </a>
+
+                <!-- left ... -->
+                <span class="ellipsis"
+                      th:if="${prevPage > 2}">
+        ...
+    </span>
+
+                <!-- prevPage -->
+                <a class="page-btn"
+                   th:if="${prevPage > 1 && prevPage < total}"
+                   th:classappend="${curr == prevPage} ? ' active'"
+                   th:text="${prevPage}"
+                   th:href="@{|/admin/exchange?page=${prevPage}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                </a>
+
+                <!-- curr -->
+                <a class="page-btn active"
+                   th:text="${curr}"
+                   th:if="${curr != 1 && curr != total}"
+                   th:href="@{|/admin/exchange?page=${curr}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                </a>
+
+                <!-- nextPage -->
+                <a class="page-btn"
+                   th:if="${nextPage > 1 && nextPage < total}"
+                   th:classappend="${curr == nextPage} ? ' active'"
+                   th:text="${nextPage}"
+                   th:href="@{|/admin/exchange?page=${nextPage}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                </a>
+
+                <!-- right ... -->
+                <span class="ellipsis"
+                      th:if="${nextPage < total-1}">
+        ...
+    </span>
+
+                <!-- last page -->
+                <a class="page-btn"
+                   th:if="${total > 1}"
+                   th:classappend="${curr == total} ? ' active'"
+                   th:text="${total}"
+                   th:href="@{|/admin/exchange?page=${total}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                </a>
+
+                <!-- >> Next -->
+                <a class="page-btn"
+                   th:classappend="${curr >= total} ? ' disabled'"
+                   th:href="@{|/admin/exchange?page=${curr+1 > total ? total : curr+1}&couponPage=${couponPage}&searchType=${searchType}&keyword=${keyword}#exchangeHistorySection|}">
+                    &raquo;
+                </a>
+
+            </th:block>
+
+
+
+
+
+        </div>
+
+    </section>
 
         <!-- 환전 수수료 쿠폰 발급 현황 -->
-        <section class="admin-exchange-section">
-            <h2 class="admin-exchange-section-title">환전 수수료 쿠폰 발급 현황</h2>
+    <section class="admin-exchange-section" id="couponSection">
+        <h2 class="admin-exchange-section-title">환전 수수료 쿠폰 발급 현황</h2>
+
             <div class="admin-exchange-table-container">
                 <table class="admin-exchange-table">
                     <thead>
@@ -112,42 +196,95 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>10001</td>
-                        <td>CPN2025110101</td>
-                        <td>2025-11-01</td>
-                        <td>수수료 5% 할인 쿠폰</td>
-                        <td class="admin-exchange-status-unused">미사용</td>
+
+                    <tr th:if="${#lists.isEmpty(couponList)}">
+                        <td colspan="5" class="empty-data">표시할 쿠폰 발급 내역이 없습니다.</td>
+
                     </tr>
-                    <tr>
-                        <td>10002</td>
-                        <td>CPN2025110102</td>
-                        <td>2025-11-02</td>
-                        <td>수수료 10% 할인 쿠폰</td>
-                        <td class="admin-exchange-status-used">사용완료</td>
-                    </tr>
-                    <tr>
-                        <td>10003</td>
-                        <td>CPN2025110103</td>
-                        <td>2025-11-03</td>
-                        <td>수수료 20% 할인 쿠폰</td>
-                        <td class="admin-exchange-status-unused">미사용</td>
-                    </tr>
-                    <tr>
-                        <td>10004</td>
-                        <td>CPN2025110104</td>
-                        <td>2025-11-04</td>
-                        <td>수수료 5% 할인 쿠폰</td>
-                        <td class="admin-exchange-status-used">사용완료</td>
+
+                    <tr th:each="coupon : ${couponList}">
+                        <td th:text="${coupon.custCode}">10001</td>
+                        <td th:text="${coupon.couponNo}">CPN2025110101</td>
+                        <td th:text="${coupon.issuedDate}">2025-11-01</td>
+                        <td th:text="|수수료 ${coupon.coupRate}% 할인 쿠폰|">수수료 5% 할인 쿠폰</td>
+                        <td th:classappend="${coupon.coupStatus} == 1 ? ' admin-exchange-status-unused' : ' admin-exchange-status-used'"
+                            th:text="${coupon.coupStatus} == 1 ? '미사용' : '사용'">미사용</td>
+
+
                     </tr>
                     </tbody>
                 </table>
             </div>
+
+
+        <div class="pagination">
+
+            <!-- Prev -->
+            <a class="page-btn"
+               th:classappend="${couponPage <= 1} ? ' disabled'"
+               th:href="@{|/admin/exchange?page=${exchangePage}&couponPage=${couponPage - 1 < 1 ? 1 : couponPage - 1}&searchType=${searchType}&keyword=${keyword}#couponSection|}">
+                «
+            </a>
+
+            <!-- Page numbers -->
+            <a class="page-btn"
+               th:each="p : ${#numbers.sequence(1, couponTotalPage)}"
+               th:classappend="${p} == ${couponPage} ? ' active'"
+               th:href="@{|/admin/exchange?page=${exchangePage}&couponPage=${p}&searchType=${searchType}&keyword=${keyword}#couponSection|}"
+               th:text="${p}">
+            </a>
+
+            <!-- Next -->
+            <a class="page-btn"
+               th:classappend="${couponPage >= couponTotalPage} ? ' disabled'"
+               th:href="@{|/admin/exchange?page=${exchangePage}&couponPage=${couponPage + 1 > couponTotalPage ? couponTotalPage : couponPage + 1}&searchType=${searchType}&keyword=${keyword}#couponSection|}">
+                »
+            </a>
+
+        </div>
+
+
+
         </section>
     </th:block>
 
 <th:block th:fragment="script">
-    <!-- 필요한 JS 넣을 곳 (비어있어도 OK) -->
+
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        window.exchangeStats = {
+            currencyDailyAmounts: [
+                /*[# th:if="${stats != null && stats.currencyDailyAmounts != null}"]*/
+                /*[# th:each="row, iter : ${stats.currencyDailyAmounts}"]*/
+                {
+                    baseDate: /*[[${row.baseDate}]]*/ '',
+                    currency: '[[${row.currency}]]',
+                    amountKrw: [[${row.amountKrw}]]
+                }/*[# th:if="${!iter.last}"]*/,/*[/]*/
+                /*[/]*/
+                /*[/]*/
+            ],
+
+            dailyTotals: [
+                /*[# th:if="${stats != null && stats.dailyTotals != null}"]*/
+                /*[# th:each="row, iter : ${stats.dailyTotals}"]*/
+                {
+                    baseDate: /*[[${row.baseDate}]]*/ '',
+                    amountKrw: [[${row.amountKrw}]]
+                }/*[# th:if="${!iter.last}"]*/,/*[/]*/
+                /*[/]*/
+                /*[/]*/
+            ],
+
+            lastUpdatedAt: '[[${stats != null ? stats.lastUpdatedAt : ''}]]'
+        };
+        /*]]>*/
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:src="@{/js/admin_exchange.js}"></script>
+
 </th:block>
 
 

@@ -1,6 +1,7 @@
 package kr.co.api.flobankapi.service;
 
 import kr.co.api.flobankapi.dto.*;
+import kr.co.api.flobankapi.mapper.DepositMapper;
 import kr.co.api.flobankapi.mapper.ExtAcctMapper;
 import kr.co.api.flobankapi.mapper.MemberMapper;
 import kr.co.api.flobankapi.mapper.MypageMapper;
@@ -317,6 +318,26 @@ public class MypageService {
         return mypageMapper.selectCouponList(custCode);
     }
 
+
+    public List<MypageDpstDTO> getDpstAcctHdrList(String dpstHdrCustCode) {
+        return mypageMapper.selectDpstAccts(dpstHdrCustCode);
+    }
+
+    public List<DpstAcctDtlDTO> getDpstAcctHistList(String dpstHdrCustCode) {
+        return mypageMapper.selectDpstAcctDtls(dpstHdrCustCode);
+    }
+
+    public DpstAcctHdrDTO getDpstAcctHdr(String dpstHdrAcctNo) {
+        return mypageMapper.selectDpstAcctHdr(dpstHdrAcctNo);
+    }
+
+    public Double getKrwAcctBal(String dpstHdrAcctNo) {
+        return mypageMapper.selectAcctBal(dpstHdrAcctNo);
+    }
+
+    public FrgnAcctBalanceDTO getFrgnAcctBal(String dpstHdrAcctNo) {
+        return mypageMapper.selectFrgnAcctBal(dpstHdrAcctNo);
+    }
 }
 
 

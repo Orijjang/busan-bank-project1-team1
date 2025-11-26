@@ -30,8 +30,8 @@ public class DashboardDTO {
     private List<JoinStatsDTO> monthlyJoinStats;
 
     // 연령/성별 분포
-    private List<AgeBandDTO> ageDist;
-    private List<GenderStatsDTO> genderDist;
+    private List<AgeStatDTO> ageStats;
+    private List<GenderStatsDTO> genderStats;
 
     // 기준 시각 (5분 단위 갱신 시간)
     private LocalDateTime lastUpdatedAt;

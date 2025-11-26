@@ -67,4 +67,11 @@ public interface MypageMapper {
 
     // 쿠폰 목록 조회
     List<CouponDTO> selectCouponList(String custCode);
+
+    public List<MypageDpstDTO> selectDpstAccts(String dpstHdrCustCode);
+    public List<DpstAcctDtlDTO> selectDpstAcctDtls(String dpstHdrCustCode);
+
+    public DpstAcctHdrDTO selectDpstAcctHdr(String dpstHdrAcctNo);
+    public Double selectAcctBal(String dpstHdrLinkedAcctNo);
+    public FrgnAcctBalanceDTO selectFrgnAcctBal(String dpstHdrAcctNo);
 }
