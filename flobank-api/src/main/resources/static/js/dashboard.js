@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const krwCountCanvas = document.getElementById('krwCountMiniChart');
     if (krwCountCanvas) {
         const ctx = krwCountCanvas.getContext('2d');
+
         new Chart(ctx, {
             type: 'line',
             data: {
@@ -120,18 +121,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 datasets: [
                     {
                         data: countTrendData,
-                        borderColor: '#202B44',
-                        backgroundColor: 'rgba(32, 43, 68, 0.15)',
-                        tension: 0.4,
+                        borderColor: '#1e1f22',
+                        backgroundColor: 'rgba(244,244,244,0)',
+                        tension: 0,
                         fill: true,
                         pointRadius: 0,
                         hoverRadius: 0,
                         pointHitRadius: 15
+
                     }
                 ]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 animation: true,
                 interaction: {
                     mode: 'index',
@@ -151,11 +154,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 scales: {
                     x: {
-                        display: false
+                        display: true
                     },
                     y: {
-                        display: false,
-                        beginAtZero: true
+
+                        display: true,
+                        beginAtZero: true,
+                        grace: '10%'
                     }
                 }
             }
@@ -173,18 +178,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 datasets: [
                     {
                         data: amountTrendData,
-                        borderColor: '#202b44',
-                        backgroundColor: 'rgb(92,128,200)',
+                        borderColor: '#fcc1b0',
+                        backgroundColor: 'rgb(253,232,231)',
                         tension: 0.4,
                         fill: true,
                         pointRadius: 0,
-                        hoverRadius: 1,
+                        hoverRadius: 0,
                         pointHitRadius: 15
                     }
                 ]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 animation: true,
                 interaction: {
                     mode: 'index',
@@ -235,8 +241,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     {
                         label: '오늘 외화 거래 건수',
                         data: counts,
-                        borderColor: '#2196f3',
-                        backgroundColor: 'rgba(33,150,243,0.2)',
+                        borderColor: '#f8d4d4',
+                        backgroundColor: 'rgb(229,210,229)',
                         barPercentage: 0.6,
                         categoryPercentage: 0.5,
                     }
@@ -322,8 +328,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     datasets: [{
                         label: '일별 가입자 수',
                         data: data,
-                        borderColor: '#4CAF50',
-                        backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                        borderColor: '#cf8bb0',
+                        backgroundColor: 'rgba(253,188,223,0.2)',
                         fill: true,
                         tension: 0.4,
                         pointRadius: 3
@@ -611,7 +617,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const values = array.map(function (item) {
                 return item && typeof item.count === 'number' ? item.count : 0;
             });
-            const baseColors = ['#4169E1', '#1F3C88'];
+            const baseColors = ['#7697fa', '#95afe4'];
 
             // 데이터 개수에 맞게 인덱스로 색 배정
             const backgroundColors = values.map(function (_, idx) {

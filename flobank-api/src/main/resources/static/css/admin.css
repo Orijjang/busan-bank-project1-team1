@@ -23,6 +23,7 @@ body {
 
 /* 🔹 전체 레이아웃 (좌: 사이드바 | 우: 메인) */
 .admin-layout {
+  background: rgba(229, 210, 229);
   min-height: 100vh;
   display: grid;
   grid-template-columns: 260px 1fr;
@@ -159,7 +160,7 @@ body {
    🔹 공통 컨테이너 (.section)
 ================================ */
 .section {
-  background: #fff;
+  background: #e6e6fb;
   border-radius: 16px;
   padding: 32px 36px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
@@ -223,6 +224,52 @@ body {
   color: #777;
 }
 
+.mini-chart-box {
+    width: 100%;
+    height: 40px;  /* 여기서 미니차트 높이 딱 고정 */
+}
+
+.mini-chart-box canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+/*.summary-mini-chart {*/
+/*    width: 100%;*/
+/*    height: 30px;*/
+/*}*/
+
+/*.summary-mini-chart canvas {*/
+/*    width: 100% !important;*/
+/*    height: 100% ;*/
+/*}*/
+
+/*.summary-card{*/
+/*    width: 100%;*/
+/*    height: 300px;*/
+/*}*/
+
+.summary-mini-chart {
+    background: rgba(250, 233, 233, 0.15); /* 은은한 배경 */
+    border-radius: 10px;
+    padding: 6px;                       /* 캔버스가 딱 붙지 않게 */
+    height: 90px;
+}
+
+.summary-value{
+    margin: 0;
+    font-size: 14px;
+    color:gray;
+}
+.summary-sub{
+    margin: 0;
+    font-size: 14px;
+    color:gray;
+}
+h4{
+    margin-bottom: 0;
+    font-size: 14px;
+    color:gray;
+}
 
 
 
