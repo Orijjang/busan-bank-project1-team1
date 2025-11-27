@@ -371,25 +371,25 @@
                     <strong th:switch="${bal.balCurrency}">
 
                         <span th:case="'USD'"
-                              th:text="|$${(bal.balBalance % 1 == 0) ? #numbers.formatInteger(bal.balBalance, 1, 'COMMA') : #numbers.formatDecimal(bal.balBalance, 1, 'COMMA', 2, 'POINT')}|">
+                              th:text="|${'$'}${(bal.balBalance % 1 == 0) ? #numbers.formatInteger(bal.balBalance, 1, 'COMMA') : #numbers.formatDecimal(bal.balBalance, 1, 'COMMA', 2, 'POINT')}|">
                         </span>
                         <span th:case="'AUD'"
-                              th:text="|$${(bal.balBalance % 1 == 0) ? #numbers.formatInteger(bal.balBalance, 1, 'COMMA') : #numbers.formatDecimal(bal.balBalance, 1, 'COMMA', 2, 'POINT')}|">
+                              th:text="|${'$'}${(bal.balBalance % 1 == 0) ? #numbers.formatInteger(bal.balBalance, 1, 'COMMA') : #numbers.formatDecimal(bal.balBalance, 1, 'COMMA', 2, 'POINT')}|">
                         </span>
 
                         <span th:case="'JPY'"
-                              th:text="|¥${(bal.balBalance % 1 == 0) ? #numbers.formatInteger(bal.balBalance, 1, 'COMMA') : #numbers.formatDecimal(bal.balBalance, 1, 'COMMA', 2, 'POINT')}|">
+                              th:text="|${'¥'}${(bal.balBalance % 1 == 0) ? #numbers.formatInteger(bal.balBalance, 1, 'COMMA') : #numbers.formatDecimal(bal.balBalance, 1, 'COMMA', 2, 'POINT')}|">
                         </span>
                         <span th:case="'CNH'"
-                              th:text="|¥${(bal.balBalance % 1 == 0) ? #numbers.formatInteger(bal.balBalance, 1, 'COMMA') : #numbers.formatDecimal(bal.balBalance, 1, 'COMMA', 2, 'POINT')}|">
+                              th:text="|${'¥'}${(bal.balBalance % 1 == 0) ? #numbers.formatInteger(bal.balBalance, 1, 'COMMA') : #numbers.formatDecimal(bal.balBalance, 1, 'COMMA', 2, 'POINT')}|">
                         </span>
 
                         <span th:case="'EUR'"
-                              th:text="|€${(bal.balBalance % 1 == 0) ? #numbers.formatInteger(bal.balBalance, 1, 'COMMA') : #numbers.formatDecimal(bal.balBalance, 1, 'COMMA', 2, 'POINT')}|">
+                              th:text="|${'€'}${(bal.balBalance % 1 == 0) ? #numbers.formatInteger(bal.balBalance, 1, 'COMMA') : #numbers.formatDecimal(bal.balBalance, 1, 'COMMA', 2, 'POINT')}|">
                         </span>
 
                         <span th:case="'GBP'"
-                              th:text="|£${(bal.balBalance % 1 == 0) ? #numbers.formatInteger(bal.balBalance, 1, 'COMMA') : #numbers.formatDecimal(bal.balBalance, 1, 'COMMA', 2, 'POINT')}|">
+                              th:text="|${'£'}${(bal.balBalance % 1 == 0) ? #numbers.formatInteger(bal.balBalance, 1, 'COMMA') : #numbers.formatDecimal(bal.balBalance, 1, 'COMMA', 2, 'POINT')}|">
                         </span>
 
                     </strong>
