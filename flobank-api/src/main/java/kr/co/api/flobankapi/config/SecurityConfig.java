@@ -59,6 +59,8 @@ public class SecurityConfig {
                         .requestMatchers("/deposit/deposit_step4").authenticated()
                         .requestMatchers("/customer/qna_write").authenticated()
                         .requestMatchers("/customer/qna_edit").authenticated()
+                        .requestMatchers("/member/extend").authenticated() // 세션 연장은 로그인 한 사람만 가능해야 함
+                        .requestMatchers("/member/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
                         .anyRequest().permitAll() // 일단 나머지는 다 허용 (개발 편의상)
                 )
