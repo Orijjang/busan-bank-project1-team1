@@ -1792,6 +1792,7 @@ input[type="file"] {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 8px;
+  margin-top: 8px;
 }
 
 .ai-comment-header h4 {
