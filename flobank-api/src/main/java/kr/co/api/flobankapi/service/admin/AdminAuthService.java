@@ -27,6 +27,9 @@ public class AdminAuthService {
 
 
 
+        int count = adminInfoMapper.countAdmins();
+        log.info("▶ [ADMIN LOGIN-SVC] TB_ADMIN_INFO COUNT = {}", count);
+
         // 1. TB_ADMIN_INFO 에서 관리자 조회
         AdminInfoDTO admin = adminInfoMapper.findById(adminId);
         log.info("▶ [ADMIN LOGIN-SVC] findById({}) = {}", adminId, admin);

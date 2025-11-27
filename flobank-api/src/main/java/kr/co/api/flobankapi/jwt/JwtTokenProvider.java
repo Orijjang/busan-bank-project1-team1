@@ -73,10 +73,11 @@ public class JwtTokenProvider {
             authorities.add(new SimpleGrantedAuthority(role));
         }
 
-        // CustomUserDetails 객체 생성
+        // CustomUserDetails 객체 생성 durl?
         CustomUserDetails userDetails = new CustomUserDetails(claims.getSubject(), "", Collections.emptyList(), custName);
 
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+
     }
 
     // 3. 쿠키에서 토큰 추출
