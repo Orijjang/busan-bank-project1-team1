@@ -280,3 +280,299 @@ body {
 }
 
 
+/*////////////////////////////////////////////////////////// */
+
+
+/* 전체 박스 */
+.deposit-status {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.status-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 35px; /* ← 기존 14px → 26px로 증가 */
+}
+
+/* 정보 박스 */
+.status-box {
+    background: #fff;
+    border: 1px solid #e5e8eb;
+    border-radius: 14px;
+    padding: 20px 28px;
+    margin-bottom: 30px;
+}
+
+/* 줄 */
+.status-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid #f1f3f5;
+    font-size: 16px;
+    align-items: center;
+}
+
+.status-row:last-child {
+    border-bottom: none;
+}
+
+/* 라벨 */
+.status-row .label {
+    font-weight: 600;
+    color: #374151;
+    min-width: 160px;
+}
+
+/* 값 */
+.status-row .value {
+    font-weight: 500;
+    color: #111;
+}
+
+/* 2열 구조 (가입통화 + 환율) */
+.status-row.multi {
+    display: grid;
+    grid-template-columns: 160px auto 140px auto;
+    column-gap: 10px;
+}
+
+/* 중간 라벨 스타일 */
+.status-row .mid {
+    text-align: right;
+    font-weight: 600;
+    padding-right: 10px;
+}
+
+/* 금리 상세 */
+.rate-detail {
+    font-size: 14px;
+    color: #6b7280;
+    margin-left: 8px;
+}
+
+/* 예금자보호박스 */
+.protection-box {
+    display: flex;
+    align-items: center;
+    background: #f8fafc;
+    border: 1px solid #dbe2ee;
+    padding: 20px 22px;
+    border-radius: 14px;
+    gap: 15px;
+}
+
+.protection-img {
+    width: 80px;
+    height: auto;
+}
+
+.protection-text {
+    font-size: 15px;
+    color: #374151;
+    line-height: 1.5;
+}
+
+.protection-text strong {
+    color: #1e40af;
+}
+/* 제목 + D-day 라인 */
+.title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+/* D-Day 표시 */
+.status-dday {
+    background: #E9F1FF;
+    color: #1C4ED8;  /* 짙은 파랑 */
+    padding: 6px 14px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 1px solid #C7D8FF;
+    white-space: nowrap;
+}
+
+
+/* 전체 D-Day 애니메이션 영역 */
+.status-dday-animated {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #E9F1FF;
+    border: 1px solid #C7D8FF;
+    padding: 6px 14px 6px 10px;
+    border-radius: 12px;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+
+/* 살짝 페이드 인 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 돌고래 */
+.dday-dolphin {
+    width: 28px;
+    height: auto;
+    animation: dolphinSwim 1.8s ease-in-out infinite;
+}
+
+/* 돌고래 헤엄치는 키프레임 */
+@keyframes dolphinSwim {
+    0%   { transform: translateY(0px) rotate(0deg); }
+    25%  { transform: translateY(-3px) rotate(-3deg); }
+    50%  { transform: translateY(0px) rotate(0deg); }
+    75%  { transform: translateY(3px) rotate(2deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.dolphin-progress-box {
+    margin: 20px 0 30px;
+}
+
+.dolphin-progress-wrapper {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 25px;
+}
+
+.progress-container {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+/* 선 전체 */
+.progress-line {
+    position: relative;
+    width: 100%;
+    height: 6px;
+    background: #DFE7F7;
+    border-radius: 4px;
+    margin-bottom: 6px;
+}
+
+/* 진행된 부분 */
+.progress-fill {
+    height: 6px;
+    background: #2C5DE5;
+    border-radius: 4px;
+    transition: width 1.5s ease;
+}
+
+/* 돌고래 */
+.progress-dolphin {
+    position: absolute;  /* ★ 필수 */
+    top: -40px;
+    width: 80px;
+    animation: dolphinSwim 1.6s ease-in-out infinite;
+}
+
+/* 헤엄치는 모션 */
+@keyframes dolphinSwim {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-4px); }
+    100% { transform: translateY(0px); }
+}
+
+/* 날짜 텍스트 */
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #666;
+}
+
+
+
+/* 이벤트 섹션 전체 */
+.event-benefit-section {
+    max-width: 900px;
+    margin: 40px auto 0;
+    padding: 0 4px;
+}
+
+
+/* 상단 문구 */
+.event-notice-top {
+    font-size: 16px;
+    color: #111;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+
+/* STEP 카드 전체 */
+.event-steps {
+    display: flex;
+    gap: 16px;
+}
+
+/* 개별 STEP 카드 */
+.event-step-card {
+    flex: 1;
+    background: #F8FBFF;
+    border: 1px solid #E3ECFF;
+    border-radius: 12px;
+    padding: 20px 22px;
+}
+
+/* 개별 STEP 카드 */
+.event-step-card {
+    flex: 1;
+    background: #F8FBFF;
+    border: 1px solid #E3ECFF;
+    border-radius: 12px;
+    padding: 20px 22px;
+}
+
+/* STEP 배지 */
+.step-badge {
+    display: inline-block;
+    background: #2C5DE5;
+    color: #fff;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+/* STEP 제목 */
+.step-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+/* STEP 설명 */
+.step-desc {
+    font-size: 15px;
+    color: #555;
+}
+
+/* 유의사항 */
+.event-caution {
+    margin-top: 20px;
+    background: #FFF4F2;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #b91c1c;
+}
+
+/* 제목 위 캐릭터 이미지 */
+.status-title-image {
+    text-align: center;
+    margin-bottom: 12px; /* 이미지와 제목 사이 간격 */
+}
+
+.status-shuka-img {
+    width: 120px;        /* 원하는 크기로 조절 가능 100~150 추천 */
+    height: auto;
+}
