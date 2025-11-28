@@ -3,88 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <title>사전 신청 라운지 | 플로뱅크</title>
+
     <link rel="stylesheet" th:href="@{/css/index.css}">
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/footer.css}">
-    <link rel="stylesheet" th:href="@{/css/test/creator_suite.css}">
-    <style>
-        /* 라운지 전용 스타일: 기대감을 주는 디자인 */
-        .badge-target { background: #E3F2FD; color: #1565C0; font-weight: bold; }
-        .limit-alert { background: #FFF3E0; color: #E65100; padding: 12px; border-radius: 8px; text-align: center; font-weight: 700; margin-bottom: 20px; border: 1px solid #FFCC80; }
-        .event-card { text-align: center; padding: 30px 20px; }
-        .event-card h4 { font-size: 18px; margin-bottom: 10px; }
-        .rate-big { font-size: 32px; font-weight: 800; color: var(--color-point); }
-        .sub-text { font-size: 14px; color: #666; margin-top: 8px; }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/test/benefit.css}">
 </head>
+
 <body>
+
 <div th:replace="~{_template/_header.html}"></div>
 
-<main class="page-wrapper">
-    <div class="container">
-        <section class="hero">
-            <div class="hero-actions" style="margin-top: 0; margin-bottom: 24px;">
-                <span class="badge" style="background: #FF5252; border:none;">🚨 선착순 3,000명 한정</span>
-                <span class="badge">모집기간: ~11.26까지</span>
+<main>
+
+    <section class="hero">
+        <div class="hero-inner">
+
+            <!-- LEFT: 캐릭터 -->
+            <div class="hero-left">
+                <img th:src="@{/images/character12.png}" class="hero-img" alt="슈카월드 이미지">
             </div>
-            <h1 class="page-title">슈카월드 × 플로뱅크<br>스페셜 외화 적금</h1>
-            <p class="page-description">
-                단 3,000명만 누릴 수 있는 <strong>최대 연 5.2%</strong>의 기회.<br>
-                인원이 모일수록 금리와 경품 혜택이 단계별로 해금됩니다.
+
+            <!-- RIGHT: 영상 -->
+            <div class="hero-right">
+                <iframe class="hero-video" width="560" height="315"
+                        src="https://www.youtube.com/embed/X1L5w_pBRhY?si=o7XWWjc_ou_DYKGY"
+                        frameborder="0" allowfullscreen></iframe>
+            </div>
+
+        </div>
+
+        <div class="hero-bottom-text">
+            <p class="hero-subtitle"><strong>슈카월드 X 플로뱅크</strong></p>
+
+            <h1 class="hero-title">슈카 달러 풀링 예금</h1>
+
+            <p class="hero-shuka-info">
+                경제·금융 콘텐츠 1위, 구독자 <strong>361만</strong> 슈카월드와 함께하는 특별 예금.
             </p>
-        </section>
 
-        <section class="section">
-            <div class="limit-alert">
-                ⚡ 현재 2,105명 신청 완료! 마감까지 895명 남았습니다.
-            </div>
+            <p class="hero-desc">
+                인원이 모일수록 금리와 경품 혜택이 올라간다!
+            </p>
+        </div>
 
-            <div class="section-header">
-                <h2 class="section-title">🎯 달성 목표 및 혜택 로드맵</h2>
-                <p class="section-subtitle">3,000명 달성 시 모든 혜택이 확정됩니다.</p>
-            </div>
+    </section>
+    <!-- RATE + STEP -->
+    <section class="rate-section">
+        <div class="rate-inner">
 
-            <div class="event-grid">
-                <article class="event-card">
-                    <span class="badge badge-target">STEP 1 (1,000명)</span>
-                    <div style="margin: 20px 0;">
-                        <div class="rate-big">3.5%</div>
-                        <p class="sub-text">기본 3.0% + 우대 0.5%p<br>& 스타벅스 추첨 오픈</p>
+            <img th:src="@{/images/dollor.png}" alt="달러 이미지" class="rate-img">
+
+            <div class="rate-text">
+                <p class="apply-status">
+                    현재 <strong>2,105명</strong> 신청 완료!
+                    <span class="remain">마감까지 <strong>895명</strong> 남았습니다.</span>
+                </p>
+
+                <p class="rate-max">최대 연 <strong>5.2%</strong></p>
+                <p class="rate-basic">기본 연 <strong>3.0%</strong></p>
+
+                <div class="steps-cards">
+
+                    <!-- STEP 1 -->
+                    <div class="step-card">
+                        <div class="step-header">
+                            <span class="step-badge">STEP 1</span>
+                            <span class="step-people strong">1000명 가입</span>
+                        </div>
+                        <div class="step-rate">3.5%</div>
+
+                        <div class="rate-detail-box">
+                            <p><span class="label">기본금리</span> <strong>3.0%</strong></p>
+                            <p><span class="label">우대금리</span> <strong>+0.5%</strong></p>
+                        </div>
+
+                        <p class="step-benefit highlight">스타벅스 추첨</p>
                     </div>
-                    <span class="tag" style="background:#E8F5E9; color:#2E7D32;">달성 완료</span>
-                </article>
 
-                <article class="event-card" style="border: 2px solid #1565C0; background: #FDFEFF;">
-                    <span class="badge badge-target">STEP 2 (2,000명)</span>
-                    <div style="margin: 20px 0;">
-                        <div class="rate-big">4.5%</div>
-                        <p class="sub-text">우대 +1.0%p 누적<br>& 상품권 100만원 오픈</p>
+                    <!-- STEP 2 -->
+                    <div class="step-card">
+                        <div class="step-header">
+                            <span class="step-badge">STEP 2</span>
+                            <span class="step-people strong">3000명 가입</span>
+                        </div>
+                        <div class="step-rate">4.5%</div>
+
+                        <div class="rate-detail-box">
+                            <p><span class="label">기본금리</span> <strong>3.5%</strong></p>
+                            <p><span class="label">우대금리</span> <strong>+1.0%</strong></p>
+                        </div>
+
+                        <p class="step-benefit highlight">상품권 100만원</p>
                     </div>
-                    <span class="tag" style="background:#E3F2FD; color:#1565C0;">현재 구간</span>
-                </article>
 
-                <article class="event-card locked">
-                    <span class="badge badge-target">STEP 3 (3,000명)</span>
-                    <div style="margin: 20px 0;">
-                        <div class="rate-big" style="color:#999;">5.2%</div>
-                        <p class="sub-text">최고 금리 +0.7%p<br>& 하와이 항공권 오픈</p>
+                    <!-- STEP 3 -->
+                    <div class="step-card">
+                        <div class="step-header">
+                            <span class="step-badge">STEP 3</span>
+                            <span class="step-people strong">6000명 가입</span>
+                        </div>
+                        <div class="step-rate">5.2%</div>
+
+                        <div class="rate-detail-box">
+                            <p><span class="label">기본금리</span> <strong>4.5%</strong></p>
+                            <p><span class="label">우대금리</span> <strong>+0.7%</strong></p>
+                        </div>
+
+                        <p class="step-benefit highlight">하와이 왕복 비행기 티켓</p>
                     </div>
-                    <span class="tag" style="background:#eee; color:#888;">조기 마감 주의</span>
-                </article>
-            </div>
-        </section>
 
-        <section class="section" style="text-align: center; background: #F5F9FF; border: 1px solid #D6E4FF;">
-            <h3 style="margin-bottom: 10px; color: #1565C0;">지금 바로 신청하세요</h3>
-            <p style="margin-bottom: 24px; color: #555;">월 $5,000까지 납입 가능! 11월 26일 자정 모집 종료됩니다.</p>
-            <button class="link-button" style="background: #1565C0; color: #fff; border: none; padding: 15px 40px; font-size: 18px; cursor: pointer;">
-                <a th:href="@{/deposit/deposit_step1(dpstId='FXD079')}" style="text-decoration: none; color: #ffffff; background: #1565C0; padding: 15px 40px; border-radius: 8px; display: inline-block; font-weight: bold;">
-                    🚀 5.2% 혜택받고 사전 신청하기
-                </a>
-            </button>
-        </section>
-    </div>
+                </div><!-- steps-cards -->
+
+            </div><!-- rate-text -->
+        </div><!-- rate-inner -->
+    </section>
+
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <h3>5.2% 최대 금리와 경품 혜택을 지금 바로 만나보세요</h3>
+        <p class="cta-sub">사전 신청 고객에게만 제공되는 특별 우대금리와 경품 혜택을 놓치지 마세요.</p>
+
+        <a class="cta-button"
+           th:href="@{/deposit/deposit_step1(dpstId='FXD079')}">
+            5.2% 받고 사전 신청하기
+        </a>
+    </section>
+
+
 </main>
+
 <div th:replace="~{_template/_footer.html}"></div>
 </body>
 </html>
