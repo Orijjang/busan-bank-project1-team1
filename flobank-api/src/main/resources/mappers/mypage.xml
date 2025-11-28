@@ -346,4 +346,30 @@
         where cust_code=#{custCode}
     </select>
 
+    <select id="getBalBalanceByAcctHdrNo" resultType="kr.co.api.flobankapi.dto.FrgnAcctBalanceDTO">
+        SELECT
+        fb.BAL_NO,
+        fb.BAL_BALANCE,
+        fb.BAL_CURRENCY
+        FROM TB_DPST_ACCT_HDR dh
+        JOIN TB_CUST_FRGN_ACCT fa
+        ON fa.FRGN_ACCT_CUST_CODE = dh.DPST_HDR_CUST_CODE
+        JOIN TB_FRGN_ACCT_BALANCE fb
+        ON fb.BAL_FRGN_ACCT_NO = fa.FRGN_ACCT_NO
+        AND fb.BAL_CURRENCY = dh.DPST_HDR_CURRENCY
+        WHERE dh.DPST_HDR_ACCT_NO = #{dpstHdrAcctNo}
+    </select>
+
+    <update id="updateBalBalance">
+        update TB_FRGN_ACCT_BALANCE
+        set bal_balance=#{balBalance}
+        where bal_no=#{balNo}
+    </update>
+
+    <update id="updateHdrStatus">
+        update TB_DPST_ACCT_HDR
+        set DPST_HDR_STATUS=#{dpstHdrStatus}
+        where DPST_HDR_ACCT_NO=#{dpstHdrAcctNo}
+    </update>
+
 </mapper>

@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -814,6 +815,7 @@ public class MypageController {
         return "mypage/dpst_cancel_2";
     }
 
+
     @PostMapping("/dpst_cancel_3")
     public String dpst_cancel_3(
             Model model,
@@ -823,16 +825,22 @@ public class MypageController {
     ) {
         // DTO로 다시 묶을 수도 있음
 
-
-
-
         model.addAttribute("dpstHdrAcctNo", dpstHdrAcctNo);
         model.addAttribute("dpstAcct", dpstAcct);
         model.addAttribute("dpstDtl", dpstDtl);
 
         dpstAcct.setDpstHdrStatus(2);
+        mypageService.updateHdrStatus(dpstAcct);
 
+        FrgnAcctBalanceDTO balDTO = mypageService.getBalBalanceByAcctHdrNo(dpstHdrAcctNo);
+        balDTO.setBalBalance(balDTO.getBalBalance() + dpstDtl.getDpstDtlAmount().doubleValue());
+        mypageService.updateBalBalance(balDTO);
 
+        dpstDtl.setDpstDtlType(2);
+        dpstDtl.setDpstDtlAppliedRate(BigDecimal.valueOf(0));
+        dpstDtl.setDpstDtlEsignYn("y");
+        dpstDtl.setDpstDtlEsignDt(LocalDateTime.now());
+        depositService.insertDpstDtl(dpstDtl);
 
         return "mypage/dpst_cancel_3";
     }
