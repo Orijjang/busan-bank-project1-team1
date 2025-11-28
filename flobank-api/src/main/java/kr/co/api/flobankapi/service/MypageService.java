@@ -526,6 +526,18 @@ public class MypageService {
         return mypageMapper.getRawCustInfo(custCode);
     }
 
+    public FrgnAcctBalanceDTO getBalBalanceByAcctHdrNo(String dpstHdrAcctNo) {
+        return mypageMapper.getBalBalanceByAcctHdrNo(dpstHdrAcctNo);
+    }
+
+    public void updateBalBalance(FrgnAcctBalanceDTO balDTO) {
+        mypageMapper.updateBalBalance(balDTO);
+    }
+
+    public void updateHdrStatus(DpstAcctHdrDTO dpstAcct){
+        mypageMapper.updateHdrStatus(dpstAcct);
+    }
+
 }
 
 

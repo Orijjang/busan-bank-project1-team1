@@ -86,4 +86,7 @@ public interface MypageMapper {
 
     public List<DpstAcctDtlDTO> selectDpstAcctDtlHist(String dpstDtlHdrNo);
     public CustInfoDTO getRawCustInfo(String custCode);
+    public FrgnAcctBalanceDTO getBalBalanceByAcctHdrNo(String dpstHdrAcctNo);
+    public void updateBalBalance(FrgnAcctBalanceDTO balDTO);
+    public void updateHdrStatus(DpstAcctHdrDTO dpstAcct);
 }
