@@ -290,140 +290,159 @@ public class DepositController {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
+        // 1. 화면 렌더링을 위한 기본 데이터 조회 및 설정
         ProductDTO product = depositService.selectDpstProduct(dpstId);
-        model.addAttribute("product",product);
+        model.addAttribute("product", product);
+
         List<CustAcctDTO> accounts = depositService.getAcctList(user.getUsername());
-        model.addAttribute("accounts",accounts);
+        model.addAttribute("accounts", accounts);
+
         CustFrgnAcctDTO frgnAccount = depositService.getFrgnAcct(user.getUsername());
-        model.addAttribute("frgnAccount",frgnAccount);
+        model.addAttribute("frgnAccount", frgnAccount);
+
         List<FrgnAcctBalanceDTO> frgnAccountBals = depositService.getFrgnAcctBalList(frgnAccount.getFrgnAcctNo());
-        model.addAttribute("frgnAccountBals",frgnAccountBals);
+        model.addAttribute("frgnAccountBals", frgnAccountBals);
+
         model.addAttribute("custName", user.getCustName());
-
-
         model.addAttribute("dto", dto);
         model.addAttribute("dpstId", dpstId);
 
+
+        // 2. DpstAcctHdrDTO 생성 및 공통 필드 설정
         DpstAcctHdrDTO dpstAcctHdrDTO = new DpstAcctHdrDTO();
+
         dpstAcctHdrDTO.setDpstHdrDpstId(dpstId);
         dpstAcctHdrDTO.setDpstHdrPw(passwordEncoder.encode(dto.getDpstPw()));
         dpstAcctHdrDTO.setDpstHdrCustCode(user.getUsername());
         dpstAcctHdrDTO.setDpstHdrMonth(dto.getDpstHdrMonth());
-        dpstAcctHdrDTO.setDpstHdrStartDy(LocalDate.now().format(formatter));
-        dpstAcctHdrDTO.setDpstHdrFinDy(LocalDate.now().plusMonths(dto.getDpstHdrMonth()).format(formatter));
+
+
+
+        // 통화 및 금리 설정
         dpstAcctHdrDTO.setDpstHdrCurrency(dto.getDpstHdrCurrency());
-        if (product.getDpstType() == 1){
+        dpstAcctHdrDTO.setDpstHdrInterest(dto.getAppliedInterest());
+
+        // [중요] 부분 인출 횟수 초기화 (Null 에러 방지)
+        dpstAcctHdrDTO.setDpstHdrPartWdrwCnt(0);
+
+        // 잔액 설정 (기본 로직)
+        if (product.getDpstType() == 1) {
             dpstAcctHdrDTO.setDpstHdrBalance(dto.getDpstAmount());
-        }else {
+        } else {
             dpstAcctHdrDTO.setDpstHdrBalance(BigDecimal.valueOf(0));
         }
-        dpstAcctHdrDTO.setDpstHdrInterest(dto.getAppliedInterest());
-        if (product.getDpstType() == 1 && product.getDpstRateType()==1) {
+
+        // 적용 금리 설정
+        if (product.getDpstType() == 1 && product.getDpstRateType() == 1) {
             dpstAcctHdrDTO.setDpstHdrRate(dto.getAppliedRate());
-        } else{
+        } else {
             dpstAcctHdrDTO.setDpstHdrRate(BigDecimal.valueOf(0));
         }
 
-        // ==========================================
-        // [수정 포인트] 상품 ID에 따른 분기 처리 시작
-        // ==========================================
+        // 출금 통화 설정
+        if (product.getDpstType() == 1) {
+            dpstAcctHdrDTO.setDpstHdrCurrencyExp(dto.getDpstHdrCurrency());
+        } else {
+            dpstAcctHdrDTO.setDpstHdrCurrencyExp("KRW");
+        }
 
-        // 특정 이벤트 상품 ID (예: FXD079) 인지 확인
+        // [중요] 연결 계좌 및 출금 계좌 설정 (Null 방지 처리)
+        String linkedAcctNo = "krw".equals(dto.getWithdrawType()) ? dto.getAcctNo() : dto.getBalNo();
+        dpstAcctHdrDTO.setDpstHdrLinkedAcctNo(linkedAcctNo != null ? linkedAcctNo : "");
+
+        String expAcctNo = "krw".equals(dto.getWithdrawType()) ? dto.getAcctNo() : dto.getFrgnAcctNo();
+        dpstAcctHdrDTO.setDpstHdrExpAcctNo(expAcctNo != null ? expAcctNo : "");
+
+        // 자동연장 설정
+        dpstAcctHdrDTO.setDpstHdrAutoRenewYn("y".equals(dto.getAutoRenewYn()) ? "y" : "n");
+        if ("y".equals(dto.getAutoRenewYn())) {
+            dpstAcctHdrDTO.setDpstHdrAutoRenewTerm(dto.getAutoRenewTerm());
+            dpstAcctHdrDTO.setDpstHdrAutoRenewCnt(0);
+        }
+
+        // 연결 계좌 타입 설정
+        if ("krw".equals(dto.getWithdrawType()) || product.getDpstRateType() == 2) {
+            dpstAcctHdrDTO.setDpstHdrLinkedAcctType(1);
+        } else {
+            dpstAcctHdrDTO.setDpstHdrLinkedAcctType(2);
+        }
+
+        // 기타 약관 동의 정보
+        dpstAcctHdrDTO.setDpstHdrInfoAgreeYn("y");
+        dpstAcctHdrDTO.setDpstHdrInfoAgreeDt(LocalDateTime.now());
+
+
+        // 3. 상품 타입에 따른 분기 처리 (이벤트 vs 일반)
         boolean isEventProduct = "FXD079".equals(dpstId);
+        DpstAcctHdrDTO insertDTO;
 
         if (isEventProduct) {
-            // [CASE 1] 이벤트 상품 (사전 신청)
-            // 1. 상태를 '0'(사전신청)으로 설정
+            // === [CASE 1] 이벤트 상품 (사전 신청) ===
+
+            // 날짜 설정
+            dpstAcctHdrDTO.setDpstHdrStartDy(LocalDate.now().format(formatter));
+            dpstAcctHdrDTO.setDpstHdrFinDy(LocalDate.now().plusMonths(dto.getDpstHdrMonth()).format(formatter));
+
+            // 상태값 0 (사전신청/대기) 설정
             dpstAcctHdrDTO.setDpstHdrStatus(0);
 
-            // 2. 잔액은 0원 혹은 가입 금액으로 설정하되, 실제 출금은 안 함
-            // (화면에 '가입금액'을 보여주려면 dto.getDpstAmount()를 넣고,
-            // 실제 돈이 안 들어왔음을 표시하려면 0으로 넣으세요. 여기선 금액 정보 유지를 위해 값은 넣음)
-            dpstAcctHdrDTO.setDpstHdrBalance(dto.getDpstAmount());
-
-            // 3. 기존 로직 중 '입출금이 없는(Free)' 메서드 재활용 -> 돈 안 빠져나감
-            DpstAcctHdrDTO insertDTO = depositService.openDepositFreeAcctTransaction(dpstAcctHdrDTO);
-            model.addAttribute("insertDTO", insertDTO);
+            // 잔액 정보는 유지하되, 실제 입출금 트랜잭션이 없는 서비스 호출
+            // (openDepositFreeAcctTransaction은 오직 Header INSERT만 수행함)
+            insertDTO = depositService.openDepositFreeAcctTransaction(dpstAcctHdrDTO);
 
         } else {
+            // === [CASE 2] 일반 상품 (정상 가입) ===
+            // 날짜 설정
+            dpstAcctHdrDTO.setDpstHdrStartDy(LocalDate.now().format(formatter));
+            dpstAcctHdrDTO.setDpstHdrFinDy(LocalDate.now().plusMonths(dto.getDpstHdrMonth()).format(formatter));
+
+            // 상태값 1 (정상) 설정
             dpstAcctHdrDTO.setDpstHdrStatus(1);
-            if (product.getDpstType() == 1) {
-                dpstAcctHdrDTO.setDpstHdrCurrencyExp(dto.getDpstHdrCurrency());
-            } else {
-                dpstAcctHdrDTO.setDpstHdrCurrencyExp("KRW");
-            }
-            dpstAcctHdrDTO.setDpstHdrLinkedAcctNo(
-                    "krw".equals(dto.getWithdrawType()) ? dto.getAcctNo() : dto.getBalNo()
-            );
-            dpstAcctHdrDTO.setDpstHdrExpAcctNo(
-                    "krw".equals(dto.getWithdrawType()) ? dto.getAcctNo() : dto.getFrgnAcctNo()
-            );
 
-            dpstAcctHdrDTO.setDpstHdrAutoRenewYn("y".equals(dto.getAutoRenewYn()) ? "y" : "n");
-            if ("y".equals(dto.getAutoRenewYn())) {
-                dpstAcctHdrDTO.setDpstHdrAutoRenewTerm(dto.getAutoRenewTerm());
-                dpstAcctHdrDTO.setDpstHdrAutoRenewCnt(0);
-            }
-            if ("krw".equals(dto.getWithdrawType()) || product.getDpstRateType() == 2) {
-                dpstAcctHdrDTO.setDpstHdrLinkedAcctType(1);
-            } else {
-                dpstAcctHdrDTO.setDpstHdrLinkedAcctType(2);
-            }
-            dpstAcctHdrDTO.setDpstHdrPartWdrwCnt(0);
-            dpstAcctHdrDTO.setDpstHdrInfoAgreeYn("y");
-            dpstAcctHdrDTO.setDpstHdrInfoAgreeDt(LocalDateTime.now());
-
-
-
-            // 첫 예금 거래 내역
+            // 거래내역 DTO 준비 (입금이 수반되는 경우)
             DpstAcctDtlDTO dtlDTO = new DpstAcctDtlDTO();
-            if (product.getDpstType()==1){
+            CustTranHistDTO custTranHistDTO = new CustTranHistDTO();
+
+            if (product.getDpstType() == 1) {
+                // 예금 상세(Detail) 내역 설정
                 dtlDTO.setDpstDtlType(1);
-                if (product.getDpstRateType() == 1){
+                if (product.getDpstRateType() == 1) {
                     dtlDTO.setDpstDtlAmount(dto.getDpstAmount());
-                }else {
+                } else {
                     dtlDTO.setDpstDtlAmount(dto.getKrwAmount());
                 }
                 dtlDTO.setDpstDtlEsignYn("y");
                 dtlDTO.setDpstDtlEsignDt(LocalDateTime.now());
                 dtlDTO.setDpstDtlAppliedRate(dto.getAppliedRate());
-            }
 
-
-
-
-            // 내 계좌 거래내역
-            CustTranHistDTO custTranHistDTO = new CustTranHistDTO();
-
-            if (product.getDpstType()==1){
+                // 고객 거래내역(History) 설정
                 custTranHistDTO.setTranCustName(user.getCustName());
                 custTranHistDTO.setTranType(2);
-                if (dto.getWithdrawType().equals("krw")) {
+                if ("krw".equals(dto.getWithdrawType())) {
                     custTranHistDTO.setTranAmount(dto.getKrwAmount());
                     custTranHistDTO.setTranCurrency("KRW");
-                }else {
+                } else {
                     custTranHistDTO.setTranAmount(dto.getDpstAmount());
                     custTranHistDTO.setTranCurrency(dpstAcctHdrDTO.getDpstHdrCurrency());
                 }
-
                 custTranHistDTO.setTranRecName(user.getCustName());
                 custTranHistDTO.setTranRecBkCode("888");
                 custTranHistDTO.setTranEsignYn("Y");
+
                 DateTimeFormatter dt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
                 custTranHistDTO.setTranEsignDt(LocalDateTime.now().format(dt));
             }
 
-
-            // 트랜잭션 처리
-            DpstAcctHdrDTO insertDTO;
-            if (product.getDpstType()==1) {
+            // 실제 트랜잭션 수행 (돈이 빠져나감)
+            if (product.getDpstType() == 1) {
                 insertDTO = depositService.openDepositAcctTransaction(dpstAcctHdrDTO, dtlDTO, custTranHistDTO, dto.getWithdrawType());
-            }else {
+            } else {
                 insertDTO = depositService.openDepositFreeAcctTransaction(dpstAcctHdrDTO);
             }
-
-            model.addAttribute("insertDTO", insertDTO);
         }
+
+        model.addAttribute("insertDTO", insertDTO);
+
         return "deposit/deposit_step4";
     }
 

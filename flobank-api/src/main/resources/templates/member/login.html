@@ -38,6 +38,9 @@
     <!-- ID 로그인 -->
     <div class="login-box id-login">
         <form th:action="@{/member/login}" method="post">
+            <div th:if="${param.error}" class="login-error-msg" style="color: #d93025; font-size: 14px; margin-bottom: 15px; font-weight: bold; text-align: center;">
+                <i class="fa-solid fa-circle-exclamation"></i> 아이디 또는 비밀번호가 일치하지 않습니다.
+            </div>
           <input type="text" name="userid" placeholder="이용자 ID">
           <input type="password" name="password" placeholder="비밀번호">
           <button class="btn-sub" type="submit">ID 로그인</button>
