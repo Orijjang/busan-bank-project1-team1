@@ -56,10 +56,14 @@ let exchangeRates = [];
 
 // 통화별 환율 획득
 function getRate(currency, type) {
+    // 1. KRW(원화)는 환율을 무조건 1로 설정
+    if (currency === "KRW") return 1;
+
     const cur = exchangeRates.find(c =>
         c.cur_unit === currency || c.cur_unit.startsWith(currency)
     );
 
+    // 해당 통화가 데이터에 없으면 NaN 반환
     if (!cur) return NaN;
 
     const toNum = (val) => {
@@ -67,15 +71,33 @@ function getRate(currency, type) {
         return parseFloat(val.replace(/,/g, ""));
     };
 
-    const base = toNum(cur.deal_bas_r);
-    const ttb = toNum(cur.ttb);  // 송금 받을 때
-    const tts = toNum(cur.tts);  // 송금 보낼 때
+    let base = toNum(cur.deal_bas_r);
+    let ttb = toNum(cur.ttb);  // 송금 받을 때
+    let tts = toNum(cur.tts);  // 송금 보낼 때
+
+    // [중요] JPY(100), IDR(100) 등 단위가 100인 통화 처리 (선택 사항이지만 필수적)
+    // 대부분의 한국 수출입은행 API 포맷은 cur_unit이 "JPY(100)" 형태입니다.
+    if (cur.cur_unit.includes("(100)")) {
+        base = base / 100;
+        ttb = ttb / 100;
+        tts = tts / 100;
+    }
+
+    // 2. 값이 0이거나 NaN이면 매매기준율(base)로 대체하는 로직 강화
+    // 기존 코드: !isNaN(tts) ? tts : base;
+    // 문제점: tts가 0이어도 숫자이므로 0을 반환함 -> Infinity 발생
 
     switch (type) {
-        case "매매기준율": return base;
-        case "송금보낼때": return !isNaN(tts) ? tts : base;
-        case "송금받을때": return !isNaN(ttb) ? ttb : base;
-        default: return base;
+        case "매매기준율":
+            return base;
+        case "송금보낼때":
+            // 0보다 커야만 유효한 환율로 인정, 아니면 base 사용
+            return (tts > 0) ? tts : base;
+        case "송금받을때":
+            // 0보다 커야만 유효한 환율로 인정, 아니면 base 사용
+            return (ttb > 0) ? ttb : base;
+        default:
+            return base;
     }
 }
 

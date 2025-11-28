@@ -2,7 +2,7 @@ package kr.co.api.flobankapi.service.translate;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -10,15 +10,15 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
 public class TranslationService {
+
     @Value("${deepl.api.key}")
     private String deepLApiKey;
 
-    private final RedisTemplate<String, String> redisTemplate;
+    private final StringRedisTemplate redisTemplate;
 
     private final WebClient webClient = WebClient.builder()
             .baseUrl("https://api-free.deepl.com/v2")
@@ -26,50 +26,66 @@ public class TranslationService {
 
     public String translate(String text, String targetLang) {
 
-        // 캐시 Key 생성
-        String cacheKey = "deepl:" + targetLang.toLowerCase() + ":" + sha256(text);
-
-        // Redis 캐시 조회
-        String cached = redisTemplate.opsForValue().get(cacheKey);
-        if (cached != null) {
-//            System.out.println("Redis Cache Hit!");
-            return cached;
+        String trimmedText = (text == null) ? "" : text.trim();
+        if (trimmedText.isEmpty()) {
+            return "";
         }
 
-//        System.out.println(" DeepL API 호출...");
+        String cacheKey = "deepl:" + targetLang.toLowerCase() + ":" + sha256(trimmedText);
 
-        // ------------------ [수정 시작] ------------------
+        // Redis 조회
+        try {
+            String cached = redisTemplate.opsForValue().get(cacheKey);
+            if (cached != null) {
+//                System.out.println("[CACHE HIT] Redis에서 가져옴");
+                return cached;
+            }
+        } catch (Exception e) {
+//            System.err.println("Redis 조회 실패 (무시하고 API 진행): " + e.getMessage());
+        }
 
-        // 1. DeepL API 요청 Body (스펙에 맞게 수정)
-        Map<String, Object> body = Map.of(
-                // "auth_key" 필드 제거
-                "text", List.of(text), // text를 List<String>으로 변경
-                "target_lang", targetLang.toUpperCase()
-        );
+        // API 호출
+        try {
+            Map<String, Object> body = Map.of(
+                    "text", List.of(trimmedText),
+                    "target_lang", targetLang.toUpperCase()
+            );
 
-        // DeepL 호출
-        String translated = webClient.post()
-                .uri("/translate")
-                // 2. 인증 키를 Body가 아닌 Header로 전송
-                .header("Authorization", "DeepL-Auth-Key " + deepLApiKey)
-                .bodyValue(body)
-                .retrieve()
-                .bodyToMono(Map.class)
-                .map(res -> {
-                    List<Map<String, String>> t = (List<Map<String, String>>) res.get("translations");
-                    return t.get(0).get("text");
-                })
-                .block();
+//            System.out.println("[API START] DeepL 호출 시도... " + trimmedText);
 
+            String translated = webClient.post()
+                    .uri("/translate")
+                    .header("Authorization", "DeepL-Auth-Key " + deepLApiKey)
+                    .bodyValue(body)
+                    .retrieve()
+                    .bodyToMono(Map.class)
+                    .map(res -> {
+                        List<Map<String, String>> translations = (List<Map<String, String>>) res.get("translations");
+                        if (translations != null && !translations.isEmpty()) {
+                            return translations.get(0).get("text");
+                        }
+                        return null;
+                    })
+                    .block();
 
+            // Redis 저장
+            if (translated != null && !translated.isEmpty()) {
+                try {
+                    redisTemplate.opsForValue().set(cacheKey, translated);
+//                    System.out.println("[SAVED] Redis 저장 완료");
+                } catch (Exception e) {
+//                    System.err.println("Redis 저장 실패: " + e.getMessage());
+                }
+            }
 
-        // Redis에 캐시 저장 (영구저장))
-        redisTemplate.opsForValue().set(cacheKey, translated);
+            return translated;
 
-        return translated;
+        } catch (Exception e) {
+            e.printStackTrace(); // 에러의 진짜 이유를 콘솔에 찍어줌
+            // 에러가 나면 원본 텍스트 리턴 (화면이 멈추지 않게)
+            return text;
+        }
     }
-
-    // 문자열을 SHA-256 해시값으로 바꿈
 
     private String sha256(String base) {
         try {
@@ -79,7 +95,7 @@ public class TranslationService {
             for (byte b : hash) hex.append(String.format("%02x", b));
             return hex.toString();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("SHA-256 Error", e);
         }
     }
 }
